@@ -35,7 +35,7 @@ class WelcomePage extends StatelessWidget {
             ),
           ),
           Align(
-            alignment: Alignment(0, size.height/4.26),
+            alignment: Alignment(0,160.4),
             child: ClipPath(
               clipper: BottomCurve(),
               child: Container(
