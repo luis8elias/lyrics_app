@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lyrics_app/splash/bloc/splash_bloc.dart';
 import 'package:lyrics_app/splash/splash_page.dart';
 
@@ -11,19 +12,27 @@ void main() {
     statusBarIconBrightness: Brightness.light
   ));
   
-  runApp(
-    MaterialApp(
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Lyrics App',
+      theme: ThemeData(
+        textTheme: GoogleFonts.nunitoTextTheme(
+          Theme.of(context).textTheme,
+        ),
+      ),
       home: BlocProvider(
         create: (_) =>  SplashBloc(),
         child: const SplashPage(),
       ),
-    )
-  );
+    );
+  }
 }
-
-
 
 
 
