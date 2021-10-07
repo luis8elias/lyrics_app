@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lyrics_app/shared/custom_curves.dart';
 import 'package:lyrics_app/styles.dart';
+import 'package:lyrics_app/wrapper/wrapper_page.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({ Key? key }) : super(key: key);
@@ -95,7 +96,15 @@ class WelcomePage extends StatelessWidget {
                     color: Colors.white
                   ),
                 ),
-                onPressed: () { },
+                onPressed: () { 
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => WrapperPage()
+                    )
+                  );
+
+                },
                 child: Text('Comenzar', style: TextStyle(
                     color: Colors.white,
                     fontSize: 15
