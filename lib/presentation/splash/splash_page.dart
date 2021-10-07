@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lyrics_app/home/home_page.dart';
-import 'package:lyrics_app/shared/custom_curves.dart';
-import 'package:lyrics_app/welcome/welcome_page.dart';
+import 'package:lyrics_app/presentation/splash/bloc/splash_bloc.dart';
+import 'package:lyrics_app/presentation/shared/custom_curves.dart';
+import 'package:lyrics_app/presentation/welcome/welcome_page.dart';
+import 'package:lyrics_app/presentation/wrapper/wrapper_page.dart';
 
-import '../styles.dart';
-import 'bloc/splash_bloc.dart';
+
+import '../../styles.dart';
+
 
 class SplashPage extends StatelessWidget {
   const SplashPage({ Key? key }) : super(key: key);
@@ -30,7 +32,7 @@ class SplashPage extends StatelessWidget {
         if(state is ItsTheFirtsTime) {
           _navigateOtherPage(context,const WelcomePage());
         }else if(state is ItsNotTheFirtsTime){
-          _navigateOtherPage(context, HomePage());
+          _navigateOtherPage(context, WrapperPage());
         }
       },
       child: Scaffold(

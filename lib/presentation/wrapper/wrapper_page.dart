@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:lyrics_app/home/home_page.dart';
-import 'package:lyrics_app/shared/custom_navigation_bar.dart';
+import 'package:lyrics_app/presentation/home/home_page.dart';
+import 'package:lyrics_app/presentation/shared/custom_navigation_bar.dart';
 import 'package:lyrics_app/styles.dart';
 
 class WrapperPage extends StatelessWidget {

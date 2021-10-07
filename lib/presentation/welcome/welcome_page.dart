@@ -1,17 +1,51 @@
 import 'package:flutter/material.dart';
-import 'package:lyrics_app/shared/custom_curves.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lyrics_app/data/repositories/hive_config_repository.dart';
+import 'package:lyrics_app/presentation/shared/custom_curves.dart';
+import 'package:lyrics_app/presentation/welcome/bloc/welcome_bloc.dart';
+import 'package:lyrics_app/presentation/wrapper/wrapper_page.dart';
 import 'package:lyrics_app/styles.dart';
-import 'package:lyrics_app/wrapper/wrapper_page.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({ Key? key }) : super(key: key);
+
+
+
+  @override
+  Widget build(BuildContext context) {
+   
+    return BlocProvider(
+      create: (_) => WelcomeBloc(
+        configRepository: HiveConfigRepository()
+      ),
+      child: const WelcomePageUI(),
+    );
+  }
+}
+
+class WelcomePageUI extends StatelessWidget {
+  const WelcomePageUI({ Key? key }) : super(key: key);
+
+  void _navigateOtherPage(context,page){
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (_) => page
+    ));
+  }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final btnWidth = 120.0;
     final btnHeigth = 60.0;
-    return Scaffold(
+    return BlocListener<WelcomeBloc,WelcomeState>(
+      listener: (context,state){
+        if(state is StartButtonPressed){
+          _navigateOtherPage(context, const WrapperPage());
+        }
+       
+      },
+      child: Scaffold(
       body: Stack(
         children: [
           Align(
@@ -97,11 +131,8 @@ class WelcomePage extends StatelessWidget {
                   ),
                 ),
                 onPressed: () { 
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => WrapperPage()
-                    )
+                  BlocProvider.of<WelcomeBloc>(context).add(
+                        OnPressStartButton()
                   );
 
                 },
@@ -114,7 +145,7 @@ class WelcomePage extends StatelessWidget {
           ),
           
         ],
-      ),
+      ))
     );
   }
 }
