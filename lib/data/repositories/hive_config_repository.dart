@@ -27,7 +27,7 @@ class HiveConfigRepository extends AbstarctConfigRepository{
   }
 
   @override
-  Future<void> setFirtsTime() async {
+  Future<void> setFirstTime() async {
     Box<Config> box = await Hive.openBox<Config>(boxName);
     Config  config = new Config(itsTheFirtsTime: false);
     box.add(config);

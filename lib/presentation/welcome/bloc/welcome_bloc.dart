@@ -12,7 +12,7 @@ class WelcomeBloc extends Bloc<WelcomeEvent, WelcomeState> {
   WelcomeBloc({required this.configRepository}) : super(WelcomeInitial()) {
     on<WelcomeEvent>((event, emit) {
       if(event is OnPressStartButton){
-        configRepository.setFirtsTime();
+        configRepository.setFirstTime();
         emit(StartButtonPressed());
       }
     });
