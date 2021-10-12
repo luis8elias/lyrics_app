@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:lyrics_app/presentation/home/home_page.dart';
 import 'package:lyrics_app/presentation/shared/custom_navigation_bar.dart';
 import 'package:lyrics_app/presentation/wrapper/bloc/wrapper_bloc.dart';
 import 'package:lyrics_app/styles.dart';
@@ -68,9 +69,7 @@ class WrapperPageUI extends StatelessWidget {
                   child: IndexedStack(
                 index: state.currentIndex,
                 children: [
-                  Container(
-                    color: Colors.purple,
-                  ),
+                  HomePage(),
                   Container(
                     color: Colors.red,
                   ),
