@@ -2,23 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lyrics_app/login/login_page.dart';
-import 'package:lyrics_app/registration/registration_Page.dart';
-import 'package:lyrics_app/restorePass/restore_page.dart';
-import 'package:lyrics_app/splash/bloc/splash_bloc.dart';
-import 'package:lyrics_app/splash/splash_page.dart';
-import 'package:lyrics_app/verification/verification_page.dart';
-import 'package:lyrics_app/welcome/welcome_page.dart';
-import 'package:lyrics_app/wrapper/wrapper_page.dart';
+import 'package:lyrics_app/presentation/splash/bloc/splash_bloc.dart';
+import 'package:lyrics_app/presentation/splash/splash_page.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-import 'forgotPass/forgotPass_page.dart';
+import 'data/repositories/hive_config_repository.dart';
+import 'domain/models/config.dart';
+import 'presentation/splash/bloc/splash_bloc.dart';
+import 'presentation/splash/splash_page.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.light));
-
+  await Hive.initFlutter();
+  Hive.registerAdapter(ConfigAdapter());
   runApp(MyApp());
 }
 
@@ -34,8 +33,8 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: BlocProvider(
-        create: (_) => SplashBloc(),
-        child: const WelcomePage(),
+        create: (_) => SplashBloc(configRepository: HiveConfigRepository()),
+        child: const SplashPage(),
       ),
     );
   }

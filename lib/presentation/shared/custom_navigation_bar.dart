@@ -56,20 +56,17 @@ class CustomNavigationBar extends StatelessWidget {
   } 
 
   IconButton _customIconButton({required icon, required innerIndex}){
-
     return  IconButton(
       splashColor: Colors.transparent, 
       highlightColor: Colors.transparent,
-        icon: SvgPicture.asset(
-          'assets/$icon.svg',
-          color: innerIndex == index ? blueDark : ligthBlue,
-          width: 25.0,
-        ),
-        onPressed: ()=> onIndexSelected(innerIndex)
+      icon: SvgPicture.asset(
+        innerIndex == index ? 'assets/$icon-solid.svg' : 'assets/$icon.svg',
+        color: innerIndex == index ? blueDark : ligthBlue,
+        width: 25.0,
+      ),
+      onPressed: ()=> onIndexSelected(innerIndex)
     );
 
   }
-
- 
 
 }
