@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:lyrics_app/login/login_page.dart';
 import 'package:lyrics_app/shared/custom_curves.dart';
-import 'package:lyrics_app/styles.dart';
+import 'package:lyrics_app/verification/verification_page.dart';
 import 'package:lyrics_app/wrapper/wrapper_page.dart';
 
-class WelcomePage extends StatelessWidget {
-  const WelcomePage({Key? key}) : super(key: key);
+import '../styles.dart';
+
+class ForgotPassPage extends StatelessWidget {
+  const ForgotPassPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,40 +47,36 @@ class WelcomePage extends StatelessWidget {
               ),
             ),
           ),
+
+//Titulo
           Padding(
             padding: EdgeInsets.only(
                 left: size.width / 9,
                 right: size.width / 9,
-                top: size.height / 2.7),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Icon(
-                  Icons.music_note,
-                  size: 60.0,
-                  color: ligthBlue,
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                Text('Lyrics App',
-                    style: TextStyle(
-                        fontSize: 36,
-                        fontWeight: FontWeight.w700,
-                        color: blueDark)),
-                SizedBox(
-                  height: 10.0,
-                ),
-                Text(
-                    'Las letras de tus canciones pesonalizadas a la palma de tu mano.',
-                    style: TextStyle(
-                        fontSize: 25,
-                        color: ligthBlue,
-                        fontWeight: FontWeight.normal)),
-              ],
+                top: size.height / 2.9),
+            child: Text(
+              '¿Olvidaste tu contraseña?',
+              style: TextStyle(color: Colors.blue, fontSize: 34),
             ),
           ),
+
+//TextFiles
+          Padding(
+            padding: EdgeInsets.only(
+                left: size.width / 9,
+                right: size.width / 9,
+                top: size.height / 2),
+            child: Container(
+              width: 320,
+              height: 300,
+              child: TextFormField(
+                decoration: InputDecoration(
+                    labelText: 'Ingresar tu correo electrónico'),
+              ),
+            ),
+          ),
+
+//Boton
           Padding(
             padding: EdgeInsets.only(
               left: size.width - (btnWidth + 25),
@@ -99,11 +97,44 @@ class WelcomePage extends StatelessWidget {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              VerificationPage()));
+                },
+                child: Text(
+                  'Restablecer',
+                  style: TextStyle(color: Colors.white, fontSize: 15),
+                ),
+              ),
+            ),
+          ),
+
+//boton
+          Padding(
+            padding: EdgeInsets.only(
+                left: size.width / 35,
+                right: size.width / 9,
+                top: size.height / 10),
+            child: Container(
+              width: 40,
+              height: 40,
+              child: OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  alignment: Alignment.center,
+                  shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadiusDirectional.all(Radius.circular(10.0))),
+                  side: BorderSide(width: 0, color: Colors.blue),
+                ),
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          //Pendiente redireccion
                           builder: (BuildContext context) => LoginPage()));
                 },
                 child: Text(
-                  'Comenzar',
-                  style: TextStyle(color: Colors.white, fontSize: 15),
+                  '<',
+                  style: TextStyle(color: Colors.white, fontSize: 25),
                 ),
               ),
             ),

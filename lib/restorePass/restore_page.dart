@@ -1,17 +1,19 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lyrics_app/login/login_page.dart';
 import 'package:lyrics_app/shared/custom_curves.dart';
-import 'package:lyrics_app/styles.dart';
 import 'package:lyrics_app/wrapper/wrapper_page.dart';
 
-class WelcomePage extends StatelessWidget {
-  const WelcomePage({Key? key}) : super(key: key);
+import '../styles.dart';
+
+class RestorePassPage extends StatelessWidget {
+  const RestorePassPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final btnWidth = 120.0;
     final btnHeigth = 60.0;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -45,40 +47,52 @@ class WelcomePage extends StatelessWidget {
               ),
             ),
           ),
+
+//Titulo
           Padding(
             padding: EdgeInsets.only(
                 left: size.width / 9,
                 right: size.width / 9,
-                top: size.height / 2.7),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Icon(
-                  Icons.music_note,
-                  size: 60.0,
-                  color: ligthBlue,
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                Text('Lyrics App',
-                    style: TextStyle(
-                        fontSize: 36,
-                        fontWeight: FontWeight.w700,
-                        color: blueDark)),
-                SizedBox(
-                  height: 10.0,
-                ),
-                Text(
-                    'Las letras de tus canciones pesonalizadas a la palma de tu mano.',
-                    style: TextStyle(
-                        fontSize: 25,
-                        color: ligthBlue,
-                        fontWeight: FontWeight.normal)),
-              ],
+                top: size.height / 2.9),
+            child: Text(
+              'Restablecer contraseña',
+              style: TextStyle(color: Colors.blue, fontSize: 34),
             ),
           ),
+
+//TextFiles
+          Padding(
+            padding: EdgeInsets.only(
+                left: size.width / 9,
+                right: size.width / 9,
+                top: size.height / 2.2),
+            child: Container(
+              width: 320,
+              height: 300,
+              child: TextFormField(
+                decoration:
+                    InputDecoration(labelText: 'Escribir su nueva contraseña'),
+              ),
+            ),
+          ),
+
+          Padding(
+            padding: EdgeInsets.only(
+                left: size.width / 9,
+                right: size.width / 9,
+                top: size.height / 1.9),
+            child: Container(
+              width: 320,
+              height: 300,
+              child: TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Escribe otra ves su contraseña',
+                ),
+              ),
+            ),
+          ),
+
+//Boton
           Padding(
             padding: EdgeInsets.only(
               left: size.width - (btnWidth + 25),
@@ -99,10 +113,10 @@ class WelcomePage extends StatelessWidget {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (BuildContext context) => LoginPage()));
+                          builder: (BuildContext context) => WrapperPage()));
                 },
                 child: Text(
-                  'Comenzar',
+                  'Guardar',
                   style: TextStyle(color: Colors.white, fontSize: 15),
                 ),
               ),
