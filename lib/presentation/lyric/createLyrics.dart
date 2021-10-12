@@ -65,7 +65,6 @@ class _CreateState extends State<Create> {
                   child: ElevatedButton(
                     // ! el boton no anda jalando si le picas
                     onPressed: () {},
-                    style:(minimumSize:Style()),
                     child: const Text('Guardar'),
                   ))
             ],

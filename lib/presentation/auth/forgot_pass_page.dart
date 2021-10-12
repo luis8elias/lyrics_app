@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lyrics_app/presentation/login/login_page.dart';
+import 'package:lyrics_app/presentation/auth/login_page.dart';
 import 'package:lyrics_app/presentation/shared/custom_curves.dart';
-import 'package:lyrics_app/presentation/verification/verification_page.dart';
+import 'package:lyrics_app/presentation/auth/verification_page.dart';
 
 import '../../styles.dart';
 

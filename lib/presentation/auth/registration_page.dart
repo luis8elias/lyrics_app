@@ -1,20 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lyrics_app/presentation/forgotPass/forgot_pass_page.dart';
+import 'package:lyrics_app/presentation/auth/login_page.dart';
 
 import 'package:lyrics_app/presentation/shared/custom_curves.dart';
 import 'package:lyrics_app/presentation/wrapper/wrapper_page.dart';
 
 import '../../styles.dart';
 
-class VerificationPage extends StatelessWidget {
-  const VerificationPage({Key? key}) : super(key: key);
+class RegistrationPage extends StatelessWidget {
+  const RegistrationPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final btnWidth = 120.0;
     final btnHeigth = 60.0;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -56,7 +57,7 @@ class VerificationPage extends StatelessWidget {
                 right: size.width / 9,
                 top: size.height / 2.9),
             child: Text(
-              'Verificación',
+              'Registrar Usuario',
               style: TextStyle(color: Colors.blue, fontSize: 34),
             ),
           ),
@@ -66,13 +67,44 @@ class VerificationPage extends StatelessWidget {
             padding: EdgeInsets.only(
                 left: size.width / 9,
                 right: size.width / 9,
-                top: size.height / 2),
+                top: size.height / 2.2),
+            child: Container(
+              width: 320,
+              height: 300,
+              child: TextFormField(
+                decoration: InputDecoration(labelText: 'Nombre de usuario'),
+              ),
+            ),
+          ),
+
+          Padding(
+            padding: EdgeInsets.only(
+                left: size.width / 9,
+                right: size.width / 9,
+                top: size.height / 1.9),
             child: Container(
               width: 320,
               height: 300,
               child: TextFormField(
                 decoration: InputDecoration(
-                    labelText: 'Ingresar el codigo que se envio a correo '),
+                  labelText: 'Ingresar correo',
+                ),
+              ),
+            ),
+          ),
+
+          Padding(
+            padding: EdgeInsets.only(
+                left: size.width / 9,
+                right: size.width / 9,
+                top: size.height / 1.7),
+            child: Container(
+              width: 320,
+              height: 300,
+              child: TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Ingresar contraseña',
+                ),
               ),
             ),
           ),
@@ -101,7 +133,7 @@ class VerificationPage extends StatelessWidget {
                           builder: (BuildContext context) => WrapperPage()));
                 },
                 child: Text(
-                  'Verificar',
+                  'Guardar',
                   style: TextStyle(color: Colors.white, fontSize: 15),
                 ),
               ),
@@ -130,7 +162,7 @@ class VerificationPage extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           //Pendiente redireccion
-                          builder: (BuildContext context) => ForgotPassPage()));
+                          builder: (BuildContext context) => LoginPage()));
                 },
                 child: Text(
                   '<',
