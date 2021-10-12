@@ -1,19 +1,21 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lyrics_app/login/login_page.dart';
-import 'package:lyrics_app/shared/custom_curves.dart';
-import 'package:lyrics_app/verification/verification_page.dart';
-import 'package:lyrics_app/wrapper/wrapper_page.dart';
+import 'package:lyrics_app/presentation/login/login_page.dart';
 
-import '../styles.dart';
+import 'package:lyrics_app/presentation/shared/custom_curves.dart';
+import 'package:lyrics_app/presentation/wrapper/wrapper_page.dart';
 
-class ForgotPassPage extends StatelessWidget {
-  const ForgotPassPage({Key? key}) : super(key: key);
+import '../../styles.dart';
+
+class RegistrationPage extends StatelessWidget {
+  const RegistrationPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final btnWidth = 120.0;
     final btnHeigth = 60.0;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -55,7 +57,7 @@ class ForgotPassPage extends StatelessWidget {
                 right: size.width / 9,
                 top: size.height / 2.9),
             child: Text(
-              '¿Olvidaste tu contraseña?',
+              'Registrar Usuario',
               style: TextStyle(color: Colors.blue, fontSize: 34),
             ),
           ),
@@ -65,13 +67,44 @@ class ForgotPassPage extends StatelessWidget {
             padding: EdgeInsets.only(
                 left: size.width / 9,
                 right: size.width / 9,
-                top: size.height / 2),
+                top: size.height / 2.2),
+            child: Container(
+              width: 320,
+              height: 300,
+              child: TextFormField(
+                decoration: InputDecoration(labelText: 'Nombre de usuario'),
+              ),
+            ),
+          ),
+
+          Padding(
+            padding: EdgeInsets.only(
+                left: size.width / 9,
+                right: size.width / 9,
+                top: size.height / 1.9),
             child: Container(
               width: 320,
               height: 300,
               child: TextFormField(
                 decoration: InputDecoration(
-                    labelText: 'Ingresar tu correo electrónico'),
+                  labelText: 'Ingresar correo',
+                ),
+              ),
+            ),
+          ),
+
+          Padding(
+            padding: EdgeInsets.only(
+                left: size.width / 9,
+                right: size.width / 9,
+                top: size.height / 1.7),
+            child: Container(
+              width: 320,
+              height: 300,
+              child: TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Ingresar contraseña',
+                ),
               ),
             ),
           ),
@@ -97,11 +130,10 @@ class ForgotPassPage extends StatelessWidget {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              VerificationPage()));
+                          builder: (BuildContext context) => WrapperPage()));
                 },
                 child: Text(
-                  'Restablecer',
+                  'Guardar',
                   style: TextStyle(color: Colors.white, fontSize: 15),
                 ),
               ),

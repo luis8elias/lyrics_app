@@ -1,13 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lyrics_app/login/login_page.dart';
-import 'package:lyrics_app/shared/custom_curves.dart';
-import 'package:lyrics_app/wrapper/wrapper_page.dart';
+import 'package:lyrics_app/presentation/forgotPass/forgot_pass_page.dart';
+import 'package:lyrics_app/presentation/registration/registration_page.dart';
 
-import '../styles.dart';
+import 'package:lyrics_app/presentation/shared/custom_curves.dart';
+import 'package:lyrics_app/presentation/wrapper/wrapper_page.dart';
 
-class RegistrationPage extends StatelessWidget {
-  const RegistrationPage({Key? key}) : super(key: key);
+import '../../styles.dart';
+
+class LoginPage extends StatelessWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +57,7 @@ class RegistrationPage extends StatelessWidget {
                 right: size.width / 9,
                 top: size.height / 2.9),
             child: Text(
-              'Registrar Usuario',
+              'Iniciar Sesion',
               style: TextStyle(color: Colors.blue, fontSize: 34),
             ),
           ),
@@ -66,12 +67,12 @@ class RegistrationPage extends StatelessWidget {
             padding: EdgeInsets.only(
                 left: size.width / 9,
                 right: size.width / 9,
-                top: size.height / 2.2),
+                top: size.height / 2.4),
             child: Container(
               width: 320,
               height: 300,
               child: TextFormField(
-                decoration: InputDecoration(labelText: 'Nombre de usuario'),
+                decoration: InputDecoration(labelText: 'Correo'),
               ),
             ),
           ),
@@ -80,34 +81,93 @@ class RegistrationPage extends StatelessWidget {
             padding: EdgeInsets.only(
                 left: size.width / 9,
                 right: size.width / 9,
-                top: size.height / 1.9),
+                top: size.height / 2.0),
             child: Container(
               width: 320,
               height: 300,
               child: TextFormField(
                 decoration: InputDecoration(
-                  labelText: 'Ingresar correo',
+                  labelText: 'Contaseña',
                 ),
               ),
             ),
           ),
-
+//TextFile
           Padding(
             padding: EdgeInsets.only(
                 left: size.width / 9,
+                right: size.width / 9,
+                top: size.height / 1.64),
+            child: Text(
+              'No tienes una cuenta?',
+              style: TextStyle(color: Colors.blue, fontSize: 15),
+            ),
+          ),
+
+//boton
+          Padding(
+            padding: EdgeInsets.only(
+                left: size.width / 15,
                 right: size.width / 9,
                 top: size.height / 1.7),
             child: Container(
-              width: 320,
-              height: 300,
-              child: TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Ingresar contraseña',
+              width: 300,
+              height: 25,
+              child: OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  alignment: Alignment.topLeft,
+                  shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadiusDirectional.all(Radius.circular(10.0))),
+                  side: BorderSide(width: 0, color: Colors.white),
+                ),
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          //Pendiente redireccion
+                          builder: (BuildContext context) => ForgotPassPage()));
+                },
+                child: Text(
+                  '¿Olvidaste tu contraseña?',
+                  style: TextStyle(color: Colors.blue, fontSize: 14),
                 ),
               ),
             ),
           ),
 
+//boton
+          Padding(
+            padding: EdgeInsets.only(
+                left: size.width / 2,
+                right: size.width / 9,
+                top: size.height / 1.64),
+            child: Container(
+              width: 100,
+              height: 25,
+              child: OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  alignment: Alignment.center,
+                  shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadiusDirectional.all(Radius.circular(10.0))),
+                  side: BorderSide(width: 0, color: Colors.white),
+                ),
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          //Pendiente redireccion
+                          builder: (BuildContext context) =>
+                              RegistrationPage()));
+                },
+                child: Text(
+                  'Registrar',
+                  style: TextStyle(color: Colors.blue, fontSize: 14),
+                ),
+              ),
+            ),
+          ),
 //Boton
           Padding(
             padding: EdgeInsets.only(
@@ -132,40 +192,8 @@ class RegistrationPage extends StatelessWidget {
                           builder: (BuildContext context) => WrapperPage()));
                 },
                 child: Text(
-                  'Guardar',
+                  'Comenzar',
                   style: TextStyle(color: Colors.white, fontSize: 15),
-                ),
-              ),
-            ),
-          ),
-
-//boton
-          Padding(
-            padding: EdgeInsets.only(
-                left: size.width / 35,
-                right: size.width / 9,
-                top: size.height / 10),
-            child: Container(
-              width: 40,
-              height: 40,
-              child: OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                  alignment: Alignment.center,
-                  shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadiusDirectional.all(Radius.circular(10.0))),
-                  side: BorderSide(width: 0, color: Colors.blue),
-                ),
-                onPressed: () {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          //Pendiente redireccion
-                          builder: (BuildContext context) => LoginPage()));
-                },
-                child: Text(
-                  '<',
-                  style: TextStyle(color: Colors.white, fontSize: 25),
                 ),
               ),
             ),

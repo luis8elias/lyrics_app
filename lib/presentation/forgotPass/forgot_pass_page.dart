@@ -1,19 +1,18 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lyrics_app/shared/custom_curves.dart';
-import 'package:lyrics_app/wrapper/wrapper_page.dart';
+import 'package:lyrics_app/presentation/login/login_page.dart';
+import 'package:lyrics_app/presentation/shared/custom_curves.dart';
+import 'package:lyrics_app/presentation/verification/verification_page.dart';
 
-import '../styles.dart';
+import '../../styles.dart';
 
-class RestorePassPage extends StatelessWidget {
-  const RestorePassPage({Key? key}) : super(key: key);
+class ForgotPassPage extends StatelessWidget {
+  const ForgotPassPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final btnWidth = 120.0;
     final btnHeigth = 60.0;
-
     return Scaffold(
       body: Stack(
         children: [
@@ -55,7 +54,7 @@ class RestorePassPage extends StatelessWidget {
                 right: size.width / 9,
                 top: size.height / 2.9),
             child: Text(
-              'Restablecer contraseña',
+              '¿Olvidaste tu contraseña?',
               style: TextStyle(color: Colors.blue, fontSize: 34),
             ),
           ),
@@ -65,29 +64,13 @@ class RestorePassPage extends StatelessWidget {
             padding: EdgeInsets.only(
                 left: size.width / 9,
                 right: size.width / 9,
-                top: size.height / 2.2),
-            child: Container(
-              width: 320,
-              height: 300,
-              child: TextFormField(
-                decoration:
-                    InputDecoration(labelText: 'Escribir su nueva contraseña'),
-              ),
-            ),
-          ),
-
-          Padding(
-            padding: EdgeInsets.only(
-                left: size.width / 9,
-                right: size.width / 9,
-                top: size.height / 1.9),
+                top: size.height / 2),
             child: Container(
               width: 320,
               height: 300,
               child: TextFormField(
                 decoration: InputDecoration(
-                  labelText: 'Escribe otra ves su contraseña',
-                ),
+                    labelText: 'Ingresar tu correo electrónico'),
               ),
             ),
           ),
@@ -113,11 +96,44 @@ class RestorePassPage extends StatelessWidget {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (BuildContext context) => WrapperPage()));
+                          builder: (BuildContext context) =>
+                              VerificationPage()));
                 },
                 child: Text(
-                  'Guardar',
+                  'Restablecer',
                   style: TextStyle(color: Colors.white, fontSize: 15),
+                ),
+              ),
+            ),
+          ),
+
+//boton
+          Padding(
+            padding: EdgeInsets.only(
+                left: size.width / 35,
+                right: size.width / 9,
+                top: size.height / 10),
+            child: Container(
+              width: 40,
+              height: 40,
+              child: OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  alignment: Alignment.center,
+                  shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadiusDirectional.all(Radius.circular(10.0))),
+                  side: BorderSide(width: 0, color: Colors.blue),
+                ),
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          //Pendiente redireccion
+                          builder: (BuildContext context) => LoginPage()));
+                },
+                child: Text(
+                  '<',
+                  style: TextStyle(color: Colors.white, fontSize: 25),
                 ),
               ),
             ),

@@ -1,19 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lyrics_app/forgotPass/forgotPass_page.dart';
-import 'package:lyrics_app/shared/custom_curves.dart';
-import 'package:lyrics_app/wrapper/wrapper_page.dart';
+import 'package:lyrics_app/presentation/shared/custom_curves.dart';
+import 'package:lyrics_app/presentation/wrapper/wrapper_page.dart';
 
-import '../styles.dart';
+import '../../styles.dart';
 
-class VerificationPage extends StatelessWidget {
-  const VerificationPage({Key? key}) : super(key: key);
+class RestorePassPage extends StatelessWidget {
+  const RestorePassPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final btnWidth = 120.0;
     final btnHeigth = 60.0;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -55,7 +55,7 @@ class VerificationPage extends StatelessWidget {
                 right: size.width / 9,
                 top: size.height / 2.9),
             child: Text(
-              'Verificación',
+              'Restablecer contraseña',
               style: TextStyle(color: Colors.blue, fontSize: 34),
             ),
           ),
@@ -65,13 +65,29 @@ class VerificationPage extends StatelessWidget {
             padding: EdgeInsets.only(
                 left: size.width / 9,
                 right: size.width / 9,
-                top: size.height / 2),
+                top: size.height / 2.2),
+            child: Container(
+              width: 320,
+              height: 300,
+              child: TextFormField(
+                decoration:
+                    InputDecoration(labelText: 'Escribir su nueva contraseña'),
+              ),
+            ),
+          ),
+
+          Padding(
+            padding: EdgeInsets.only(
+                left: size.width / 9,
+                right: size.width / 9,
+                top: size.height / 1.9),
             child: Container(
               width: 320,
               height: 300,
               child: TextFormField(
                 decoration: InputDecoration(
-                    labelText: 'Ingresar el codigo que se envio a correo '),
+                  labelText: 'Escribe otra ves su contraseña',
+                ),
               ),
             ),
           ),
@@ -100,40 +116,8 @@ class VerificationPage extends StatelessWidget {
                           builder: (BuildContext context) => WrapperPage()));
                 },
                 child: Text(
-                  'Verificar',
+                  'Guardar',
                   style: TextStyle(color: Colors.white, fontSize: 15),
-                ),
-              ),
-            ),
-          ),
-
-//boton
-          Padding(
-            padding: EdgeInsets.only(
-                left: size.width / 35,
-                right: size.width / 9,
-                top: size.height / 10),
-            child: Container(
-              width: 40,
-              height: 40,
-              child: OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                  alignment: Alignment.center,
-                  shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadiusDirectional.all(Radius.circular(10.0))),
-                  side: BorderSide(width: 0, color: Colors.blue),
-                ),
-                onPressed: () {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          //Pendiente redireccion
-                          builder: (BuildContext context) => ForgotPassPage()));
-                },
-                child: Text(
-                  '<',
-                  style: TextStyle(color: Colors.white, fontSize: 25),
                 ),
               ),
             ),
