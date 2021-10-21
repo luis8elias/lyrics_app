@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lyrics_app/presentation/auth/forgot_pass_page.dart';
+import 'package:lyrics_app/presentation/auth/login_page.dart';
 
 import 'package:lyrics_app/presentation/shared/custom_curves.dart';
-import 'package:lyrics_app/presentation/wrapper/wrapper_page.dart';
 
 import '../../styles.dart';
 
@@ -95,10 +95,10 @@ class VerificationPage extends StatelessWidget {
                   side: BorderSide(width: 2, color: Colors.white),
                 ),
                 onPressed: () {
-                  Navigator.pushReplacement(
+                  Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (BuildContext context) => WrapperPage()));
+                          builder: (BuildContext context) => LoginPage()));
                 },
                 child: Text(
                   'Verificar',
@@ -126,7 +126,7 @@ class VerificationPage extends StatelessWidget {
                   side: BorderSide(width: 0, color: Colors.blue),
                 ),
                 onPressed: () {
-                  Navigator.pushReplacement(
+                  Navigator.push(
                       context,
                       MaterialPageRoute(
                           //Pendiente redireccion

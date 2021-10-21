@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyrics_app/data/repositories/hive_config_repository.dart';
+import 'package:lyrics_app/presentation/auth/login_page.dart';
 import 'package:lyrics_app/presentation/shared/custom_curves.dart';
 import 'package:lyrics_app/presentation/welcome/bloc/welcome_bloc.dart';
 import 'package:lyrics_app/presentation/wrapper/wrapper_page.dart';
@@ -34,7 +35,7 @@ class WelcomePageUI extends StatelessWidget {
     return BlocListener<WelcomeBloc, WelcomeState>(
         listener: (context, state) {
           if (state is StartButtonPressed) {
-            _navigateOtherPage(context, const WrapperPage());
+            _navigateOtherPage(context, const LoginPage());
           }
         },
         child: Scaffold(

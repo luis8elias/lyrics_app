@@ -49,7 +49,6 @@ class LoginPage extends StatelessWidget {
               ),
             ),
           ),
-
 //Titulo
           Padding(
             padding: EdgeInsets.only(
@@ -57,8 +56,8 @@ class LoginPage extends StatelessWidget {
                 right: size.width / 9,
                 top: size.height / 2.9),
             child: Text(
-              'Iniciar Sesion',
-              style: TextStyle(color: Colors.blue, fontSize: 34),
+              'Iniciar Sesión',
+              style: TextStyle(color: blueDark, fontSize: 34),
             ),
           ),
 
@@ -67,49 +66,56 @@ class LoginPage extends StatelessWidget {
             padding: EdgeInsets.only(
                 left: size.width / 9,
                 right: size.width / 9,
-                top: size.height / 2.4),
-            child: Container(
-              width: 320,
-              height: 300,
-              child: TextFormField(
-                decoration: InputDecoration(labelText: 'Correo'),
-              ),
-            ),
-          ),
-
-          Padding(
-            padding: EdgeInsets.only(
-                left: size.width / 9,
-                right: size.width / 9,
-                top: size.height / 2.0),
+                top: size.height / 2.3),
             child: Container(
               width: 320,
               height: 300,
               child: TextFormField(
                 decoration: InputDecoration(
-                  labelText: 'Contaseña',
+                  border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20))),
+                  labelText: 'Correo'
                 ),
               ),
             ),
           ),
-//TextFile
+
           Padding(
             padding: EdgeInsets.only(
                 left: size.width / 9,
                 right: size.width / 9,
-                top: size.height / 1.64),
+                top: size.height / 1.8),
+            child: Container(
+              width: 320,
+              height: 300,
+              child: TextFormField(
+                decoration: InputDecoration(
+
+                  border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20))),
+                  labelText: 'Contraseña',
+                ),
+              ),
+            ),
+          ),
+          //TextFile
+          Padding(
+            padding: EdgeInsets.only(
+                left: size.width / 9,
+                right: size.width / 9,
+                top: size.height / 1.4),
             child: Text(
               'No tienes una cuenta?',
-              style: TextStyle(color: Colors.blue, fontSize: 15),
+              style: TextStyle(color:blueDark, fontSize: 15),
             ),
           ),
 
-//boton
+          //boton
           Padding(
             padding: EdgeInsets.only(
                 left: size.width / 15,
                 right: size.width / 9,
-                top: size.height / 1.7),
+                top: size.height / 1.35),
             child: Container(
               width: 300,
               height: 25,
@@ -122,26 +128,25 @@ class LoginPage extends StatelessWidget {
                   side: BorderSide(width: 0, color: Colors.white),
                 ),
                 onPressed: () {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          //Pendiente redireccion
-                          builder: (BuildContext context) => ForgotPassPage()));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => ForgotPassPage()
+                    )
+                  );
                 },
                 child: Text(
                   '¿Olvidaste tu contraseña?',
-                  style: TextStyle(color: Colors.blue, fontSize: 14),
+                  style: TextStyle(color: blueDark, fontSize: 14),
                 ),
               ),
             ),
           ),
-
-//boton
           Padding(
             padding: EdgeInsets.only(
-                left: size.width / 2,
-                right: size.width / 9,
-                top: size.height / 1.64),
+            left: size.width / 2,
+            right: size.width / 9,
+            top: size.height / 1.355),
             child: Container(
               width: 100,
               height: 25,
@@ -163,12 +168,12 @@ class LoginPage extends StatelessWidget {
                 },
                 child: Text(
                   'Registrar',
-                  style: TextStyle(color: Colors.blue, fontSize: 14),
+                  style: TextStyle(
+                    color: blueDark, fontSize: 14),
                 ),
               ),
             ),
           ),
-//Boton
           Padding(
             padding: EdgeInsets.only(
               left: size.width - (btnWidth + 25),
