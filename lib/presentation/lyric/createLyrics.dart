@@ -38,25 +38,25 @@ class _CreateState extends State<Create> {
                 alignment: Alignment.topLeft,
                 child: Text('Genero',
                     style: TextStyle(
-                    color: Color(0xFF2F80ED), height: 2.5, fontSize: 20)),
+                        color: Color(0xFF2F80ED), height: 2.5, fontSize: 20)),
               ),
               TextFormField(
                 decoration: InputDecoration(
                     border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20)))),
+                        borderRadius: BorderRadius.all(Radius.circular(20)))),
               ),
               const Align(
                 alignment: Alignment.topLeft,
                 child: Text('Letra',
                     style: TextStyle(
-                    color: Color(0xFF2F80ED), height: 2.5, fontSize: 20)),
+                        color: Color(0xFF2F80ED), height: 2.5, fontSize: 20)),
               ),
               Padding(
                 padding: const EdgeInsets.all(1.0),
                 child: TextField(
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20)))),
+                          borderRadius: BorderRadius.all(Radius.circular(20)))),
                   maxLines: 12,
                 ),
               ),
@@ -65,7 +65,7 @@ class _CreateState extends State<Create> {
                   child: ElevatedButton(
                     // ! el boton no anda jalando si le picas
                     onPressed: () {},
-                    style:(minimumSize:Style()),
+                    // style:(minimumSize:Style()),
                     child: const Text('Guardar'),
                   ))
             ],
