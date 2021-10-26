@@ -17,6 +17,7 @@ class LoginPage extends StatelessWidget {
     final btnHeigth = 60.0;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           Align(
@@ -72,10 +73,9 @@ class LoginPage extends StatelessWidget {
               height: 300,
               child: TextFormField(
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(20))),
-                  labelText: 'Correo'
-                ),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    labelText: 'Correo'),
               ),
             ),
           ),
@@ -90,9 +90,8 @@ class LoginPage extends StatelessWidget {
               height: 300,
               child: TextFormField(
                 decoration: InputDecoration(
-
                   border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(20))),
+                      borderRadius: BorderRadius.all(Radius.circular(20))),
                   labelText: 'Contraseña',
                 ),
               ),
@@ -106,7 +105,7 @@ class LoginPage extends StatelessWidget {
                 top: size.height / 1.4),
             child: Text(
               'No tienes una cuenta?',
-              style: TextStyle(color:blueDark, fontSize: 15),
+              style: TextStyle(color: blueDark, fontSize: 15),
             ),
           ),
 
@@ -129,11 +128,9 @@ class LoginPage extends StatelessWidget {
                 ),
                 onPressed: () {
                   Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => ForgotPassPage()
-                    )
-                  );
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => ForgotPassPage()));
                 },
                 child: Text(
                   '¿Olvidaste tu contraseña?',
@@ -144,9 +141,9 @@ class LoginPage extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.only(
-            left: size.width / 2,
-            right: size.width / 9,
-            top: size.height / 1.355),
+                left: size.width / 2,
+                right: size.width / 9,
+                top: size.height / 1.355),
             child: Container(
               width: 100,
               height: 25,
@@ -168,8 +165,7 @@ class LoginPage extends StatelessWidget {
                 },
                 child: Text(
                   'Registrar',
-                  style: TextStyle(
-                    color: blueDark, fontSize: 14),
+                  style: TextStyle(color: blueDark, fontSize: 14),
                 ),
               ),
             ),
