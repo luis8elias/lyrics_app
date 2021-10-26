@@ -22,6 +22,5 @@ class SongList extends StatelessWidget {
         elevation: 0,
       ),
     );
-    return Container();
   }
 }
