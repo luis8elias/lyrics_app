@@ -5,6 +5,9 @@ class SongList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<String> entries = <String>['A', 'B', 'C', 'D'];
+    final List<int> colorCodes = <int>[600, 500, 100];
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Canciones",
@@ -20,6 +23,19 @@ class SongList extends StatelessWidget {
         ),
         backgroundColor: Color(0xFF2F80ED),
         elevation: 0,
+      ),
+      body: ListView.separated(
+        padding: const EdgeInsets.all(7),
+        itemCount: entries.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Container(
+            height: 80,
+            color: Colors.cyan[100],
+            //Todo @ aqui entra el texto de los contenedores  de las canciones
+            child: Center(child: Text('Entry ${entries[index]}')),
+          );
+        },
+        separatorBuilder: (BuildContext context, int index) => const Divider(),
       ),
     );
   }
