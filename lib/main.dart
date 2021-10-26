@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lyrics_app/presentation/auth/login_page.dart';
-import 'package:lyrics_app/presentation/lyric/create_lyrics.dart';
-import 'package:lyrics_app/presentation/lyric/song_list.dart';
 import 'package:lyrics_app/presentation/splash/bloc/splash_bloc.dart';
 import 'package:lyrics_app/presentation/splash/splash_page.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -37,7 +34,7 @@ class MyApp extends StatelessWidget {
       ),
       home: BlocProvider(
         create: (_) => SplashBloc(configRepository: HiveConfigRepository()),
-        child: const Create(),
+        child: const SplashPage(),
       ),
     );
   }

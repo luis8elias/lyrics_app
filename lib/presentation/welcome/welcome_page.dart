@@ -4,7 +4,6 @@ import 'package:lyrics_app/data/repositories/hive_config_repository.dart';
 import 'package:lyrics_app/presentation/auth/login_page.dart';
 import 'package:lyrics_app/presentation/shared/custom_curves.dart';
 import 'package:lyrics_app/presentation/welcome/bloc/welcome_bloc.dart';
-import 'package:lyrics_app/presentation/wrapper/wrapper_page.dart';
 import 'package:lyrics_app/styles.dart';
 
 class WelcomePage extends StatelessWidget {
