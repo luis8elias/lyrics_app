@@ -32,7 +32,7 @@ class SongList extends StatelessWidget {
             height: 80,
             color: Colors.cyan[100],
             //Todo @ aqui entra el texto de los contenedores  de las canciones
-            child: Center(child: Text('Entry ${entries[index]}')),
+            child: Container(child: Text('Entry ${entries[index]}')),
           );
         },
         separatorBuilder: (BuildContext context, int index) => const Divider(),

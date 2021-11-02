@@ -34,9 +34,8 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: BlocProvider(
-        create: (_) => SplashBloc(configRepository: HiveConfigRepository()),
-        child: const SongList(),
-      ),
+          create: (_) => SplashBloc(configRepository: HiveConfigRepository()),
+          child: const SongList()),
     );
   }
 }
