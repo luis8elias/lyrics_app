@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SongList extends StatelessWidget {
-  const SongList({Key? key}) : super(key: key);
+class GenreList extends StatelessWidget {
+  const GenreList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class SongList extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("        Canciones",
+        title: Text("          Genero",
             style: TextStyle(color: Colors.white, fontSize: 28)),
         leading: GestureDetector(
           onTap: () {
@@ -42,27 +42,23 @@ class SongList extends StatelessWidget {
 
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(15)),
-              color: Colors.blue[200],
+              color: Colors.green[200],
             ),
             //Todo @ aqui entra el texto de los contenedores  de las canciones
             child: Container(
-              // decoration: BoxDecoration(
-              //   borderRadius: BorderRadius.all(Radius.circular(15)),
-              //   color: Colors.white,
-              // ),
               child: ListTile(
                 leading: Container(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: Icon(
-                      Icons.music_note,
+                      Icons.auto_awesome_outlined,
                       size: 28,
-                      color: Colors.green,
+                      color: Colors.yellow,
                     )),
                 title: Text(
-                  'el ansioso',
+                  'Norteño',
                   style: TextStyle(fontSize: 18, fontStyle: FontStyle.normal),
                 ),
-                subtitle: Text('Norteña'),
+                subtitle: Text('12 canciones'),
                 trailing: GestureDetector(
                     onTap: () {
                       print("opciones de cancion");

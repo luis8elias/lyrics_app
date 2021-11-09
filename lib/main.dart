@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lyrics_app/domain/models/config.dart';
+import 'package:lyrics_app/presentation/splash/splash_page.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'presentation/splash/splash_page.dart';
 
