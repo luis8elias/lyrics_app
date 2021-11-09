@@ -1,60 +1,60 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:lyrics_app/data/repositories/dio_auth_repositry.dart';
-import 'package:lyrics_app/presentation/auth/bloc/auth_bloc.dart';
-import 'package:lyrics_app/presentation/auth/forgot_pass_page.dart';
-import 'package:lyrics_app/presentation/auth/registration_page.dart';
-
+import 'package:lyrics_app/presentation/auth/login/login_page.dart';
 import 'package:lyrics_app/presentation/shared/custom_curves.dart';
-import 'package:lyrics_app/presentation/wrapper/wrapper_page.dart';
 import 'package:lyrics_app/utils/custom_alert.dart';
+import 'package:lyrics_app/utils/navigator.dart';
 
-import '../../styles.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({ Key? key }) : super(key: key);
+import '../../../styles.dart';
+import 'bloc/registration_bloc.dart';
+
+class RegistrationPage extends StatelessWidget {
+  const RegistrationPage({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => AuthBloc(
+      create: (_) => RegistrationBloc(
         authRepository: DioAuthRepository()
       ),
-      child: LoginPageUI(),
+      child: RegistrationPageUI(),
     );
   }
 }
 
-class LoginPageUI extends StatefulWidget {
-  const LoginPageUI({ Key? key }) : super(key: key);
+class RegistrationPageUI extends StatefulWidget {
+  const RegistrationPageUI({ Key? key }) : super(key: key);
 
   @override
-  _LoginPageUIState createState() => _LoginPageUIState();
+  _RegistrationPageUIState createState() => _RegistrationPageUIState();
 }
 
-class _LoginPageUIState extends State<LoginPageUI> {
+class _RegistrationPageUIState extends State<RegistrationPageUI> {
 
+  final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passController = TextEditingController();
 
   @override
   void dispose() {
+    nameController.dispose();
     emailController.dispose();
     passController.dispose();
     super.dispose();
   }
 
 
-
-
-@override
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final btnWidth = 120.0;
     final btnHeigth = 60.0;
 
-    final _bloc = BlocProvider.of<AuthBloc>(context);
-
+    final _bloc = BlocProvider.of<RegistrationBloc>(context);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -90,19 +90,16 @@ class _LoginPageUIState extends State<LoginPageUI> {
               ),
             ),
           ),
-//Titulo
           Padding(
             padding: EdgeInsets.only(
                 left: size.width / 9,
                 right: size.width / 9,
                 top: size.height / 2.9),
             child: Text(
-              'Iniciar Sesión',
-              style: TextStyle(color: blueDark, fontSize: 34),
+              'Registrarse',
+              style: TextStyle(color: Colors.blue, fontSize: 34),
             ),
           ),
-
-//TextFiles
           Padding(
             padding: EdgeInsets.only(
                 left: size.width / 9,
@@ -112,15 +109,15 @@ class _LoginPageUIState extends State<LoginPageUI> {
               width: 320,
               height: 300,
               child: TextFormField(
-                controller: emailController,
+                controller: nameController,
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20))),
-                    labelText: 'Correo'),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20))
+                  ),
+                labelText: 'Nombre'),
               ),
             ),
           ),
-
           Padding(
             padding: EdgeInsets.only(
                 left: size.width / 9,
@@ -130,94 +127,40 @@ class _LoginPageUIState extends State<LoginPageUI> {
               width: 320,
               height: 300,
               child: TextFormField(
-                controller: passController,
+                controller: emailController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
-                  labelText: 'Contraseña',
-                ),
+                    borderRadius: BorderRadius.all(Radius.circular(20))
+                  ),
+                labelText: 'Ingresa tu correo'),
               ),
             ),
           ),
-          //TextFile
           Padding(
             padding: EdgeInsets.only(
                 left: size.width / 9,
                 right: size.width / 9,
-                top: size.height / 1.4),
-            child: Text(
-              'No tienes una cuenta?',
-              style: TextStyle(color: blueDark, fontSize: 15),
-            ),
-          ),
-
-          //boton
-          Padding(
-            padding: EdgeInsets.only(
-                left: size.width / 15,
-                right: size.width / 9,
-                top: size.height / 1.35),
+                top: size.height / 1.45),
             child: Container(
-              width: 300,
-              height: 25,
-              child: OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                  alignment: Alignment.topLeft,
-                  shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadiusDirectional.all(Radius.circular(10.0))),
-                  side: BorderSide(width: 0, color: Colors.white),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) => ForgotPassPage()));
-                },
-                child: Text(
-                  '¿Olvidaste tu contraseña?',
-                  style: TextStyle(color: blueDark, fontSize: 14),
-                ),
+              width: 320,
+              height: 300,
+              child: TextFormField(
+                obscureText: true,
+                controller:passController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20))
+                  ),
+                labelText: 'Ingresa tu contraseña'),
               ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(
-                left: size.width / 2,
-                right: size.width / 9,
-                top: size.height / 1.355),
-            child: Container(
-              width: 100,
-              height: 25,
-              child: OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                  alignment: Alignment.center,
-                  shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadiusDirectional.all(Radius.circular(10.0))),
-                  side: BorderSide(width: 0, color: Colors.white),
-                ),
-                onPressed: () {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          //Pendiente redireccion
-                          builder: (BuildContext context) =>
-                              RegistrationPage()));
-                },
-                child: Text(
-                  'Registrar',
-                  style: TextStyle(color: blueDark, fontSize: 14),
-                ),
-              ),
-            ),
-          ),
-          BlocBuilder<AuthBloc,AuthState>(
+          BlocBuilder<RegistrationBloc,RegistrationState>(
             builder: (context,state){
 
-              WidgetsBinding.instance?.addPostFrameCallback((_){
+               WidgetsBinding.instance?.addPostFrameCallback((_){
 
-                if(state is LoginFailed){
+                if(state is UserNotSaved){
 
                   CustomAlert.showErrorCustomText(
                     context: context,
@@ -225,23 +168,17 @@ class _LoginPageUIState extends State<LoginPageUI> {
                     title: state.message
                   );
 
-                }else if(state is LoginSuccess){
+                }else if(state is UserSaved){
                   CustomAlert.showSuccesCustomText(
                     context: context,
                     desc: '',
-                    title: state.data.message
+                    title: state.message
                   );
-
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => WrapperPage()),
-                  );
-
+                  navigateToPage(context,LoginPage()); 
                 }
               });
 
-
-              if(state is TryingToLogin){
+              if(state is TryingToSaveUser){
                 return Padding(
                   padding: EdgeInsets.only(
                     left: size.width - 80,
@@ -271,16 +208,15 @@ class _LoginPageUIState extends State<LoginPageUI> {
                         side: BorderSide(width: 2, color: Colors.white),
                       ),
                       onPressed: () {
-                      _bloc.add(
-                        DoLogin(
+
+                        _bloc.add(SaveNewUser(
+                          name: nameController.text,
                           email: emailController.text,
-                            password: passController.text
-                          )
-                        );
-                        
+                          password: passController.text
+                        ));
                       },
                       child: Text(
-                        'Comenzar',
+                        'Guardar',
                         style: TextStyle(color: Colors.white, fontSize: 15),
                       ),
                     ),
@@ -288,10 +224,30 @@ class _LoginPageUIState extends State<LoginPageUI> {
                 );
               }
 
-            }
-          )
+            },
+          ),
+          Padding(
+              padding: EdgeInsets.only(
+                  left: size.width / 25,
+                  right: size.width / 9,
+                  top: size.height / 13),
+              child: Container(
+                width: 25,
+                height: 25,
+                child: GestureDetector(
+                  onTap: (){
+                    Navigator.pop(context);
+                  },
+                  child: SvgPicture.asset(
+                    'assets/arrow-left.svg',
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
         ],
       ),
     );
   }
 }
+

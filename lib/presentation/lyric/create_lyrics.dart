@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class Create extends StatefulWidget {
   const Create({Key? key}) : super(key: key);
@@ -13,9 +14,9 @@ class _CreateState extends State<Create> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("       Crear Letra",
-            textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white, fontSize: 28)),
+        centerTitle: true,
+        title: Text("Crear Letra",
+        style: TextStyle(color: Colors.white, fontSize: 28)),
         leading: GestureDetector(
           onTap: () {
             print('si jala el ontap salu2');
@@ -35,19 +36,14 @@ class _CreateState extends State<Create> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    'Nombre',
-                    style: TextStyle(
-                        color: Color(0xFF2F80ED), height: 1.5, fontSize: 20),
+                SizedBox(height: 15),
+               TextFormField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20))
                   ),
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)))),
-                ),
+                labelText: 'Nombre'),
+              ),
                 const Align(
                   alignment: Alignment.topLeft,
                   child: Text('Genero',
@@ -59,8 +55,16 @@ class _CreateState extends State<Create> {
                   width: 900,
                   height: 50.0,
                   child: DropdownButton(
+                    
                     value: dropdownValue,
-                    icon: Icon(Icons.arrow_drop_down_sharp),
+                    icon: Container(
+                    width: 25,
+                    height: 25,
+                    child:SvgPicture.asset(
+                      'assets/arrow-down.svg',
+                      color: Colors.grey,
+                    ),
+                  ),
                     iconSize: 32,
                     isExpanded: true,
                     style: TextStyle(color: Color(0xFF2F80ED), fontSize: 20.0),

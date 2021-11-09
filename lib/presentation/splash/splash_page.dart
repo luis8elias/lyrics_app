@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lyrics_app/presentation/auth/login_page.dart';
+import 'package:lyrics_app/data/repositories/hive_config_repository.dart';
+import 'package:lyrics_app/presentation/auth/login/login_page.dart';
 import 'package:lyrics_app/presentation/splash/bloc/splash_bloc.dart';
 import 'package:lyrics_app/presentation/shared/custom_curves.dart';
 import 'package:lyrics_app/presentation/welcome/welcome_page.dart';
@@ -11,6 +12,19 @@ import '../../styles.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({ Key? key }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => SplashBloc(configRepository: HiveConfigRepository()),
+      child: const SplashPageUI(),
+    );
+  }
+}
+
+
+class SplashPageUI extends StatelessWidget {
+  const SplashPageUI({ Key? key }) : super(key: key);
 
   void _navigateOtherPage(context,page){
     Navigator.of(context).pushReplacement(
@@ -24,7 +38,7 @@ class SplashPage extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     BlocProvider.of<SplashBloc>(context).add(
-          LoadedSplashEvent()
+      LoadedSplashEvent()
     );
     
     return BlocListener<SplashBloc,SplashState>(

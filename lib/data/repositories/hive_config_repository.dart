@@ -29,7 +29,7 @@ class HiveConfigRepository extends AbstarctConfigRepository{
   @override
   Future<void> setFirstTime() async {
     Box<Config> box = await Hive.openBox<Config>(boxName);
-    Config  config = new Config(itsTheFirtsTime: false);
+    Config  config = new Config(itsTheFirtsTime: false,token: '');
     box.add(config);
   }
   
