@@ -15,7 +15,6 @@ class GenreList extends StatelessWidget {
       // 'G',
       // 'H'
     ];
-    final List<int> colorCodes = <int>[600, 500, 100];
 
     return Scaffold(
       appBar: AppBar(

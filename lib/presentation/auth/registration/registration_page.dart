@@ -80,16 +80,6 @@ class _RegistrationPageUIState extends State<RegistrationPageUI> {
               ),
             ),
           ),
-          Align(
-            alignment: Alignment(0, 160.4),
-            child: ClipPath(
-              clipper: BottomCurve(),
-              child: Container(
-                height: size.height * 0.99,
-                color: blueDark,
-              ),
-            ),
-          ),
           Padding(
             padding: EdgeInsets.only(
                 left: size.width / 9,
@@ -197,29 +187,23 @@ class _RegistrationPageUIState extends State<RegistrationPageUI> {
                     top: size.height - (btnHeigth + 25),
                   ),
                   child: Container(
+                    decoration: BoxDecoration(
+                      color: blueDark,
+                      borderRadius: BorderRadius.circular(10)
+                    ),
                     width: btnWidth,
                     height: btnHeigth,
-                    child: OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                        alignment: Alignment.center,
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadiusDirectional.all(Radius.circular(10.0))),
-                        side: BorderSide(width: 2, color: Colors.white),
-                      ),
-                      onPressed: () {
-
+                    child: TextButton(
+                    
+                      onPressed: (){
                         _bloc.add(SaveNewUser(
                           name: nameController.text,
                           email: emailController.text,
                           password: passController.text
                         ));
                       },
-                      child: Text(
-                        'Guardar',
-                        style: TextStyle(color: Colors.white, fontSize: 15),
-                      ),
-                    ),
+                      child: Text('Guardar' ,style: TextStyle(color: Colors.white),),
+                    )
                   ),
                 );
               }

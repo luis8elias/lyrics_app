@@ -76,16 +76,6 @@ class _ForgotPassPageUIState extends State<ForgotPassPageUI> {
               ),
             ),
           ),
-          Align(
-            alignment: Alignment(0, 160.4),
-            child: ClipPath(
-              clipper: BottomCurve(),
-              child: Container(
-                height: size.height * 0.99,
-                color: blueDark,
-              ),
-            ),
-          ),
           Padding(
             padding: EdgeInsets.only(
                 left: size.width / 9,
@@ -157,37 +147,32 @@ class _ForgotPassPageUIState extends State<ForgotPassPageUI> {
                 );
                 
               }else{
-                return Padding(
-                  padding: EdgeInsets.only(
-                    left: size.width - (btnWidth + 25),
-                    top: size.height - (btnHeigth + 25),
+              return Padding(
+                padding: EdgeInsets.only(
+                  left: size.width - (btnWidth + 25),
+                  top: size.height - (btnHeigth + 25),
+                ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: blueDark,
+                    borderRadius: BorderRadius.circular(10)
                   ),
-                  child: Container(
-                    width: btnWidth,
-                    height: btnHeigth,
-                    child: OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                        alignment: Alignment.center,
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadiusDirectional.all(Radius.circular(10.0))),
-                        side: BorderSide(width: 2, color: Colors.white),
-                      ),
-                      onPressed: () {
-                        _bloc.add(
-                          ForgotPassword(
-                            email: emailController.text,
-                          )
-                        );
-                      },
-                      child: Text(
-                        'Restablecer',
-                        style: TextStyle(color: Colors.white, fontSize: 15),
-                      ),
-                    ),
-                  ),
-                );
-              }
+                  width: btnWidth,
+                  height: btnHeigth,
+                  child: TextButton(
+                  
+                    onPressed: (){
+                      _bloc.add(
+                        ForgotPassword(
+                          email: emailController.text,
+                        )
+                      );
+                    },
+                    child: Text('Restablecer' ,style: TextStyle(color: Colors.white),),
+                  )
+                ),
+              );
+            }
 
           }),
           Padding(

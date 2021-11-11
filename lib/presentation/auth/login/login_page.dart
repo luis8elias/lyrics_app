@@ -53,9 +53,9 @@ class _LoginPageUIState extends State<LoginPageUI> {
 
     final _bloc = BlocProvider.of<LoginBloc>(context);
 
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      backgroundColor: Theme.of(context).backgroundColor,
       body: Stack(
         children: [
           Align(
@@ -78,7 +78,7 @@ class _LoginPageUIState extends State<LoginPageUI> {
               ),
             ),
           ),
-          Align(
+          /* Align(
             alignment: Alignment(0, 160.4),
             child: ClipPath(
               clipper: BottomCurve(),
@@ -87,7 +87,7 @@ class _LoginPageUIState extends State<LoginPageUI> {
                 color: blueDark,
               ),
             ),
-          ),
+          ), */
           Padding(
             padding: EdgeInsets.only(
                 left: size.width / 9,
@@ -115,8 +115,8 @@ class _LoginPageUIState extends State<LoginPageUI> {
                 labelText: 'Correo'),
               ),
             ),
-          ),
-          Padding(
+          ), 
+           Padding(
             padding: EdgeInsets.only(
                 left: size.width / 9,
                 right: size.width / 9,
@@ -134,7 +134,7 @@ class _LoginPageUIState extends State<LoginPageUI> {
                 ),
               ),
             ),
-          ),
+          ), 
           Padding(
             padding: EdgeInsets.only(
                 left: size.width / 15,
@@ -149,7 +149,7 @@ class _LoginPageUIState extends State<LoginPageUI> {
                   shape: RoundedRectangleBorder(
                       borderRadius:
                           BorderRadiusDirectional.all(Radius.circular(10.0))),
-                  side: BorderSide(width: 0, color: Colors.white),
+                  side: BorderSide.none,
                 ),
                 onPressed: () {
                   navigateToPage(context, ForgotPassPage());
@@ -185,7 +185,7 @@ class _LoginPageUIState extends State<LoginPageUI> {
                   shape: RoundedRectangleBorder(
                       borderRadius:
                           BorderRadiusDirectional.all(Radius.circular(10.0))),
-                  side: BorderSide(width: 0, color: Colors.white),
+                  side: BorderSide.none,
                 ),
                 onPressed: () {
                   Navigator.push(
@@ -246,30 +246,24 @@ class _LoginPageUIState extends State<LoginPageUI> {
                     top: size.height - (btnHeigth + 25),
                   ),
                   child: Container(
+                    decoration: BoxDecoration(
+                      color: blueDark,
+                      borderRadius: BorderRadius.circular(10)
+                    ),
                     width: btnWidth,
                     height: btnHeigth,
-                    child: OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                        alignment: Alignment.center,
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadiusDirectional.all(Radius.circular(10.0))),
-                        side: BorderSide(width: 2, color: Colors.white),
-                      ),
-                      onPressed: () {
-                      _bloc.add(
-                        DoLogin(
-                          email: emailController.text,
-                          password: passController.text
-                        )
-                      );
-                        
+                    child: TextButton(
+                    
+                      onPressed: (){
+                        _bloc.add(
+                          DoLogin(
+                            email: emailController.text,
+                            password: passController.text
+                          )
+                        );
                       },
-                      child: Text(
-                        'Comenzar',
-                        style: TextStyle(color: Colors.white, fontSize: 15),
-                      ),
-                    ),
+                      child: Text('Comenzar' ,style: TextStyle(color: Colors.white),),
+                    )
                   ),
                 );
               }

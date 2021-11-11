@@ -33,7 +33,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           ));
           Auth auth = response.data;
           Globals.token = auth.accessToken;
-          print(Globals.token);
           await Future.delayed(const Duration(seconds: 2),(){
             emit(AuthInitial());
           });

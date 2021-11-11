@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lyrics_app/domain/models/config.dart';
 import 'package:lyrics_app/presentation/splash/splash_page.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:lyrics_app/styles.dart';
 import 'presentation/splash/splash_page.dart';
 
 void main() async {
@@ -30,6 +31,8 @@ class MyApp extends StatelessWidget {
         textTheme: GoogleFonts.nunitoTextTheme(
           Theme.of(context).textTheme,
         ),
+        backgroundColor: bgColor,
+        primaryColor: blueDark,
       ),
       home: SplashPage()
     );

@@ -72,16 +72,6 @@ class SplashPageUI extends StatelessWidget {
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment(0,160.4),
-              child: ClipPath(
-                clipper: BottomCurve(),
-                child: Container(
-                  height: size.height * 0.99,
-                  color: blueDark,
-                ),
-              ),
-            ),
             Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,

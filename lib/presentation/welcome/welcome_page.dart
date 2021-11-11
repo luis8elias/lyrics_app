@@ -60,16 +60,6 @@ class WelcomePageUI extends StatelessWidget {
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment(0, 160.4),
-              child: ClipPath(
-                clipper: BottomCurve(),
-                child: Container(
-                  height: size.height * 0.99,
-                  color: blueDark,
-                ),
-              ),
-            ),
             Padding(
               padding: EdgeInsets.only(
                   left: size.width / 9,
@@ -110,27 +100,23 @@ class WelcomePageUI extends StatelessWidget {
                 top: size.height - (btnHeigth + 25),
               ),
               child: Container(
+                decoration: BoxDecoration(
+                  color: blueDark,
+                  borderRadius: BorderRadius.circular(10)
+                ),
                 width: btnWidth,
                 height: btnHeigth,
-                child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    alignment: Alignment.center,
-                    shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadiusDirectional.all(Radius.circular(10.0))),
-                    side: BorderSide(width: 2, color: Colors.white),
-                  ),
-                  onPressed: () {
+                child: TextButton(
+                
+                  onPressed: (){
                     BlocProvider.of<WelcomeBloc>(context)
-                        .add(OnPressStartButton());
+                    .add(OnPressStartButton());
                   },
-                  child: Text(
-                    'Comenzar',
-                    style: TextStyle(color: Colors.white, fontSize: 15),
-                  ),
-                ),
+                  child: Text('Comenzar' ,style: TextStyle(color: Colors.white),),
+                )
               ),
             ),
+            
           ],
         )));
   }

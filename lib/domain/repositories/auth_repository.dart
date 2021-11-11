@@ -20,5 +20,7 @@ abstract class AbstarctAuthRepository{
     required String email,
     required String password
   });
+
+  Future<GenericResponse> getAutherticatedUser();
   
 }

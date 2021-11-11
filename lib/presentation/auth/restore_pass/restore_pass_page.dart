@@ -87,16 +87,6 @@ class _RestorePassPageUIState extends State<RestorePassPageUI> {
               ),
             ),
           ),
-          Align(
-            alignment: Alignment(0, 160.4),
-            child: ClipPath(
-              clipper: BottomCurve(),
-              child: Container(
-                height: size.height * 0.99,
-                color: blueDark,
-              ),
-            ),
-          ),
           Padding(
             padding: EdgeInsets.only(
                 left: size.width / 9,
@@ -184,24 +174,21 @@ class _RestorePassPageUIState extends State<RestorePassPageUI> {
                 );
 
               }else{
-                return  Padding(
+                return Padding(
                   padding: EdgeInsets.only(
                     left: size.width - (btnWidth + 25),
                     top: size.height - (btnHeigth + 25),
                   ),
                   child: Container(
+                    decoration: BoxDecoration(
+                      color: blueDark,
+                      borderRadius: BorderRadius.circular(10)
+                    ),
                     width: btnWidth,
                     height: btnHeigth,
-                    child: OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                        alignment: Alignment.center,
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadiusDirectional.all(Radius.circular(10.0))),
-                        side: BorderSide(width: 2, color: Colors.white),
-                      ),
-                      onPressed: () {
-
+                    child: TextButton(
+                    
+                      onPressed: (){
                         if(passController.text != passController2.text){
 
                           CustomAlert.showErrorCustomText(
@@ -217,15 +204,11 @@ class _RestorePassPageUIState extends State<RestorePassPageUI> {
                             )
                           );
                         }
-                        
                       },
-                      child: Text(
-                        'Guardar',
-                        style: TextStyle(color: Colors.white, fontSize: 15),
-                      ),
-                    ),
+                      child: Text('Guardar' ,style: TextStyle(color: Colors.white),),
+                    )
                   ),
-                );
+                ); 
               }
             },
           )

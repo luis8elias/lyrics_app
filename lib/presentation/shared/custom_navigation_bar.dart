@@ -21,9 +21,6 @@ class CustomNavigationBar extends StatelessWidget {
         topRight: Radius.circular(20)
       ),
       child: BottomAppBar(
-        elevation: 1.0,
-        notchMargin: 10.0,
-        shape:const CircularNotchedRectangle(),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
@@ -34,19 +31,18 @@ class CustomNavigationBar extends StatelessWidget {
                 innerIndex: 0
               ),
               _customIconButton(
-                icon: 'globe',
+                icon: 'music-note',
                 innerIndex: 1
               ),
               const SizedBox(width: 100),
               _customIconButton(
-                icon: 'folder-download',
+                icon: 'collection',
                 innerIndex: 3
               ),
               _customIconButton(
                 icon: 'user',
                 innerIndex: 4
               ),
-             
             ],
           )
         )
@@ -60,7 +56,7 @@ class CustomNavigationBar extends StatelessWidget {
       splashColor: Colors.transparent, 
       highlightColor: Colors.transparent,
       icon: SvgPicture.asset(
-        innerIndex == index ? 'assets/$icon-solid.svg' : 'assets/$icon.svg',
+         'assets/$icon-solid.svg',
         color: innerIndex == index ? blueDark : ligthBlue,
         width: 25.0,
       ),

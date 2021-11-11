@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:lyrics_app/domain/models/api/auth.dart';
 import 'package:lyrics_app/domain/models/api/generic_response.dart';
+import 'package:lyrics_app/domain/models/api/user.dart';
 import 'package:lyrics_app/domain/repositories/auth_repository.dart';
 
 import '../../globals.dart';
@@ -14,6 +15,8 @@ class DioAuthRepository extends AbstarctAuthRepository{
       validateStatus: (_)=>true,
     )
   );
+
+  
 
 
 
@@ -95,6 +98,20 @@ class DioAuthRepository extends AbstarctAuthRepository{
     });
     Response response = await dio.post(url, data: formData);
     GenericResponse genericResponse = GenericResponse.fromJson(response.data);
+    return genericResponse;
+    
+  }
+
+  @override
+  Future<GenericResponse> getAutherticatedUser() async{
+    final String url  = '${Globals.baseUrl}/api/auth/get-user/';
+    dio.options.headers["authorization"] = "bearer ${Globals.token}";
+    Response response = await dio.get(url);
+    GenericResponse genericResponse = GenericResponse.fromJson(response.data);
+    if(genericResponse.success){
+      User user = User.fromJson(response.data["data"]);
+      genericResponse.data = user;
+    }
     return genericResponse;
     
   }

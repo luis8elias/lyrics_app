@@ -80,16 +80,6 @@ class _VerificationPageUIState extends State<VerificationPageUI> {
               ),
             ),
           ),
-          Align(
-            alignment: Alignment(0, 160.4),
-            child: ClipPath(
-              clipper: BottomCurve(),
-              child: Container(
-                height: size.height * 0.99,
-                color: blueDark,
-              ),
-            ),
-          ),
           Padding(
             padding: EdgeInsets.only(
                 left: size.width / 9,
@@ -158,37 +148,31 @@ class _VerificationPageUIState extends State<VerificationPageUI> {
                   ),
                 );
               }else{
-
                 return Padding(
                   padding: EdgeInsets.only(
                     left: size.width - (btnWidth + 25),
                     top: size.height - (btnHeigth + 25),
                   ),
                   child: Container(
+                    decoration: BoxDecoration(
+                      color: blueDark,
+                      borderRadius: BorderRadius.circular(10)
+                    ),
                     width: btnWidth,
                     height: btnHeigth,
-                    child: OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                        alignment: Alignment.center,
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadiusDirectional.all(Radius.circular(10.0))),
-                        side: BorderSide(width: 2, color: Colors.white),
-                      ),
-                      onPressed: () {
+                    child: TextButton(
+                    
+                      onPressed: (){
                         _bloc.add(VerificateCode(code: codeController.text));
                       },
-                      child: Text(
-                        'Verificar',
-                        style: TextStyle(color: Colors.white, fontSize: 15),
-                      ),
-                    ),
+                      child: Text('Verificar' ,style: TextStyle(color: Colors.white),),
+                    )
                   ),
                 );
               }
-             
             }
           ),
+          
           Padding(
             padding: EdgeInsets.only(
                 left: size.width / 25,
