@@ -2,9 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:lyrics_app/data/repositories/hive_config_repository.dart';
 import 'package:lyrics_app/domain/models/api/auth.dart';
 import 'package:lyrics_app/domain/models/api/generic_response.dart';
-import 'package:lyrics_app/domain/models/config.dart';
 import 'package:lyrics_app/domain/repositories/auth_repository.dart';
-import 'package:lyrics_app/globals.dart';
 import 'package:meta/meta.dart';
 
 part 'login_event.dart';
