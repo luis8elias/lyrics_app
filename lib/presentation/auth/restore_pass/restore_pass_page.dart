@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lyrics_app/data/repositories/dio_auth_repositry.dart';
+import 'package:lyrics_app/data/repositories/dio_auth_repository.dart';
 import 'package:lyrics_app/presentation/auth/login/login_page.dart';
 import 'package:lyrics_app/presentation/auth/restore_pass/bloc/restore_pass_bloc.dart';
 import 'package:lyrics_app/presentation/shared/custom_curves.dart';
@@ -147,7 +147,7 @@ class _RestorePassPageUIState extends State<RestorePassPageUI> {
                     desc: '',
                     title: state.message
                   );
-                  navigateToPage(context,LoginPage());
+                  navigateTo(context,LoginPage());
 
                 }else if(state is PasswordNotSaved){
 

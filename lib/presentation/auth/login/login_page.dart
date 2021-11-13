@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lyrics_app/data/repositories/dio_auth_repositry.dart';
+import 'package:lyrics_app/data/repositories/dio_auth_repository.dart';
+import 'package:lyrics_app/data/repositories/hive_config_repository.dart';
 import 'package:lyrics_app/presentation/auth/forgot_pass/forgot_pass_page.dart';
 import 'package:lyrics_app/presentation/auth/login/bloc/login_bloc.dart';
 import 'package:lyrics_app/presentation/auth/registration/registration_page.dart';
@@ -19,7 +20,9 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => LoginBloc(
-        authRepository: DioAuthRepository()
+        authRepository: DioAuthRepository(),
+        configRepository: HiveConfigRepository()
+        
       ),
       child: LoginPageUI(),
     );
@@ -78,16 +81,6 @@ class _LoginPageUIState extends State<LoginPageUI> {
               ),
             ),
           ),
-          /* Align(
-            alignment: Alignment(0, 160.4),
-            child: ClipPath(
-              clipper: BottomCurve(),
-              child: Container(
-                height: size.height * 0.99,
-                color: blueDark,
-              ),
-            ),
-          ), */
           Padding(
             padding: EdgeInsets.only(
                 left: size.width / 9,
@@ -152,7 +145,7 @@ class _LoginPageUIState extends State<LoginPageUI> {
                   side: BorderSide.none,
                 ),
                 onPressed: () {
-                  navigateToPage(context, ForgotPassPage());
+                  navigateTo(context, ForgotPassPage());
                 },
                 child: Text(
                   '¿Olvidaste tu contraseña?',

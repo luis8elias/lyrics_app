@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyrics_app/presentation/home/home_page.dart';
-import 'package:lyrics_app/presentation/lyric/lyrics_list.dart';
+import 'package:lyrics_app/presentation/lyric/list/lyrics_list_page.dart';
 import 'package:lyrics_app/presentation/shared/custom_navigation_bar.dart';
 import 'package:lyrics_app/presentation/wrapper/bloc/wrapper_bloc.dart';
 
@@ -53,7 +53,7 @@ class WrapperPageUI extends StatelessWidget {
                 index: state.currentIndex,
                 children: [
                   HomePage(),
-                  LyricsList(),
+                  LyricsListPage(),
                   Container(
                     color: Colors.green,
                   ),

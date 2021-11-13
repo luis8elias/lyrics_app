@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lyrics_app/data/repositories/dio_auth_repositry.dart';
+import 'package:lyrics_app/data/repositories/dio_auth_repository.dart';
+import 'package:lyrics_app/data/repositories/dio_genres_repository.dart';
+import 'package:lyrics_app/data/repositories/dio_lyrics_repository.dart';
 import 'package:lyrics_app/presentation/home/bloc/home_bloc.dart';
 import 'package:lyrics_app/presentation/shared/custom_card.dart';
 import 'package:lyrics_app/styles.dart';
@@ -11,7 +13,11 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => HomeBloc(authRepository: DioAuthRepository()),
+      create: (_) => HomeBloc(
+        authRepository: DioAuthRepository(),
+        genresRepository: DioGenresRepository(),
+        lyricsRepository: DioLyricsRepository()
+      ),
       child: HomePageUI(),
     );
   }
@@ -47,12 +53,12 @@ class HomePageUI extends StatelessWidget {
               children: [
                 DashboardCard(
                   text: 'Canciones',
-                  value: '15',
+                  value: '${state.lyricsCount}',
                   icon: 'music-note',
                 ),
                 DashboardCard(
                   text: 'Géneros',
-                  value: '23',
+                  value: '${state.genresCount}',
                   icon: 'collection',
                 ),
               ],

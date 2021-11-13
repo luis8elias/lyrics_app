@@ -10,6 +10,9 @@ class LoadingData extends HomeState{}
 
 class DataLoaded extends HomeState{
   final User user;
+  final int genresCount;
+  final int lyricsCount;
+  
 
-  DataLoaded({required this.user});
+  DataLoaded({required this.lyricsCount,required this.user, required this.genresCount});
 }

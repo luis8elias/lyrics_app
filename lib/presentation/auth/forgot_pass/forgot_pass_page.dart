@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:lyrics_app/data/repositories/dio_auth_repositry.dart';
+import 'package:lyrics_app/data/repositories/dio_auth_repository.dart';
 import 'package:lyrics_app/presentation/auth/forgot_pass/bloc/forgot_pass_bloc.dart';
 import 'package:lyrics_app/presentation/auth/verification/verification_page.dart';
 import 'package:lyrics_app/presentation/shared/custom_curves.dart';
@@ -119,7 +119,7 @@ class _ForgotPassPageUIState extends State<ForgotPassPageUI> {
 
                   if(state.message == 
                     'Ya tienes una solicitud enviada, revisa tu bandeja en el correo electrónico'){
-                    navigateToPage(context,VerificationPage());
+                    navigateTo(context,VerificationPage());
                   }
 
                 }else if(state is MailSended){
@@ -128,7 +128,7 @@ class _ForgotPassPageUIState extends State<ForgotPassPageUI> {
                     desc: '',
                     title: state.message
                   );
-                  navigateToPage(context,VerificationPage()); 
+                  navigateTo(context,VerificationPage()); 
 
                 }
               });

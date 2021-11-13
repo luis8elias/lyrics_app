@@ -8,4 +8,6 @@ class SplashInitial extends SplashState {}
 
 class ItsTheFirtsTime extends SplashState{}
 
-class ItsNotTheFirtsTime extends SplashState{}
+class IsAuthenticated extends SplashState{}
+
+class IsNotAuthenticated extends SplashState{}

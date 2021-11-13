@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:lyrics_app/data/repositories/dio_auth_repositry.dart';
+import 'package:lyrics_app/data/repositories/dio_auth_repository.dart';
 import 'package:lyrics_app/presentation/auth/restore_pass/restore_pass_page.dart';
 import 'package:lyrics_app/presentation/auth/verification/bloc/verification_bloc.dart';
 
@@ -120,7 +120,7 @@ class _VerificationPageUIState extends State<VerificationPageUI> {
                     desc: '',
                     title: state.message
                   );
-                  navigateToPage(context,RestorePassPage(
+                  navigateTo(context,RestorePassPage(
                     code: state.code,
                   ));
 

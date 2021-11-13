@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:lyrics_app/domain/models/api/auth.dart';
 import 'package:lyrics_app/domain/models/api/generic_response.dart';
+import 'package:lyrics_app/domain/models/api/token_details.dart';
 import 'package:lyrics_app/domain/models/api/user.dart';
 import 'package:lyrics_app/domain/repositories/auth_repository.dart';
 
@@ -115,5 +116,23 @@ class DioAuthRepository extends AbstarctAuthRepository{
     return genericResponse;
     
   }
+
+  @override
+  Future<GenericResponse> refreshToken({required String token}) async{
+
+    final String url  = '${Globals.baseUrl}/api/auth/refresh-token/';
+    dio.options.headers["authorization"] = "bearer $token";
+    Response response = await dio.post(url);
+    GenericResponse genericResponse = GenericResponse.fromJson(response.data);
+    if(genericResponse.success){
+      TokenDetiails token = TokenDetiails.fromJson(response.data["data"]);
+      genericResponse.data = token;
+
+    }
+    return genericResponse;
+    
+  }
+   
+  
   
 }

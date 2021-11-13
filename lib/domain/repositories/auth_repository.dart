@@ -22,5 +22,7 @@ abstract class AbstarctAuthRepository{
   });
 
   Future<GenericResponse> getAutherticatedUser();
+
+  Future<GenericResponse> refreshToken({required String token});
   
 }

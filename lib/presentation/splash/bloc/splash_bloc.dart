@@ -1,4 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:lyrics_app/domain/models/api/generic_response.dart';
+import 'package:lyrics_app/domain/models/api/token_details.dart';
+import 'package:lyrics_app/domain/models/config.dart';
+import 'package:lyrics_app/domain/repositories/auth_repository.dart';
 import 'package:lyrics_app/domain/repositories/config_repository.dart';
 import 'package:meta/meta.dart';
 
@@ -8,18 +12,34 @@ part 'splash_state.dart';
 class SplashBloc extends Bloc<SplashEvent, SplashState> {
 
   final AbstarctConfigRepository configRepository;
+  final AbstarctAuthRepository authRepository;
 
 
-  SplashBloc({required this.configRepository}) : super(SplashInitial()) {
+  SplashBloc({required this.configRepository, required this.authRepository}) : super(SplashInitial()) {
     on<SplashEvent>((event, emit) async{
 
-      await Future.delayed(const Duration(seconds: 2));
-      if(event is LoadedSplashEvent ){
 
+
+      await Future.delayed(const Duration(seconds: 1));
+      if(event is LoadedSplashEvent ){
         if (await configRepository.itsTheFirstTime()) {
           emit(ItsTheFirtsTime());
         }else {
-          emit(ItsNotTheFirtsTime());
+
+          
+          Config? config = await configRepository.getConfig();
+          GenericResponse response = await authRepository.refreshToken(
+            token: config!.token
+          );
+          if(response.success){
+            TokenDetiails tokenDetiails = response.data;
+            configRepository.setToken(token: tokenDetiails.accessToken);
+            emit(IsAuthenticated());
+          }else{
+            emit(IsNotAuthenticated());
+          }
+
+          
         }
         
       }

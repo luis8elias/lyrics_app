@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:lyrics_app/data/repositories/hive_config_repository.dart';
 import 'package:lyrics_app/domain/models/api/auth.dart';
 import 'package:lyrics_app/domain/models/api/generic_response.dart';
+import 'package:lyrics_app/domain/models/config.dart';
 import 'package:lyrics_app/domain/repositories/auth_repository.dart';
 import 'package:lyrics_app/globals.dart';
 import 'package:meta/meta.dart';
@@ -11,10 +13,11 @@ part 'login_state.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   final AbstarctAuthRepository authRepository;
+  final HiveConfigRepository configRepository;
 
 
 
-  LoginBloc({required this.authRepository}) : super(AuthInitial()) {
+  LoginBloc({required this.configRepository,required this.authRepository}) : super(AuthInitial()) {
     on<LoginEvent>((event, emit) async{
       
 
@@ -24,7 +27,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
         GenericResponse response = await authRepository.doLogin(
           email: event.email,
-           password: event.password
+          password: event.password
         );
 
         if(response.success){
@@ -32,11 +35,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             data: response
           ));
           Auth auth = response.data;
-          Globals.token = auth.accessToken;
-          await Future.delayed(const Duration(seconds: 2),(){
-            emit(AuthInitial());
-          });
-          
+          configRepository.setToken(token: auth.accessToken);
         }else{
           emit(LoginFailed(
             message: response.message
