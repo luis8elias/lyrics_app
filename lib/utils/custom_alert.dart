@@ -8,33 +8,6 @@ class CustomAlert{
 
   static const  DEFAULT_DURATION = 2;
 
-
-  static void showSucces({required BuildContext context,required String desc}){
-    EdgeAlert.show(
-      context,
-      title: 'Operacion Exitosa',
-      description: desc,
-      gravity: EdgeAlert.BOTTOM,
-      icon: Icons.check,
-      backgroundColor: AlertsColors.success,
-      duration: DEFAULT_DURATION
-    );
-
-  }
-
-  static void showError({required BuildContext context}){
-    EdgeAlert.show(
-      context,
-      title: 'Operacion Fallida', 
-      description: 'Algo salió mal',
-      gravity: EdgeAlert.BOTTOM,
-      icon: Icons.error,
-      backgroundColor: AlertsColors.error,
-      duration: DEFAULT_DURATION
-    );
-
-  }
-
   static void showErrorCustomText({required BuildContext context,required String desc,required title}){
     EdgeAlert.show(
       context,
@@ -42,7 +15,7 @@ class CustomAlert{
       description: desc,
       gravity: EdgeAlert.BOTTOM,
       icon: Icons.error,
-      backgroundColor: AlertsColors.error,
+      backgroundColor: red,
       duration: DEFAULT_DURATION
     );
 
@@ -56,7 +29,7 @@ class CustomAlert{
       description: desc,
       gravity: EdgeAlert.BOTTOM,
       icon: Icons.error,
-      backgroundColor: AlertsColors.success,
+      backgroundColor: green,
       duration: DEFAULT_DURATION
     );
 
