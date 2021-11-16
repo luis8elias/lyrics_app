@@ -7,34 +7,31 @@ import 'package:lyrics_app/presentation/auth/login/login_page.dart';
 import 'package:lyrics_app/presentation/shared/custom_curves.dart';
 import 'package:lyrics_app/utils/custom_alert.dart';
 import 'package:lyrics_app/utils/navigator.dart';
-
+import 'package:lyrics_app/utils/svg_icons.dart';
 
 import '../../../styles.dart';
 import 'bloc/registration_bloc.dart';
 
 class RegistrationPage extends StatelessWidget {
-  const RegistrationPage({ Key? key }) : super(key: key);
+  const RegistrationPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => RegistrationBloc(
-        authRepository: DioAuthRepository()
-      ),
+      create: (_) => RegistrationBloc(authRepository: DioAuthRepository()),
       child: RegistrationPageUI(),
     );
   }
 }
 
 class RegistrationPageUI extends StatefulWidget {
-  const RegistrationPageUI({ Key? key }) : super(key: key);
+  const RegistrationPageUI({Key? key}) : super(key: key);
 
   @override
   _RegistrationPageUIState createState() => _RegistrationPageUIState();
 }
 
 class _RegistrationPageUIState extends State<RegistrationPageUI> {
-
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passController = TextEditingController();
@@ -46,7 +43,6 @@ class _RegistrationPageUIState extends State<RegistrationPageUI> {
     passController.dispose();
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -101,10 +97,9 @@ class _RegistrationPageUIState extends State<RegistrationPageUI> {
               child: TextFormField(
                 controller: nameController,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20))
-                  ),
-                labelText: 'Nombre'),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    labelText: 'Nombre'),
               ),
             ),
           ),
@@ -119,10 +114,9 @@ class _RegistrationPageUIState extends State<RegistrationPageUI> {
               child: TextFormField(
                 controller: emailController,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20))
-                  ),
-                labelText: 'Ingresa tu correo'),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    labelText: 'Ingresa tu correo'),
               ),
             ),
           ),
@@ -136,39 +130,30 @@ class _RegistrationPageUIState extends State<RegistrationPageUI> {
               height: 300,
               child: TextFormField(
                 obscureText: true,
-                controller:passController,
+                controller: passController,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20))
-                  ),
-                labelText: 'Ingresa tu contraseña'),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    labelText: 'Ingresa tu contraseña'),
               ),
             ),
           ),
-          BlocBuilder<RegistrationBloc,RegistrationState>(
-            builder: (context,state){
-
-               WidgetsBinding.instance?.addPostFrameCallback((_){
-
-                if(state is UserNotSaved){
-
+          BlocBuilder<RegistrationBloc, RegistrationState>(
+            builder: (context, state) {
+              WidgetsBinding.instance?.addPostFrameCallback((_) {
+                if (state is UserNotSaved) {
                   CustomAlert.showErrorCustomText(
-                    context: context,
-                    desc: 'Inténtalo de nuevo',
-                    title: state.message
-                  );
-
-                }else if(state is UserSaved){
+                      context: context,
+                      desc: 'Inténtalo de nuevo',
+                      title: state.message);
+                } else if (state is UserSaved) {
                   CustomAlert.showSuccesCustomText(
-                    context: context,
-                    desc: '',
-                    title: state.message
-                  );
-                  navigateTo(context,LoginPage()); 
+                      context: context, desc: '', title: state.message);
+                  navigateTo(context, LoginPage());
                 }
               });
 
-              if(state is TryingToSaveUser){
+              if (state is TryingToSaveUser) {
                 return Padding(
                   padding: EdgeInsets.only(
                     left: size.width - 80,
@@ -180,58 +165,55 @@ class _RegistrationPageUIState extends State<RegistrationPageUI> {
                     valueColor: AlwaysStoppedAnimation<Color>(blueDark),
                   ),
                 );
-              }else{
+              } else {
                 return Padding(
                   padding: EdgeInsets.only(
                     left: size.width - (btnWidth + 25),
                     top: size.height - (btnHeigth + 25),
                   ),
                   child: Container(
-                    decoration: BoxDecoration(
-                      color: blueDark,
-                      borderRadius: BorderRadius.circular(10)
-                    ),
-                    width: btnWidth,
-                    height: btnHeigth,
-                    child: TextButton(
-                    
-                      onPressed: (){
-                        _bloc.add(SaveNewUser(
-                          name: nameController.text,
-                          email: emailController.text,
-                          password: passController.text
-                        ));
-                      },
-                      child: Text('Guardar' ,style: TextStyle(color: Colors.white),),
-                    )
-                  ),
+                      decoration: BoxDecoration(
+                          color: blueDark,
+                          borderRadius: BorderRadius.circular(10)),
+                      width: btnWidth,
+                      height: btnHeigth,
+                      child: TextButton(
+                        onPressed: () {
+                          _bloc.add(SaveNewUser(
+                              name: nameController.text,
+                              email: emailController.text,
+                              password: passController.text));
+                        },
+                        child: Text(
+                          'Guardar',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      )),
                 );
               }
-
             },
           ),
           Padding(
-              padding: EdgeInsets.only(
-                  left: size.width / 25,
-                  right: size.width / 9,
-                  top: size.height / 13),
-              child: Container(
-                width: 25,
-                height: 25,
-                child: GestureDetector(
-                  onTap: (){
-                    Navigator.pop(context);
-                  },
-                  child: SvgPicture.asset(
-                    'assets/arrow-left.svg',
-                    color: Colors.white,
-                  ),
+            padding: EdgeInsets.only(
+                left: size.width / 25,
+                right: size.width / 9,
+                top: size.height / 13),
+            child: Container(
+              width: 25,
+              height: 25,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: SvgPicture.asset(
+                  SvgIcons.arrowLeft,
+                  color: Colors.white,
                 ),
               ),
             ),
+          ),
         ],
       ),
     );
   }
 }
-

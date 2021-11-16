@@ -12,6 +12,7 @@ import 'package:lyrics_app/styles.dart';
 import 'package:awesome_select/src/model/chosen.dart';
 import 'package:lyrics_app/utils/custom_alert.dart';
 import 'package:lyrics_app/utils/navigator.dart';
+import 'package:lyrics_app/utils/svg_icons.dart';
 
 class CreateLyricPage extends StatelessWidget {
   const CreateLyricPage({Key? key}) : super(key: key);
@@ -36,7 +37,6 @@ class CreateLyricUI extends StatefulWidget {
 }
 
 class _CreateLyricUIState extends State<CreateLyricUI> {
-  
   final nameController = TextEditingController();
   final lyricController = TextEditingController();
   String genreValue = '';
@@ -50,67 +50,43 @@ class _CreateLyricUIState extends State<CreateLyricUI> {
 
   @override
   void initState() {
-    BlocProvider.of<CreateLyricBloc>(context).add(
-      LoadingCreateLyric()
-    );
+    BlocProvider.of<CreateLyricBloc>(context).add(LoadingCreateLyric());
     super.initState();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-
     final size = MediaQuery.of(context).size;
 
     return BlocBuilder<CreateLyricBloc, CreateLyricState>(
       builder: (context, state) {
-
-        WidgetsBinding.instance?.addPostFrameCallback((_){
-
-          
-          if(state is LyricCreated){
+        WidgetsBinding.instance?.addPostFrameCallback((_) {
+          if (state is LyricCreated) {
             CustomAlert.showSuccesCustomText(
-              context: context,
-              desc: '',
-              title: state.message
-            );
-
-          }else if(state is LyricNotCreated){
+                context: context, desc: '', title: state.message);
+          } else if (state is LyricNotCreated) {
             CustomAlert.showErrorCustomText(
-              context: context,
-              desc: 'Inténtalo de nuevo',
-              title: state.message
-            );
-
+                context: context,
+                desc: 'Inténtalo de nuevo',
+                title: state.message);
           }
-
         });
 
-
-        if(state is DataLoaded){
-
-          List<S2Choice<String>> options = state.genres.map((genre) => 
-            S2Choice<String>(
-              value: genre.id.toString(),
-              title: genre.name
-            )
-          ).toList();
+        if (state is DataLoaded) {
+          List<S2Choice<String>> options = state.genres
+              .map((genre) => S2Choice<String>(
+                  value: genre.id.toString(), title: genre.name))
+              .toList();
 
           return Scaffold(
             backgroundColor: Theme.of(context).backgroundColor,
             floatingActionButton: FloatingActionButton.extended(
               onPressed: () {
-
-                BlocProvider.of<CreateLyricBloc>(context).add(
-                  SaveLyric(
+                BlocProvider.of<CreateLyricBloc>(context).add(SaveLyric(
                     genre: genreValue,
                     lyric: lyricController.text,
                     name: nameController.text,
-                    groupId: 1
-                  )
-                );
-
+                    groupId: 1));
               },
               backgroundColor: blueDark,
               label: Text('Guardar'),
@@ -125,11 +101,11 @@ class _CreateLyricUIState extends State<CreateLyricUI> {
                 child: IconButton(
                   splashRadius: 25,
                   onPressed: () {
-                   navigateTo(context, LyricsListPage());
+                    navigateTo(context, LyricsListPage());
                   },
                   icon: Container(
-                    child: SvgPicture.asset('assets/arrow-left.svg',
-                        color: blueDark),
+                    child:
+                        SvgPicture.asset(SvgIcons.arrowLeft, color: blueDark),
                   ),
                 ),
               ),
@@ -162,8 +138,7 @@ class _CreateLyricUIState extends State<CreateLyricUI> {
                             hintText: 'Cuestion Olvidada',
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.symmetric(
-                                horizontal: 25, vertical: 13
-                        )),
+                                horizontal: 25, vertical: 13)),
                       ),
                     ),
                     SizedBox(height: 15),
@@ -173,28 +148,24 @@ class _CreateLyricUIState extends State<CreateLyricUI> {
                     ),
                     SizedBox(height: 15),
                     Material(
-                      elevation: 1,
-                      shadowColor: shadowColor,
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
-                      child: SmartSelect<String>.single(
-                        choiceStyle: S2ChoiceStyle(
-                          spacing: 20,
-                          padding: EdgeInsets.all(10),
-                        ),
-                        choiceLayout: S2ChoiceLayout.list,
-                        choiceDirection: Axis.vertical,
-                        selectedValue: genreValue,
-                        placeholder: '',
-                        choiceItems: options,
-                        choiceType: S2ChoiceType.chips,
-                        modalType: S2ModalType.bottomSheet,
-                        modalTitle: 'Selecciona un Género',
-                        onChange: (S2SingleSelected<String?> state) => genreValue = state.value!
-
-                       
-                      )
-                    ), 
-                      
+                        elevation: 1,
+                        shadowColor: shadowColor,
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        child: SmartSelect<String>.single(
+                            choiceStyle: S2ChoiceStyle(
+                              spacing: 20,
+                              padding: EdgeInsets.all(10),
+                            ),
+                            choiceLayout: S2ChoiceLayout.list,
+                            choiceDirection: Axis.vertical,
+                            selectedValue: genreValue,
+                            placeholder: '',
+                            choiceItems: options,
+                            choiceType: S2ChoiceType.chips,
+                            modalType: S2ModalType.bottomSheet,
+                            modalTitle: 'Selecciona un Género',
+                            onChange: (S2SingleSelected<String?> state) =>
+                                genreValue = state.value!)),
                     SizedBox(height: 15),
                     Align(
                       alignment: Alignment.topLeft,
@@ -223,7 +194,7 @@ class _CreateLyricUIState extends State<CreateLyricUI> {
               ),
             ),
           );
-        }else{
+        } else {
           return Scaffold(
             backgroundColor: Theme.of(context).backgroundColor,
             body: Center(
@@ -235,7 +206,6 @@ class _CreateLyricUIState extends State<CreateLyricUI> {
             ),
           );
         }
-        
       },
     );
   }

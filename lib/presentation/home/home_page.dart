@@ -6,6 +6,7 @@ import 'package:lyrics_app/data/repositories/dio_lyrics_repository.dart';
 import 'package:lyrics_app/presentation/home/bloc/home_bloc.dart';
 import 'package:lyrics_app/presentation/shared/custom_card.dart';
 import 'package:lyrics_app/styles.dart';
+import 'package:lyrics_app/utils/svg_icons.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -14,10 +15,9 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => HomeBloc(
-        authRepository: DioAuthRepository(),
-        genresRepository: DioGenresRepository(),
-        lyricsRepository: DioLyricsRepository()
-      ),
+          authRepository: DioAuthRepository(),
+          genresRepository: DioGenresRepository(),
+          lyricsRepository: DioLyricsRepository()),
       child: HomePageUI(),
     );
   }
@@ -28,23 +28,20 @@ class HomePageUI extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    BlocProvider.of<HomeBloc>(context).add(
-      LoadingHome()
-    );
-
+    BlocProvider.of<HomeBloc>(context).add(LoadingHome());
 
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
-
-        if(state is DataLoaded){
-
+        if (state is DataLoaded) {
           return Scaffold(
             backgroundColor: Theme.of(context).backgroundColor,
             appBar: AppBar(
               centerTitle: true,
               title: Text('Hola ${state.user.name}',
-                style: TextStyle(color: blueDark, fontSize: titleSize,fontWeight: FontWeight.bold)),
+                  style: TextStyle(
+                      color: blueDark,
+                      fontSize: titleSize,
+                      fontWeight: FontWeight.bold)),
               backgroundColor: Theme.of(context).backgroundColor,
               elevation: 0,
             ),
@@ -54,18 +51,17 @@ class HomePageUI extends StatelessWidget {
                 DashboardCard(
                   text: 'Canciones',
                   value: '${state.lyricsCount}',
-                  icon: 'music-note',
+                  icon: SvgIcons.musicNote1,
                 ),
                 DashboardCard(
                   text: 'Géneros',
                   value: '${state.genresCount}',
-                  icon: 'collection',
+                  icon: SvgIcons.size,
                 ),
               ],
             ),
           );
-          
-        }else{
+        } else {
           return Scaffold(
             backgroundColor: Theme.of(context).backgroundColor,
             body: Center(
@@ -76,9 +72,7 @@ class HomePageUI extends StatelessWidget {
               ),
             ),
           );
-          
         }
-        
       },
     );
   }
