@@ -6,12 +6,16 @@ import 'package:lyrics_app/presentation/shared/custom_navigation_bar.dart';
 import 'package:lyrics_app/presentation/wrapper/bloc/wrapper_bloc.dart';
 
 class WrapperPage extends StatelessWidget {
-  const WrapperPage({Key? key}) : super(key: key);
+  const WrapperPage({Key? key,required this.pageIndex}) : super(key: key);
+
+  final pageIndex;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => WrapperBloc(),
+      create: (_) => WrapperBloc(
+        index: pageIndex
+      ),
       child: WrapperPageUI(),
     );
   }

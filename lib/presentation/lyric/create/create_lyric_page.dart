@@ -7,7 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:lyrics_app/data/repositories/dio_genres_repository.dart';
 import 'package:lyrics_app/data/repositories/dio_lyrics_repository.dart';
 import 'package:lyrics_app/presentation/lyric/create/bloc/create_lyric_bloc.dart';
-import 'package:lyrics_app/presentation/lyric/list/lyrics_list_page.dart';
+import 'package:lyrics_app/presentation/wrapper/wrapper_page.dart';
 import 'package:lyrics_app/styles.dart';
 import 'package:awesome_select/src/model/chosen.dart';
 import 'package:lyrics_app/utils/custom_alert.dart';
@@ -101,7 +101,7 @@ class _CreateLyricUIState extends State<CreateLyricUI> {
                 child: IconButton(
                   splashRadius: 25,
                   onPressed: () {
-                    navigateTo(context, LyricsListPage());
+                    navigateTo(context, WrapperPage(pageIndex: 1));
                   },
                   icon: Container(
                     child:

@@ -15,25 +15,25 @@ class ListWithPagination {
       required  this.success,
       required  this.message,
       required  this.data,
-      required  this.pagination,
+      this.pagination,
     });
 
     bool success;
     String message;
     List<dynamic> data;
-    Pagination pagination;
+    Pagination? pagination;
 
     factory ListWithPagination.fromJson(Map<String, dynamic> json) => ListWithPagination(
         success: json["success"],
         message: json["message"],
         data: json["data"],
-        pagination: Pagination.fromJson(json["pagination"]),
+        pagination: json["pagination"] != null ? Pagination.fromJson(json["pagination"]) : json["pagination"],
     );
 
     Map<String, dynamic> toJson() => {
         "success": success,
         "message": message,
         "data": List<dynamic>.from(data.map((x) => x.toJson())),
-        "pagination": pagination.toJson(),
+        "pagination": pagination!.toJson(),
     };
 }

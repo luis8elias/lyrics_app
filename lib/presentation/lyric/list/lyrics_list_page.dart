@@ -58,7 +58,10 @@ class _LyricsListPageUIState extends State<LyricsListPageUI> {
           onPressed: () {
             navigateTo(context, CreateLyricPage());
           },
-          child: Icon(Icons.add),
+          child: SvgPicture.asset(
+            SvgIcons.save,
+            color:Colors.white
+          ),
         ),
         backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
@@ -106,8 +109,10 @@ class _LyricsListPageUIState extends State<LyricsListPageUI> {
                           hintText: 'Buscar Letra',
                           suffixIcon: IconButton(
                             splashColor: Colors.transparent,
-                            icon: Icon(Icons.search,
-                                color: Theme.of(context).primaryColor),
+                            icon:SvgPicture.asset(
+                              SvgIcons.searchNormal,
+                              color:Theme.of(context).primaryColor
+                            ),
                             onPressed: () {},
                           ),
                           border: InputBorder.none,

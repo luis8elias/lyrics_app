@@ -10,39 +10,68 @@ class DioGenresRepository extends AbstarctGenresRepository{
 
   Dio dio = new Dio(
     BaseOptions(
-      contentType: Headers.jsonContentType,
-      responseType: ResponseType.json,
-      validateStatus: (_)=>true,
+      followRedirects: false,
+      validateStatus: (status) { return status! < 500; },
+      headers: {
+        "Accept":"application/json",
+        "Access-Control-Allow-Origin" : "*"
+      }
     )
   );
 
   @override
   Future<int> getCount() async{
 
-    final String url  = '${Globals.baseUrl}/api/genres/count/';
+    final String url  = '${Globals.baseUrl}/api/genres/count';
     dio.options.headers["authorization"] = "bearer ${Globals.token}";
-    Response response = await dio.get(url);
-    GenericResponse genericResponse = GenericResponse.fromJson(response.data);
+  
+    try{
 
-    if(genericResponse.success){
-      int count = response.data["data"];
-      genericResponse.data = count;
+      Response response = await dio.get(url);
+      GenericResponse genericResponse = GenericResponse.fromJson(response.data);
+
+      if(genericResponse.success){
+        int count = response.data["data"];
+        genericResponse.data = count;
+      }
+      return genericResponse.data;
+
+    }catch(e){
+
+      return -1;
+
     }
-    return genericResponse.data;
+
+
+    
    
   }
 
   @override
   Future<ListWithPagination> getAll() async{
-    final String url  = '${Globals.baseUrl}/api/genres/';
+    final String url  = '${Globals.baseUrl}/api/genres';
     dio.options.headers["authorization"] = "bearer ${Globals.token}";
-    Response response = await dio.get(url);
-    ListWithPagination list = ListWithPagination.fromJson(response.data);
-    if(list.success){
-      List<Genre> genres  = list.data.map((e) => Genre.fromJson(e)).toList();
-      list.data = genres;
+
+
+    try{
+      Response response = await dio.get(url);
+      ListWithPagination list = ListWithPagination.fromJson(response.data);
+      if(list.success){
+        List<Genre> genres  = list.data.map((e) => Genre.fromJson(e)).toList();
+        list.data = genres;
+      }
+      return list;
+
+    }catch(e){
+      return ListWithPagination(
+        data: [],
+        success: false,
+        message: e.toString(),
+        pagination: null
+      );
+
     }
-    return list;
+    
   }
   
 }

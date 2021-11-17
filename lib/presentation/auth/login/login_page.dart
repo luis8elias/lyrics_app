@@ -215,7 +215,9 @@ class _LoginPageUIState extends State<LoginPageUI> {
                   );
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => WrapperPage()),
+                    MaterialPageRoute(builder: (context) => WrapperPage(
+                      pageIndex: 0,
+                    )),
                   );
                 }
               });

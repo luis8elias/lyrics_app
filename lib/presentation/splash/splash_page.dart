@@ -47,7 +47,9 @@ class SplashPageUI extends StatelessWidget {
         if(state is ItsTheFirtsTime) {
           navigateReplacement(context,const WelcomePage());
         }else if(state is IsAuthenticated){
-          navigateReplacement(context, WrapperPage());
+          navigateReplacement(context, WrapperPage(
+            pageIndex: 0,
+          ));
         }else if(state is IsNotAuthenticated){
           navigateReplacement(context, LoginPage());
         }

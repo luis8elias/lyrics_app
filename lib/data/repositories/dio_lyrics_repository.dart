@@ -11,9 +11,12 @@ class DioLyricsRepository extends AbstarctLyricsRepository{
 
   Dio dio = new Dio(
     BaseOptions(
-      contentType: Headers.jsonContentType,
-      responseType: ResponseType.json,
-      validateStatus: (_)=>true,
+      followRedirects: false,
+      validateStatus: (status) { return status! < 500; },
+      headers: {
+        "Accept":"application/json",
+        "Access-Control-Allow-Origin" : "*"
+      }
     )
   );
 
@@ -21,29 +24,58 @@ class DioLyricsRepository extends AbstarctLyricsRepository{
 
   @override
   Future<ListWithPagination> getAll() async{
-    final String url  = '${Globals.baseUrl}/api/songs/';
+    final String url  = '${Globals.baseUrl}/api/songs';
     dio.options.headers["authorization"] = "bearer ${Globals.token}";
-    Response response = await dio.get(url);
-    ListWithPagination list = ListWithPagination.fromJson(response.data);
-    if(list.success){
-      List<Lyric> lyrics  = list.data.map((e) => Lyric.fromJson(e)).toList();
-      list.data = lyrics;
+
+    try{
+
+      Response response = await dio.get(url);
+      ListWithPagination list = ListWithPagination.fromJson(response.data);
+      if(list.success){
+        List<Lyric> lyrics  = list.data.map((e) => Lyric.fromJson(e)).toList();
+        list.data = lyrics;
+      }
+      return list;
+
+    }catch(e){
+
+      return ListWithPagination(
+        data: [],
+        message: e.toString(),
+        success: false,
+        pagination: null
+      );
+
     }
-    return list;
+
+
+   
   }
 
   @override
   Future<int> getCount() async{
-    final String url  = '${Globals.baseUrl}/api/songs/count/';
+    final String url  = '${Globals.baseUrl}/api/songs/count';
     dio.options.headers["authorization"] = "bearer ${Globals.token}";
-    Response response = await dio.get(url);
-    GenericResponse genericResponse = GenericResponse.fromJson(response.data);
 
-    if(genericResponse.success){
-      int count = response.data["data"];
-      genericResponse.data = count;
+    try{
+      Response response = await dio.get(url);
+      GenericResponse genericResponse = GenericResponse.fromJson(response.data);
+
+      if(genericResponse.success){
+        int count = response.data["data"];
+        genericResponse.data = count;
+      }
+      return genericResponse.data;
+
+    }catch(e){
+
+      return -1;
+
     }
-    return genericResponse.data;
+
+
+
+    
     
   }
 
@@ -77,8 +109,6 @@ class DioLyricsRepository extends AbstarctLyricsRepository{
     final String url  = '${Globals.baseUrl}/api/songs/delete/$lyricId';
     dio.options.headers["authorization"] = "bearer ${Globals.token}";
     Response response = await dio.delete(url);
-
-    print(response.toString());
     GenericResponse genericResponse = GenericResponse.fromJson(response.data);
     return genericResponse;
   }
