@@ -32,7 +32,7 @@ class LyricsListPageUI extends StatefulWidget {
 
 class _LyricsListPageUIState extends State<LyricsListPageUI> {
   ScrollController scrollController = new ScrollController();
-
+  TextEditingController searchController = new TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -41,6 +41,12 @@ class _LyricsListPageUIState extends State<LyricsListPageUI> {
       if (scrollController.position.pixels >=
           scrollController.position.maxScrollExtent - 300) {}
     }); */
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
   }
 
   @override
@@ -99,6 +105,7 @@ class _LyricsListPageUIState extends State<LyricsListPageUI> {
                     shadowColor: shadowColor,
                     borderRadius: BorderRadius.all(Radius.circular(15)),
                     child: TextField(
+                      controller: searchController,
                       autofocus: false,
                       cursorColor: Theme.of(context).primaryColor,
                       style: TextStyle(color: Colors.black, fontSize: 18),
@@ -108,7 +115,14 @@ class _LyricsListPageUIState extends State<LyricsListPageUI> {
                             splashColor: Colors.transparent,
                             icon: SvgPicture.asset(SvgIcons.searchNormal,
                                 color: Theme.of(context).primaryColor),
-                            onPressed: () {},
+                            onPressed: () {
+                              if (searchController.text.isEmpty) {
+                                _bloc.add(LoadingLyrics(page: 1));
+                              } else {
+                                _bloc.add(
+                                    SearchLyric(lyric: searchController.text));
+                              }
+                            },
                           ),
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.symmetric(
