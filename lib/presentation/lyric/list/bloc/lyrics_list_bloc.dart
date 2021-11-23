@@ -9,43 +9,38 @@ part 'lyrics_list_event.dart';
 part 'lyrics_list_state.dart';
 
 class LyricsListBloc extends Bloc<LyricsListEvent, LyricsListState> {
-
   final AbstarctLyricsRepository lyricsRepository;
 
-
-
-  LyricsListBloc({required this.lyricsRepository}) : super(LyricsListInitial()) {
-    on<LyricsListEvent>((event, emit) async{
-
-      if(event is LoadingLyrics){
-
+  LyricsListBloc({required this.lyricsRepository})
+      : super(LyricsListInitial()) {
+    on<LyricsListEvent>((event, emit) async {
+      if (event is LoadingLyrics) {
         emit(LoadingData());
         ListWithPagination lyrics = await lyricsRepository.getAll();
-        List<Lyric> lyricsList = lyrics.data as List<Lyric> ;
-        emit(DataLoaded(lyrics:lyricsList));
-
-      }else if (event is DeleteLyric){
-
-        GenericResponse response = await lyricsRepository.delete(lyricId: event.lyricId);
-        if(response.success){
-          emit(LyricDeleted(
-            message: response.message
-          ));
+        List<Lyric> lyricsList = lyrics.data as List<Lyric>;
+        emit(DataLoaded(lyrics: lyricsList));
+      } else if (event is DeleteLyric) {
+        GenericResponse response =
+            await lyricsRepository.delete(lyricId: event.lyricId);
+        if (response.success) {
+          emit(LyricDeleted(message: response.message));
           ListWithPagination lyrics = await lyricsRepository.getAll();
-          List<Lyric> lyricsList = lyrics.data as List<Lyric> ;
-          emit(DataLoaded(lyrics:lyricsList));
-        }else{
-           emit(LyricNotDeleted(
-            message: response.message
-          ));
+          List<Lyric> lyricsList = lyrics.data as List<Lyric>;
+          emit(DataLoaded(lyrics: lyricsList));
+        } else {
+          emit(LyricNotDeleted(message: response.message));
           ListWithPagination lyrics = await lyricsRepository.getAll();
-          List<Lyric> lyricsList = lyrics.data as List<Lyric> ;
-          emit(DataLoaded(lyrics:lyricsList));
+          List<Lyric> lyricsList = lyrics.data as List<Lyric>;
+          emit(DataLoaded(lyrics: lyricsList));
         }
-
-
+      } else if (event is SearchLyric) {
+        emit(LoadingData());
+        ListWithPagination lyrics =
+            await lyricsRepository.search(lyric: event.lyric);
+        List<Lyric> lyricsList =
+            lyrics.data.length != 0 ? lyrics.data as List<Lyric> : [];
+        emit(DataLoaded(lyrics: lyricsList));
       }
-      
     });
   }
 }
