@@ -163,6 +163,10 @@ class _EditLyricUIState extends State<EditLyricUI> {
                         shadowColor: shadowColor,
                         borderRadius: BorderRadius.all(Radius.circular(15)),
                         child: SmartSelect<String>.single(
+                            modalConfig: S2ModalConfig(
+                              useFilter: false,
+                              filterAuto: false
+                            ),
                             choiceStyle: S2ChoiceStyle(
                               spacing: 20,
                               padding: EdgeInsets.all(10),

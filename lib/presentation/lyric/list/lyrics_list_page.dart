@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lyrics_app/data/repositories/dio_lyrics_repository.dart';
 import 'package:lyrics_app/presentation/lyric/create/create_lyric_page.dart';
 import 'package:lyrics_app/presentation/lyric/edit/edit_lyric_page.dart';
+import 'package:lyrics_app/presentation/lyric/see/see_lyric_page.dart';
 import 'package:lyrics_app/styles.dart';
 import 'package:lyrics_app/utils/custom_alert.dart';
 import 'package:lyrics_app/utils/debouncer.dart';
@@ -73,6 +74,7 @@ class _LyricsListPageUIState extends State<LyricsListPageUI> {
         ),
         backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           leadingWidth: 40,
           centerTitle: true,
           title: Text("Letras", style: titleStyle),
@@ -193,7 +195,10 @@ class _LyricsListPageUIState extends State<LyricsListPageUI> {
                                     child: Builder(builder: (newContext) {
                                       return ListTile(
                                         onTap: () {
-                                          print('Abirendo Cancion');
+                                          navigateTo(
+                                              context,
+                                              SeeLyricPage(
+                                                  lyric: state.lyrics[index]));
                                         },
                                         leading: Container(
                                             decoration: BoxDecoration(

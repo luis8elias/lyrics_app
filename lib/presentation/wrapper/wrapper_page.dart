@@ -2,20 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyrics_app/presentation/home/home_page.dart';
 import 'package:lyrics_app/presentation/lyric/list/lyrics_list_page.dart';
+import 'package:lyrics_app/presentation/profile/profile_page.dart';
 import 'package:lyrics_app/presentation/shared/custom_navigation_bar.dart';
 import 'package:lyrics_app/presentation/wrapper/bloc/wrapper_bloc.dart';
 
 class WrapperPage extends StatelessWidget {
-  const WrapperPage({Key? key,required this.pageIndex}) : super(key: key);
+  const WrapperPage({Key? key, required this.pageIndex}) : super(key: key);
 
   final pageIndex;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => WrapperBloc(
-        index: pageIndex
-      ),
+      create: (_) => WrapperBloc(index: pageIndex),
       child: WrapperPageUI(),
     );
   }
@@ -26,7 +25,6 @@ class WrapperPageUI extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final _bloc = BlocProvider.of<WrapperBloc>(context);
 
     return BlocBuilder<WrapperBloc, IndexChangedState>(
@@ -34,15 +32,12 @@ class WrapperPageUI extends StatelessWidget {
         return Scaffold(
           backgroundColor: Theme.of(context).backgroundColor,
           bottomNavigationBar: Container(
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  offset: Offset(5,5),
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                  offset: Offset(5, 5),
                   color: Color(0xffD6D7D8),
-                  blurRadius: 15
-                )
-              ]
-            ),
+                  blurRadius: 15)
+            ]),
             child: CustomNavigationBar(
               index: state.currentIndex,
               onIndexSelected: (index) {
@@ -53,7 +48,7 @@ class WrapperPageUI extends StatelessWidget {
           body: Column(
             children: [
               Expanded(
-                child: IndexedStack(
+                  child: IndexedStack(
                 index: state.currentIndex,
                 children: [
                   HomePage(),
@@ -64,9 +59,7 @@ class WrapperPageUI extends StatelessWidget {
                   Container(
                     color: Colors.orange,
                   ),
-                  Container(
-                    color: Colors.pink,
-                  )
+                  ProfilePage()
                 ],
               )),
             ],
