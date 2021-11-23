@@ -69,10 +69,7 @@ class _LyricsListPageUIState extends State<LyricsListPageUI> {
           onPressed: () {
             navigateTo(context, CreateLyricPage());
           },
-          child: Icon(
-            Icons.add,
-            size: 35.0,
-          ),
+          child: SvgPicture.asset(SvgIcons.add, color: Colors.white),
         ),
         backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
