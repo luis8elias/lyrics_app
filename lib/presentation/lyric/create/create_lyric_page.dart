@@ -152,6 +152,7 @@ class _CreateLyricUIState extends State<CreateLyricUI> {
                         shadowColor: shadowColor,
                         borderRadius: BorderRadius.all(Radius.circular(15)),
                         child: SmartSelect<String>.single(
+                            modalFilterAuto: false,
                             choiceStyle: S2ChoiceStyle(
                               spacing: 20,
                               padding: EdgeInsets.all(10),
