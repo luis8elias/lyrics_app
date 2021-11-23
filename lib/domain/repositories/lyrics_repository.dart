@@ -15,4 +15,11 @@ abstract class AbstarctLyricsRepository {
   Future<GenericResponse> delete({required int lyricId});
 
   Future<ListWithPagination> search({required String lyric});
+
+  Future<GenericResponse> update(
+      {required String lyric,
+      required String name,
+      required String genreId,
+      required int groupId,
+      required int lyricId});
 }

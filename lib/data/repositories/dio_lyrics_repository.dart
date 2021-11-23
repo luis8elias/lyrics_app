@@ -107,4 +107,27 @@ class DioLyricsRepository extends AbstarctLyricsRepository {
           data: [], message: e.toString(), success: false, pagination: null);
     }
   }
+
+  @override
+  Future<GenericResponse> update(
+      {required String lyric,
+      required String name,
+      required String genreId,
+      required int groupId,
+      required int lyricId}) async {
+    final String url = '${Globals.baseUrl}/api/songs/update/$lyricId';
+    dio.options.headers["authorization"] = "bearer ${Globals.token}";
+    var formData = FormData.fromMap({
+      'name': name,
+      'lyric': lyric,
+      'genre_id': genreId,
+      'group_id': groupId
+    });
+
+    Response response = await dio.post(url, data: formData);
+    print(response.data);
+    GenericResponse genericResponse = GenericResponse.fromJson(response.data);
+
+    return genericResponse;
+  }
 }

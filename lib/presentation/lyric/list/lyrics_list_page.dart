@@ -4,8 +4,10 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lyrics_app/data/repositories/dio_lyrics_repository.dart';
 import 'package:lyrics_app/presentation/lyric/create/create_lyric_page.dart';
+import 'package:lyrics_app/presentation/lyric/edit/edit_lyric_page.dart';
 import 'package:lyrics_app/styles.dart';
 import 'package:lyrics_app/utils/custom_alert.dart';
+import 'package:lyrics_app/utils/debouncer.dart';
 import 'package:lyrics_app/utils/navigator.dart';
 import 'package:lyrics_app/utils/svg_icons.dart';
 
@@ -33,6 +35,9 @@ class LyricsListPageUI extends StatefulWidget {
 class _LyricsListPageUIState extends State<LyricsListPageUI> {
   ScrollController scrollController = new ScrollController();
   TextEditingController searchController = new TextEditingController();
+
+  Debouncer debouncer = new Debouncer();
+
   @override
   void initState() {
     super.initState();
@@ -109,24 +114,36 @@ class _LyricsListPageUIState extends State<LyricsListPageUI> {
                     borderRadius: BorderRadius.all(Radius.circular(15)),
                     child: TextField(
                       controller: searchController,
+                      onChanged: (value) {
+                        debouncer.run(() {
+                          if (searchController.text.isEmpty) {
+                            _bloc.add(LoadingLyrics(page: 1));
+                          } else {
+                            _bloc
+                                .add(SearchLyric(lyric: searchController.text));
+                          }
+                        });
+                      },
                       autofocus: false,
                       cursorColor: Theme.of(context).primaryColor,
                       style: TextStyle(color: Colors.black, fontSize: 18),
                       decoration: InputDecoration(
                           hintText: 'Buscar Letra',
-                          suffixIcon: IconButton(
-                            splashColor: Colors.transparent,
-                            icon: SvgPicture.asset(SvgIcons.searchNormal,
-                                color: Theme.of(context).primaryColor),
-                            onPressed: () {
-                              if (searchController.text.isEmpty) {
-                                _bloc.add(LoadingLyrics(page: 1));
-                              } else {
-                                _bloc.add(
-                                    SearchLyric(lyric: searchController.text));
-                              }
-                            },
+                          suffixIcon: Container(
+                            padding: EdgeInsets.all(15),
+                            child: SvgPicture.asset(
+                              SvgIcons.searchNormal,
+                              color: Theme.of(context).primaryColor,
+                            ),
                           ),
+
+                          // if (searchController.text.isEmpty) {
+                          //   _bloc.add(LoadingLyrics(page: 1));
+                          // } else {
+                          //   _bloc.add(
+                          //       SearchLyric(lyric: searchController.text));
+                          // }
+
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.symmetric(
                               horizontal: 25, vertical: 13)),
@@ -240,7 +257,12 @@ class _LyricsListPageUIState extends State<LyricsListPageUI> {
                                 _buildIcon(
                                     color: Colors.orange.shade400,
                                     icon: SvgIcons.pencil,
-                                    onPressed: () {}),
+                                    onPressed: () {
+                                      navigateTo(
+                                          context,
+                                          EditLyricPage(
+                                              lyric: state.lyrics[index]));
+                                    }),
                                 _buildIcon(
                                     color: green,
                                     icon: SvgIcons.save,
