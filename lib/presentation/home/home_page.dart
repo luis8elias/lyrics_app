@@ -36,6 +36,7 @@ class HomePageUI extends StatelessWidget {
           return Scaffold(
             backgroundColor: Theme.of(context).backgroundColor,
             appBar: AppBar(
+              automaticallyImplyLeading: false,
               centerTitle: true,
               title: Text('Hola ${state.user.name}',
                   style: TextStyle(
