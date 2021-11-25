@@ -56,9 +56,17 @@ class DioAuthRepository extends AbstarctAuthRepository{
   }
 
   @override
-  Future<GenericResponse> logout({token}) {
-    // TODO: implement logout
-    throw UnimplementedError();
+  Future<GenericResponse> logout({token}) async{
+    final String url  = '${Globals.baseUrl}/api/auth/logout';
+    try {
+
+      Response response = await dio.post(url);
+      GenericResponse genericResponse = GenericResponse.fromJson(response.data);
+      return genericResponse;
+    
+    } catch (e) {
+      return GenericResponse(success: false, message: e.toString());
+    }
   }
 
   @override
