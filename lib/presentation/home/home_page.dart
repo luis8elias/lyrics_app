@@ -5,7 +5,9 @@ import 'package:lyrics_app/data/repositories/dio_genres_repository.dart';
 import 'package:lyrics_app/data/repositories/dio_lyrics_repository.dart';
 import 'package:lyrics_app/presentation/home/bloc/home_bloc.dart';
 import 'package:lyrics_app/presentation/shared/custom_card.dart';
+import 'package:lyrics_app/presentation/wrapper/wrapper_page.dart';
 import 'package:lyrics_app/styles.dart';
+import 'package:lyrics_app/utils/navigator.dart';
 import 'package:lyrics_app/utils/svg_icons.dart';
 
 class HomePage extends StatelessWidget {
@@ -53,8 +55,10 @@ class HomePageUI extends StatelessWidget {
                   text: 'Canciones',
                   value: '${state.lyricsCount}',
                   icon: SvgIcons.musicNote1,
+                  onTap: () => navigateTo(context, WrapperPage(pageIndex: 1)),
                 ),
                 DashboardCard(
+                  onTap: () => navigateTo(context, WrapperPage(pageIndex: 2)),
                   text: 'Géneros',
                   value: '${state.genresCount}',
                   icon: SvgIcons.size,

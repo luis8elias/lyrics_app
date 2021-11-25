@@ -17,17 +17,19 @@ class CustomNavigationBar extends StatelessWidget {
       borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20), topRight: Radius.circular(20)),
       child: BottomAppBar(
-          child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  _customIconButton(icon: SvgIcons.home, innerIndex: 0),
-                  _customIconButton(icon: SvgIcons.musicNote1, innerIndex: 1),
-                  _customIconButton(icon: SvgIcons.size, innerIndex: 3),
-                  _customIconButton(icon: SvgIcons.user, innerIndex: 4),
-                ],
-              ))),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _customIconButton(icon: SvgIcons.home, innerIndex: 0),
+              _customIconButton(icon: SvgIcons.musicNote1, innerIndex: 1),
+              _customIconButton(icon: SvgIcons.size, innerIndex: 2),
+              _customIconButton(icon: SvgIcons.user, innerIndex: 3),
+            ],
+          )
+        )
+      ),
     );
   }
 

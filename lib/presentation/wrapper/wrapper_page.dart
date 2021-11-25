@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lyrics_app/presentation/genre/genre_list_page.dart';
 import 'package:lyrics_app/presentation/home/home_page.dart';
 import 'package:lyrics_app/presentation/lyric/list/lyrics_list_page.dart';
 import 'package:lyrics_app/presentation/profile/profile_page.dart';
@@ -53,12 +54,7 @@ class WrapperPageUI extends StatelessWidget {
                 children: [
                   HomePage(),
                   LyricsListPage(),
-                  Container(
-                    color: Colors.green,
-                  ),
-                  Container(
-                    color: Colors.orange,
-                  ),
+                  GenreListPage(),
                   ProfilePage()
                 ],
               )),

@@ -23,3 +23,10 @@ class LyricNotDeleted extends LyricsListState{
   final String message;
   LyricNotDeleted({required this.message});
 }
+
+class LyricsNotfound extends LyricsListState{
+  final String message;
+  
+
+  LyricsNotfound({required this.message});
+}

@@ -12,4 +12,5 @@ class SvgIcons {
   static final String size = 'assets/size-bold.svg';
   static final String trash = 'assets/trash.svg';
   static final String user = 'assets/user-bold.svg';
+  static final String notResults = 'assets/not-results.svg';
 }

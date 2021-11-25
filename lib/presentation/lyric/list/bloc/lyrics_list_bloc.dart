@@ -35,11 +35,15 @@ class LyricsListBloc extends Bloc<LyricsListEvent, LyricsListState> {
         }
       } else if (event is SearchLyric) {
         emit(LoadingData());
-        ListWithPagination lyrics =
-            await lyricsRepository.search(lyric: event.lyric);
-        List<Lyric> lyricsList =
-            lyrics.data.length != 0 ? lyrics.data as List<Lyric> : [];
-        emit(DataLoaded(lyrics: lyricsList));
+        ListWithPagination lyrics = await lyricsRepository.search(lyric: event.lyric);
+
+        if(lyrics.data.length != 0){
+          List<Lyric> lyricsList = lyrics.data as List<Lyric>;
+          emit(DataLoaded(lyrics: lyricsList));
+        }else{
+          emit(LyricsNotfound(message: 'No hay resultados para: ${event.lyric}'));
+        }
+       
       }
     });
   }
