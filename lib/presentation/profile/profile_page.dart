@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_svg/flutter_svg.dart';
-
-import 'package:lyrics_app/presentation/lyric/create/create_lyric_page.dart';
-
 import 'package:lyrics_app/styles.dart';
-
 import 'package:lyrics_app/utils/navigator.dart';
-import 'package:lyrics_app/utils/svg_icons.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -31,11 +25,18 @@ class ProfilePage extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Row(
-                children: const <Widget>[
+                children: <Widget>[
                   Expanded(
-                    child: CircleAvatar(
-                      backgroundColor: Colors.brown,
-                      child: const Text('AH'),
+                    child: Container(
+                      width: 90,
+                      height: 90,
+                      child: CircleAvatar(
+                        backgroundColor: Colors.brown,
+                        child: const Text(
+                          'AH',
+                          style: TextStyle(fontSize: 30),
+                        ),
+                      ),
                     ),
                   ),
                   Expanded(
