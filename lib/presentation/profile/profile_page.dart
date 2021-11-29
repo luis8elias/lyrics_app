@@ -1,22 +1,34 @@
 import 'package:flutter/material.dart';
-
-import 'package:flutter_svg/flutter_svg.dart';
-
-import 'package:lyrics_app/presentation/lyric/create/create_lyric_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lyrics_app/data/repositories/dio_auth_repository.dart';
+import 'package:lyrics_app/presentation/profile/bloc/profile_view_bloc.dart';
 
 import 'package:lyrics_app/styles.dart';
-
-import 'package:lyrics_app/utils/navigator.dart';
-import 'package:lyrics_app/utils/svg_icons.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
-      appBar: AppBar(
+    return BlocProvider(
+      create: (_) => ProfileViewBloc(authRepository: DioAuthRepository()),
+      child: ProfileViewUI(),
+    );
+  }
+}
+
+class ProfileViewUI extends StatelessWidget {
+  const ProfileViewUI({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    BlocProvider.of<ProfileViewBloc>(context).add(LoadingProfileView());
+    
+    return BlocBuilder<ProfileViewBloc,ProfileViewState>(
+      builder: (context),state){
+      is(state is DataLoaded){
+        return Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
+        appBar: AppBar(
         automaticallyImplyLeading: false,
         leadingWidth: 40,
         centerTitle: true,
@@ -31,30 +43,51 @@ class ProfilePage extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Row(
-                children: const <Widget>[
+                children: <Widget>[
                   Expanded(
-                    child: CircleAvatar(
-                      backgroundColor: Colors.brown,
-                      child: const Text('AH'),
+                    child: Container(
+                      width: 90,
+                      height: 90,
+                      child: CircleAvatar(
+                        backgroundColor: Colors.brown,
+                        child: const Text(
+                          'AH',
+                          style: TextStyle(fontSize: 30),
+                        ),
+                      ),
                     ),
                   ),
                   Expanded(
-                    child: Text('Usuario', textAlign: TextAlign.center),
+                    child:
+                        Text('${state.user.name}', textAlign: TextAlign.center),
                   ),
                 ],
               ),
-              GestureDetector(
-                onTap: () {
-                  print('jala');
-                },
-                child: Row(
-                  children: <Widget>[Icon(Icons.logout), Text('Logout')],
+              Container(
+                child: ElevatedButton.icon(
+                  icon: Icon(Icons.logout),
+                  label: Text(
+                    "Cerrar Sesion",
+                    style: TextStyle(fontSize: 14),
+                  ),
+                  onPressed: () => print("it's pressed"),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.red,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                  ),
                 ),
-              )
+              ),
             ],
           ),
         ),
       ),
     );
+      }
+    };
+    
   }
+
+
 }
