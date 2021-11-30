@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:lyrics_app/domain/models/api/list_with_pagination.dart';
+import 'package:lyrics_app/domain/models/api/simple_list.dart';
 import 'package:lyrics_app/domain/models/lyric.dart';
 import 'package:lyrics_app/domain/models/api/generic_response.dart';
 import 'package:lyrics_app/domain/repositories/lyrics_repository.dart';
@@ -90,21 +91,21 @@ class DioLyricsRepository extends AbstarctLyricsRepository {
   }
 
   @override
-  Future<ListWithPagination> search({required String lyric}) async {
+  Future<SimpleList> search({required String lyric}) async {
     final String url = '${Globals.baseUrl}/api/songs/search/${Globals.groupId}/$lyric';
     dio.options.headers["authorization"] = "bearer ${Globals.token}";
 
     try {
       Response response = await dio.get(url);
-      ListWithPagination list = ListWithPagination.fromJson(response.data);
+      SimpleList list = SimpleList.fromJson(response.data);
       if (list.success) {
         List<Lyric> lyrics = list.data.map((e) => Lyric.fromJson(e)).toList();
         list.data = lyrics;
       }
       return list;
     } catch (e) {
-      return ListWithPagination(
-          data: [], message: e.toString(), success: false, pagination: null);
+      return SimpleList(
+          data: [], message: e.toString(), success: false);
     }
   }
 

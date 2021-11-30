@@ -34,10 +34,11 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
             configRepository.setToken(token: tokenDetiails.accessToken);
 
             if(config.slectedGroup == -1){
-
+              
               emit(UserWithoutGroup());
 
             }else{
+              configRepository.setSelctedGroup(groupId: config.slectedGroup);
               emit(IsAuthenticated());
             }
            

@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:lyrics_app/domain/models/api/generic_response.dart';
 import 'package:lyrics_app/domain/models/api/list_with_pagination.dart';
+import 'package:lyrics_app/domain/models/api/simple_list.dart';
 import 'package:lyrics_app/domain/models/lyric.dart';
 import 'package:lyrics_app/domain/repositories/lyrics_repository.dart';
 import 'package:meta/meta.dart';
@@ -35,7 +36,7 @@ class LyricsListBloc extends Bloc<LyricsListEvent, LyricsListState> {
         }
       } else if (event is SearchLyric) {
         emit(LoadingData());
-        ListWithPagination lyrics = await lyricsRepository.search(lyric: event.lyric);
+        SimpleList lyrics = await lyricsRepository.search(lyric: event.lyric);
 
         if(lyrics.data.length != 0){
           List<Lyric> lyricsList = lyrics.data as List<Lyric>;
