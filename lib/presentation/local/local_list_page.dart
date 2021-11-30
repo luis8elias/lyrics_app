@@ -12,26 +12,28 @@ import 'package:lyrics_app/utils/svg_icons.dart';
 
 import 'bloc/local_list_bloc.dart';
 
-class LyricsListPage extends StatelessWidget {
-  const LyricsListPage({Key? key}) : super(key: key);
+class LocalListPage extends StatelessWidget {
+  const LocalListPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => LocalListBloc(lyricsRepository: HiveLyricsRepository()),
-      child: LyricsListPageUI(),
+      create: (_) => LocalListBloc(
+        lyricsRepository: HiveLyricsRepository()
+      ),
+      child: LocalListPageUI(),
     );
   }
 }
 
-class LyricsListPageUI extends StatefulWidget {
-  LyricsListPageUI({Key? key}) : super(key: key);
+class LocalListPageUI extends StatefulWidget {
+  LocalListPageUI({Key? key}) : super(key: key);
 
   @override
   _LyricsListPageUIState createState() => _LyricsListPageUIState();
 }
 
-class _LyricsListPageUIState extends State<LyricsListPageUI> {
+class _LyricsListPageUIState extends State<LocalListPageUI> {
   ScrollController scrollController = new ScrollController();
   TextEditingController searchController = new TextEditingController();
 

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lyrics_app/data/repositories/dio_lyrics_repository.dart';
+import 'package:lyrics_app/presentation/local/local_list_page.dart';
 import 'package:lyrics_app/presentation/lyric/create/create_lyric_page.dart';
 import 'package:lyrics_app/presentation/lyric/edit/edit_lyric_page.dart';
 import 'package:lyrics_app/presentation/lyric/see/see_lyric_page.dart';
@@ -86,7 +87,9 @@ class _LyricsListPageUIState extends State<LyricsListPageUI> {
               padding: const EdgeInsets.only(right: 15),
               child: IconButton(
                 splashRadius: 25,
-                onPressed: () {},
+                onPressed: () {
+                  navigateTo(context, LocalListPage());
+                },
                 icon: Container(
                   width: 25,
                   height: 25,

@@ -5,6 +5,8 @@ import 'package:lyrics_app/domain/models/config.dart';
 import 'package:lyrics_app/presentation/splash/splash_page.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lyrics_app/styles.dart';
+import 'domain/models/genre.dart';
+import 'domain/models/lyric.dart';
 import 'presentation/splash/splash_page.dart';
 
 void main() async {
@@ -18,6 +20,8 @@ void main() async {
   ]);
   await Hive.initFlutter();
   Hive.registerAdapter(ConfigAdapter());
+  Hive.registerAdapter(GenreAdapter());
+  Hive.registerAdapter(LyricAdapter());
   runApp(MyApp());                                                          
 }
 

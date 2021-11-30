@@ -1,21 +1,25 @@
-import 'dart:convert';
 
-Genre genreFromJson(String str) => Genre.fromJson(json.decode(str));
+import 'package:hive/hive.dart';
+part 'hive_adapters/genre.g.dart';
 
-
-
+@HiveType(typeId: 1)
 class Genre {
-    Genre({
+   
+    @HiveField(0)
+    int id;
+    @HiveField(1)
+    String name;
+    @HiveField(2)
+    DateTime? createdAt;
+    @HiveField(3)
+    DateTime? updatedAt;
+
+     Genre({
       required  this.id,
       required  this.name,
       this.createdAt,
       this.updatedAt,
     });
-
-    int id;
-    String name;
-    DateTime? createdAt;
-    DateTime? updatedAt;
 
     factory Genre.fromJson(Map<String, dynamic> json) => Genre(
         id: json["id"],

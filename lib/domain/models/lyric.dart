@@ -1,7 +1,30 @@
+import 'package:hive/hive.dart';
 import 'package:lyrics_app/domain/models/genre.dart';
 
+part 'hive_adapters/lyric.g.dart';
+
+@HiveType(typeId: 2)
 class Lyric {
-  Lyric({
+ 
+  @HiveField(0)
+  int id;
+  @HiveField(1)
+  String name;
+  @HiveField(2)
+  String lyric;
+  @HiveField(3)
+  String genreId;
+  @HiveField(4)
+  String groupId;
+  @HiveField(5)
+  Genre genre;
+  @HiveField(6)
+  DateTime? updatedAt;
+  @HiveField(7)
+  DateTime? createdAt;
+
+
+   Lyric({
     required this.id,
     required this.name,
     required this.lyric,
@@ -11,15 +34,6 @@ class Lyric {
     this.updatedAt,
     this.createdAt,
   });
-
-  int id;
-  String name;
-  String lyric;
-  String genreId;
-  String groupId;
-  Genre genre;
-  DateTime? updatedAt;
-  DateTime? createdAt;
 
   factory Lyric.fromJson(Map<String, dynamic> json) => Lyric(
         id: json["id"],
