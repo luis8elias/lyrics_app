@@ -137,7 +137,7 @@ class ProfilePageUI extends StatelessWidget {
                                             ),
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 15, horizontal: 15),
-                                            child: Icon(Icons.group,color: Colors.white)),
+                                            child: SvgPicture.asset(SvgIcons.group, color: Colors.white)),
                                         title: Text(
                                           state.groups[index].name,
                                           style: TextStyle(
@@ -187,7 +187,7 @@ class ProfilePageUI extends StatelessWidget {
                                 ),
                                 _buildIcon(
                                   color: green,
-                                  icon: SvgIcons.save,
+                                  icon: SvgIcons.share,
                                   onPressed: () {}
                                 ),
                               ],
