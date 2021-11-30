@@ -12,20 +12,18 @@ import 'package:lyrics_app/utils/svg_icons.dart';
 import 'bloc/create_group_bloc.dart';
 
 class CreateGroupPage extends StatelessWidget {
-  const CreateGroupPage({ Key? key }) : super(key: key);
+  const CreateGroupPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => CreateGroupBloc(
-        groupsRepository: DioGroupsRepository(),
-        configRepository: HiveConfigRepository()
-      ),
+          groupsRepository: DioGroupsRepository(),
+          configRepository: HiveConfigRepository()),
       child: CreateGroupPageUI(),
     );
   }
 }
-
 
 class CreateGroupPageUI extends StatefulWidget {
   CreateGroupPageUI({Key? key}) : super(key: key);
@@ -35,38 +33,32 @@ class CreateGroupPageUI extends StatefulWidget {
 }
 
 class _CreateGroupPageUIState extends State<CreateGroupPageUI> {
-
   TextEditingController groupController = new TextEditingController();
-
 
   @override
   void dispose() {
     groupController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-
     final _bloc = BlocProvider.of<CreateGroupBloc>(context);
-
 
     return BlocBuilder<CreateGroupBloc, CreateGroupState>(
       builder: (context, state) {
-
-       WidgetsBinding.instance?.addPostFrameCallback((_) {
+        WidgetsBinding.instance?.addPostFrameCallback((_) {
           if (state is GroupCreated) {
             CustomAlert.showSuccesCustomText(
                 context: context, desc: '', title: state.message);
-              navigateReplacement(context, WrapperPage(pageIndex: 0));
+            navigateReplacement(context, WrapperPage(pageIndex: 0));
           } else if (state is GroupNotCreated) {
             CustomAlert.showErrorCustomText(
-              context: context,
-              desc: 'Inténtalo de nuevo',
-              title: state.message
-            );
+                context: context,
+                desc: 'Inténtalo de nuevo',
+                title: state.message);
           }
         });
-
 
         return Scaffold(
           backgroundColor: Theme.of(context).backgroundColor,
@@ -103,16 +95,44 @@ class _CreateGroupPageUIState extends State<CreateGroupPageUI> {
                     shadowColor: shadowColor,
                     borderRadius: BorderRadius.all(Radius.circular(15)),
                     child: TextField(
+                      // controller: groupController,
+                      cursorColor: Theme.of(context).primaryColor,
+                      style: TextStyle(color: Colors.black, fontSize: 18),
+                      decoration: InputDecoration(
+                          hintText: 'Las Fieras de Ojinaga',
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 25, vertical: 13)),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 30, bottom: 30),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'O',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Text('Unirse por Codigo', style: titleStyle),
+                  ),
+                  SizedBox(height: 10),
+                  Material(
+                    elevation: 1,
+                    shadowColor: shadowColor,
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    child: TextField(
                       controller: groupController,
                       cursorColor: Theme.of(context).primaryColor,
                       style: TextStyle(color: Colors.black, fontSize: 18),
                       decoration: InputDecoration(
-                        hintText: 'Las Fieras de Ojinaga',
-                        border: InputBorder.none,
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 25, vertical: 13
-                          )
-                        ),
+                          hintText: '789yt65',
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 25, vertical: 13)),
                     ),
                   ),
                   Padding(
@@ -120,30 +140,27 @@ class _CreateGroupPageUIState extends State<CreateGroupPageUI> {
                     child: Align(
                       alignment: Alignment.center,
                       child: ElevatedButton.icon(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                            blueDark
+                          style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all<Color>(blueDark),
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18.0),
+                                      side: BorderSide.none))),
+                          onPressed: () => _bloc
+                              .add(CreateGroup(name: groupController.text)),
+                          icon: Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Icon(
+                              Icons.save,
+                              size: 30,
+                            ),
                           ),
-                          shape:MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                              side: BorderSide.none
-                            )
-                          )
-                        ),
-                        onPressed: () => _bloc.add(CreateGroup(name: groupController.text)),
-                        icon: Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Icon(
-                            Icons.save,
-                            size: 30,
-                          ),
-                        ),
-                        label: Text(
-                          'Guardar',
-                          style: TextStyle(fontSize: 18),
-                        )
-                      ),
+                          label: Text(
+                            'Guardar',
+                            style: TextStyle(fontSize: 18),
+                          )),
                     ),
                   ),
                 ],

@@ -4,8 +4,9 @@ import 'package:lyrics_app/domain/models/api/simple_list.dart';
 abstract class AbstarctGroupsRepository {
   Future<SimpleList> getAll();
 
-  Future<GenericResponse> save(
-  {
+  Future<GenericResponse> save({
     required String name,
   });
+
+  Future<GenericResponse> update({required String name, required int groupId});
 }

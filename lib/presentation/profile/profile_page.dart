@@ -6,6 +6,7 @@ import 'package:lyrics_app/data/repositories/dio_auth_repository.dart';
 import 'package:lyrics_app/data/repositories/dio_groups_repository.dart';
 import 'package:lyrics_app/presentation/auth/login/login_page.dart';
 import 'package:lyrics_app/presentation/group/create/create_group_page.dart';
+import 'package:lyrics_app/presentation/group/edit/edit_group.dart';
 import 'package:lyrics_app/presentation/profile/bloc/profile_bloc.dart';
 import 'package:lyrics_app/styles.dart';
 import 'package:lyrics_app/utils/custom_alert.dart';
@@ -34,8 +35,6 @@ class ProfilePageUI extends StatelessWidget {
 
     return BlocBuilder<ProfileBloc, ProfileState>(
       builder: (context, state) {
-
-
         WidgetsBinding.instance?.addPostFrameCallback((_) {
           if (state is SuccessLogout) {
             CustomAlert.showSuccesCustomText(
@@ -43,15 +42,11 @@ class ProfilePageUI extends StatelessWidget {
             navigateReplacement(context, LoginPage());
           } else if (state is LogoutFailed) {
             CustomAlert.showErrorCustomText(
-              context: context,
-              desc: 'Inténtalo de nuevo',
-              title: state.message
-            );
+                context: context,
+                desc: 'Inténtalo de nuevo',
+                title: state.message);
           }
         });
-
-
-
 
         if (state is DataLoaded) {
           var arr = state.user.name.split(" ");
@@ -108,7 +103,8 @@ class ProfilePageUI extends StatelessWidget {
                             child: IconButton(
                               splashRadius: 25,
                               onPressed: () {
-                                BlocProvider.of<ProfileBloc>(context).add(Logout());
+                                BlocProvider.of<ProfileBloc>(context)
+                                    .add(Logout());
                               },
                               icon: Container(
                                 width: 25,
@@ -136,110 +132,115 @@ class ProfilePageUI extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                    flex: 7,
-                    child: SingleChildScrollView(
-                      child: Container(
-                      height: kBottomNavigationBarHeight * 7,
-                      child: ListView.builder(
-                        padding: const EdgeInsets.only(
-                          top: 7,
-                          left: 7,
-                          right: 7,
-                        ),
-                        itemCount: state.groups.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          bool slidableOpened = false;
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 15),
-                            child: Slidable(
-                              actionPane: SlidableDrawerActionPane(),
-                              actionExtentRatio: 0.18,
-                              child: Container(
-                                margin: EdgeInsets.symmetric(horizontal: 20.0),
-                                height: 80,
-                                decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(15)),
-                                  color: Colors.white,
-                                ),
-                                child: Container(
-                                  child: Center(
-                                    child: Builder(builder: (newContext) {
-                                      return ListTile(
-                                        onTap: () {},
-                                        leading: Container(
-                                            decoration: BoxDecoration(
-                                              color: blueDark,
-                                              borderRadius: BorderRadiusDirectional.all(
-                                                Radius.circular(10.0)
+                      flex: 7,
+                      child: SingleChildScrollView(
+                        child: Container(
+                          height: kBottomNavigationBarHeight * 7,
+                          child: ListView.builder(
+                            padding: const EdgeInsets.only(
+                              top: 7,
+                              left: 7,
+                              right: 7,
+                            ),
+                            itemCount: state.groups.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              bool slidableOpened = false;
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 15),
+                                child: Slidable(
+                                  actionPane: SlidableDrawerActionPane(),
+                                  actionExtentRatio: 0.18,
+                                  child: Container(
+                                    margin:
+                                        EdgeInsets.symmetric(horizontal: 20.0),
+                                    height: 80,
+                                    decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(15)),
+                                      color: Colors.white,
+                                    ),
+                                    child: Container(
+                                      child: Center(
+                                        child: Builder(builder: (newContext) {
+                                          return ListTile(
+                                            onTap: () {},
+                                            leading: Container(
+                                                decoration: BoxDecoration(
+                                                  color: blueDark,
+                                                  borderRadius:
+                                                      BorderRadiusDirectional
+                                                          .all(Radius.circular(
+                                                              10.0)),
+                                                ),
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 15,
+                                                        horizontal: 15),
+                                                child: SvgPicture.asset(
+                                                    SvgIcons.group,
+                                                    color: Colors.white)),
+                                            title: Text(
+                                              state.groups[index].name,
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontStyle: FontStyle.normal),
+                                            ),
+                                            trailing: Container(
+                                              padding:
+                                                  EdgeInsetsDirectional.all(5),
+                                              width: 40,
+                                              height: 40,
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  if (slidableOpened) {
+                                                    Slidable.of(newContext)
+                                                        ?.close();
+                                                    slidableOpened = false;
+                                                  } else {
+                                                    Slidable.of(newContext)
+                                                        ?.open(
+                                                      actionType:
+                                                          SlideActionType
+                                                              .secondary,
+                                                    );
+                                                    slidableOpened = true;
+                                                  }
+                                                },
+                                                child: SvgPicture.asset(
+                                                    SvgIcons.dots,
+                                                    color: grey),
                                               ),
                                             ),
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 15, horizontal: 15),
-                                            child:SvgPicture.asset(
-                                              SvgIcons.group,
-                                              color: Colors.white)
-                                            ),
-                                        title: Text(
-                                          state.groups[index].name,
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontStyle: FontStyle.normal),
-                                        ),
-
-                                        trailing: Container(
-                                          padding: EdgeInsetsDirectional.all(5),
-                                          width: 40,
-                                          height: 40,
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              if (slidableOpened) {
-                                                Slidable.of(newContext)
-                                                    ?.close();
-                                                slidableOpened = false;
-                                              } else {
-                                                Slidable.of(newContext)?.open(
-                                                  actionType:
-                                                      SlideActionType.secondary,
-                                                );
-                                                slidableOpened = true;
-                                              }
-                                            },
-                                            child: SvgPicture.asset(
-                                              SvgIcons.dots,
-                                              color: grey
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    }),
+                                          );
+                                        }),
+                                      ),
+                                    ),
                                   ),
+                                  secondaryActions: <Widget>[
+                                    _buildIcon(
+                                        color: Color(0xffFF4D4D),
+                                        icon: SvgIcons.trash,
+                                        onPressed: () {}),
+                                    _buildIcon(
+                                        color: Colors.orange.shade400,
+                                        icon: SvgIcons.pencil,
+                                        onPressed: () {
+                                          navigateTo(
+                                              context,
+                                              EditGroup(
+                                                  group: state.groups[index]));
+                                        }),
+                                    _buildIcon(
+                                        color: green,
+                                        icon: SvgIcons.save,
+                                        onPressed: () {}),
+                                  ],
                                 ),
-                              ),
-                              secondaryActions: <Widget>[
-                                _buildIcon(
-                                  color: Color(0xffFF4D4D),
-                                  icon: SvgIcons.trash,
-                                  onPressed: () {}
-                                ),    
-                                _buildIcon(
-                                  color: Colors.orange.shade400,
-                                  icon: SvgIcons.pencil,
-                                  onPressed: () {}
-                                ),
-                                _buildIcon(
-                                  color: green,
-                                  icon: SvgIcons.save,
-                                  onPressed: () {}
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                    )
-                  ),
+                              );
+                            },
+                          ),
+                        ),
+                      )),
                 ],
               ),
             ),
@@ -259,11 +260,11 @@ class ProfilePageUI extends StatelessWidget {
       },
     );
   }
-  Widget _buildIcon({
-    required String icon,
-    required VoidCallback onPressed,
-    required Color color}) {
 
+  Widget _buildIcon(
+      {required String icon,
+      required VoidCallback onPressed,
+      required Color color}) {
     return IconSlideAction(
       color: Colors.transparent,
       iconWidget: Container(
