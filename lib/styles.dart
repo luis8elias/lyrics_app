@@ -7,7 +7,7 @@ final Color shadowColor = Color(0xffEAEBED);
 final Color green = Color(0xff37C07B);
 final Color red = Color(0xffFF4D4D);
 final Color grey = Color(0xffDBDCDF);
-
+final Color darkGrey = Color(0xffABACAD);
 
 final double titleSize = 20;
 
@@ -15,6 +15,6 @@ final titleStyle = TextStyle(color: blueDark, fontSize: titleSize,fontWeight: Fo
 
 final h2 = TextStyle(color: Colors.black, fontSize: titleSize,fontWeight: FontWeight.bold);
 
-final subtitleStyle = TextStyle(color:grey, fontSize: 15,fontWeight: FontWeight.bold);
+final subtitleStyle = TextStyle(color:darkGrey, fontSize: 15,fontWeight: FontWeight.bold);
 
 

@@ -9,7 +9,8 @@ class LoadingData extends ProfileState {}
 
 class DataLoaded extends ProfileState {
   final User user;
+  final List<Group> groups;
 
-  DataLoaded({required this.user});
+  DataLoaded({required this.user, required this.groups});
 }
 
