@@ -40,7 +40,7 @@ class ProfilePageUI extends StatelessWidget {
           if (state is SuccessLogout) {
             CustomAlert.showSuccesCustomText(
                 context: context, desc: '', title: state.message);
-            navigateTo(context, LoginPage());
+            navigateReplacement(context, LoginPage());
           } else if (state is LogoutFailed) {
             CustomAlert.showErrorCustomText(
               context: context,
