@@ -14,3 +14,13 @@ class DataLoaded extends ProfileState {
   DataLoaded({required this.user, required this.groups});
 }
 
+class SuccessLogout extends ProfileState{
+  final String message;
+  SuccessLogout({required this.message});
+}
+
+class LogoutFailed extends ProfileState{
+  final String message;
+  LogoutFailed({required this.message});
+}
+

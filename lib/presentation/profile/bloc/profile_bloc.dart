@@ -29,7 +29,22 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
        
         
+      }else if (event is Logout){
+
+        GenericResponse response = await  authRepository.logout();
+        if(response.success){
+
+          emit(SuccessLogout(message: response.message));
+
+        }else{
+          emit(LogoutFailed(
+            message: response.message
+          ));
+        }
+
       }
+
+
     });
   }
 }

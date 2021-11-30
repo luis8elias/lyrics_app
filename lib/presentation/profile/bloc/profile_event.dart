@@ -5,3 +5,5 @@ abstract class ProfileEvent {}
 
 class LoadingProfile extends ProfileEvent {}
 
+class Logout extends ProfileEvent{}
+
