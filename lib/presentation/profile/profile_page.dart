@@ -12,6 +12,7 @@ import 'package:lyrics_app/styles.dart';
 import 'package:lyrics_app/utils/custom_alert.dart';
 import 'package:lyrics_app/utils/navigator.dart';
 import 'package:lyrics_app/utils/svg_icons.dart';
+import 'package:share/share.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -232,8 +233,11 @@ class ProfilePageUI extends StatelessWidget {
                                         }),
                                     _buildIcon(
                                         color: green,
-                                        icon: SvgIcons.save,
-                                        onPressed: () {}),
+                                        icon: SvgIcons.share,
+                                        onPressed: () {
+                                          Share.share(
+                                            'Asociate al grupo ${state.groups[index].name} : ${state.groups[index].code}');
+                                        }),
                                   ],
                                 ),
                               );
