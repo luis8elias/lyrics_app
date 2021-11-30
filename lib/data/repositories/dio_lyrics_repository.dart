@@ -19,7 +19,7 @@ class DioLyricsRepository extends AbstarctLyricsRepository {
 
   @override
   Future<ListWithPagination> getAll() async {
-    final String url = '${Globals.baseUrl}/api/songs';
+    final String url = '${Globals.baseUrl}/api/songs/${Globals.groupId}';
     dio.options.headers["authorization"] = "bearer ${Globals.token}";
 
     try {
@@ -38,7 +38,7 @@ class DioLyricsRepository extends AbstarctLyricsRepository {
 
   @override
   Future<int> getCount() async {
-    final String url = '${Globals.baseUrl}/api/songs/count';
+    final String url = '${Globals.baseUrl}/api/songs/count/${Globals.groupId}';
     dio.options.headers["authorization"] = "bearer ${Globals.token}";
 
     try {
@@ -57,7 +57,7 @@ class DioLyricsRepository extends AbstarctLyricsRepository {
 
   @override
   Future<GenericResponse> save(
-      {required String name,
+    {required String name,
       required String lyric,
       required String genreId,
       required int groupId}) async {
@@ -91,7 +91,7 @@ class DioLyricsRepository extends AbstarctLyricsRepository {
 
   @override
   Future<ListWithPagination> search({required String lyric}) async {
-    final String url = '${Globals.baseUrl}/api/songs/search/$lyric';
+    final String url = '${Globals.baseUrl}/api/songs/search/${Globals.groupId}/$lyric';
     dio.options.headers["authorization"] = "bearer ${Globals.token}";
 
     try {
