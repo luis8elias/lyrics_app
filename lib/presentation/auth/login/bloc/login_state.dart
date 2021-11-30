@@ -20,4 +20,6 @@ class LoginFailed extends LoginState{
   LoginFailed({required this.message});
 }
 
+class UserWithoutGroup extends LoginState{}
+
 

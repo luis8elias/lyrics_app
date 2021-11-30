@@ -25,7 +25,7 @@ class CustomNavigationBar extends StatelessWidget {
               _customIconButton(icon: SvgIcons.home, innerIndex: 0),
               _customIconButton(icon: SvgIcons.musicNote1, innerIndex: 1),
               _customIconButton(icon: SvgIcons.size, innerIndex: 2),
-              _customIconButton(icon: SvgIcons.user, innerIndex: 3),
+              _customIconButton(icon: SvgIcons.group, innerIndex: 3),
             ],
           )
         )

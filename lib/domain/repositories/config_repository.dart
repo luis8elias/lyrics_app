@@ -9,5 +9,7 @@ abstract class AbstarctConfigRepository{
   Future<void> setToken({required String token});
 
   Future<Config?> getConfig();
+
+  Future<void> setSelctedGroup({required int groupId});
   
 }

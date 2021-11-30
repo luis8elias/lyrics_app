@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lyrics_app/data/repositories/dio_genres_repository.dart';
 import 'package:lyrics_app/data/repositories/dio_lyrics_repository.dart';
+import 'package:lyrics_app/globals.dart';
 import 'package:lyrics_app/presentation/lyric/create/bloc/create_lyric_bloc.dart';
 import 'package:lyrics_app/presentation/wrapper/wrapper_page.dart';
 import 'package:lyrics_app/styles.dart';
@@ -82,11 +83,14 @@ class _CreateLyricUIState extends State<CreateLyricUI> {
             backgroundColor: Theme.of(context).backgroundColor,
             floatingActionButton: FloatingActionButton.extended(
               onPressed: () {
-                BlocProvider.of<CreateLyricBloc>(context).add(SaveLyric(
+                BlocProvider.of<CreateLyricBloc>(context).add(
+                  SaveLyric(
                     genre: genreValue,
                     lyric: lyricController.text,
                     name: nameController.text,
-                    groupId: 1));
+                    groupId: Globals.groupId
+                  )
+                );
               },
               backgroundColor: blueDark,
               label: Text('Guardar'),

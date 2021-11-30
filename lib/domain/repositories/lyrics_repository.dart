@@ -1,5 +1,6 @@
 import 'package:lyrics_app/domain/models/api/generic_response.dart';
 import 'package:lyrics_app/domain/models/api/list_with_pagination.dart';
+import 'package:lyrics_app/domain/models/api/simple_list.dart';
 
 abstract class AbstarctLyricsRepository {
   Future<ListWithPagination> getAll();
@@ -14,7 +15,7 @@ abstract class AbstarctLyricsRepository {
 
   Future<GenericResponse> delete({required int lyricId});
 
-  Future<ListWithPagination> search({required String lyric});
+  Future<SimpleList> search({required String lyric});
 
   Future<GenericResponse> update(
       {required String lyric,
