@@ -70,8 +70,17 @@ class _GroupPageState extends State<GroupPage> {
                                       borderRadius: BorderRadius.circular(18.0),
                                       side: BorderSide(color: blueDark)))),
                       onPressed: () {},
-                      icon: Icon(Icons.save),
-                      label: Text('guardar')),
+                      icon: Padding(
+                        padding: EdgeInsets.all(7),
+                        child: Icon(
+                          Icons.save,
+                          size: 30,
+                        ),
+                      ),
+                      label: Text(
+                        'guardar',
+                        style: TextStyle(fontSize: 18),
+                      )),
                 ),
               ),
             ],
