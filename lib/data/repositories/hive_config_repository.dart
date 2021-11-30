@@ -65,6 +65,7 @@ class HiveConfigRepository extends AbstarctConfigRepository{
       slectedGroup: groupId
     );
     box.putAt(0,newConfig);
+    Globals.groupId = groupId;
   }
      
 

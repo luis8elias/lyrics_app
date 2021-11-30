@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lyrics_app/data/repositories/dio_groups_repository.dart';
+import 'package:lyrics_app/data/repositories/hive_config_repository.dart';
 import 'package:lyrics_app/presentation/wrapper/wrapper_page.dart';
 import 'package:lyrics_app/styles.dart';
 import 'package:lyrics_app/utils/custom_alert.dart';
@@ -17,7 +18,8 @@ class CreateGroupPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => CreateGroupBloc(
-        groupsRepository: DioGroupsRepository()
+        groupsRepository: DioGroupsRepository(),
+        configRepository: HiveConfigRepository()
       ),
       child: CreateGroupPageUI(),
     );
