@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:lyrics_app/data/repositories/hive_config_repository.dart';
 import 'package:lyrics_app/domain/models/api/auth.dart';
 import 'package:lyrics_app/domain/models/api/generic_response.dart';
+import 'package:lyrics_app/domain/models/config.dart';
 import 'package:lyrics_app/domain/repositories/auth_repository.dart';
 import 'package:meta/meta.dart';
 
@@ -29,11 +30,27 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         );
 
         if(response.success){
-          emit(LoginSuccess(
-            data: response
-          ));
+
           Auth auth = response.data;
           configRepository.setToken(token: auth.accessToken);
+          Config? config = await configRepository.getConfig();
+
+          if(config!.slectedGroup == -1){
+            emit(UserWithoutGroup());
+
+          }else{
+            
+            emit(
+              LoginSuccess(
+                data: response
+              )
+            );
+
+          }
+
+
+
+          
         }else{
           emit(LoginFailed(
             message: response.message

@@ -5,7 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:lyrics_app/data/repositories/dio_auth_repository.dart';
 import 'package:lyrics_app/data/repositories/dio_groups_repository.dart';
 import 'package:lyrics_app/presentation/auth/login/login_page.dart';
-import 'package:lyrics_app/presentation/group/create/group_page.dart';
+import 'package:lyrics_app/presentation/group/create/create_group_page.dart';
 import 'package:lyrics_app/presentation/profile/bloc/profile_bloc.dart';
 import 'package:lyrics_app/styles.dart';
 import 'package:lyrics_app/utils/custom_alert.dart';
@@ -43,9 +43,10 @@ class ProfilePageUI extends StatelessWidget {
             navigateTo(context, LoginPage());
           } else if (state is LogoutFailed) {
             CustomAlert.showErrorCustomText(
-                context: context,
-                desc: 'Inténtalo de nuevo',
-                title: state.message);
+              context: context,
+              desc: 'Inténtalo de nuevo',
+              title: state.message
+            );
           }
         });
 
@@ -62,7 +63,7 @@ class ProfilePageUI extends StatelessWidget {
               mini: true,
               foregroundColor: Colors.white,
               onPressed: () {
-                navigateTo(context, GroupPage());
+                navigateTo(context, CreateGroupPage());
               },
               child: SvgPicture.asset(SvgIcons.add, color: Colors.white),
             ),

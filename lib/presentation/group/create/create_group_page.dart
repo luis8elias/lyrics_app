@@ -1,17 +1,16 @@
-import 'package:awesome_select/awesome_select.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lyrics_app/styles.dart';
 import 'package:lyrics_app/utils/svg_icons.dart';
 
-class GroupPage extends StatefulWidget {
-  GroupPage({Key? key}) : super(key: key);
+class CreateGroupPage extends StatefulWidget {
+  CreateGroupPage({Key? key}) : super(key: key);
 
   @override
-  _GroupPageState createState() => _GroupPageState();
+  _CreateGroupPageState createState() => _CreateGroupPageState();
 }
 
-class _GroupPageState extends State<GroupPage> {
+class _CreateGroupPageState extends State<CreateGroupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,26 +58,31 @@ class _GroupPageState extends State<GroupPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 20),
+                padding: EdgeInsets.only(top: 30),
                 child: Align(
                   alignment: Alignment.center,
                   child: ElevatedButton.icon(
                       style: ButtonStyle(
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(18.0),
-                                      side: BorderSide(color: blueDark)))),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                          blueDark
+                        ),
+                        shape:MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
+                            side: BorderSide.none
+                          )
+                        )
+                      ),
                       onPressed: () {},
                       icon: Padding(
-                        padding: EdgeInsets.all(7),
+                        padding: EdgeInsets.all(10),
                         child: Icon(
                           Icons.save,
                           size: 30,
                         ),
                       ),
                       label: Text(
-                        'guardar',
+                        'Guardar',
                         style: TextStyle(fontSize: 18),
                       )),
                 ),

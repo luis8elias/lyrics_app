@@ -43,12 +43,6 @@ class DioGroupsRepository extends AbstarctGroupsRepository {
   }
 
   @override
-  Future<int> getCount() {
-    // TODO: implement getCount
-    throw UnimplementedError();
-  }
-
-  @override
   Future<GenericResponse> save({required String name}) {
     throw UnimplementedError();
   }

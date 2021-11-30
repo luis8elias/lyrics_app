@@ -18,9 +18,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
   SplashBloc({required this.configRepository, required this.authRepository}) : super(SplashInitial()) {
     on<SplashEvent>((event, emit) async{
 
-
-
-      await Future.delayed(const Duration(seconds: 1));
+     
       if(event is LoadedSplashEvent ){
         if (await configRepository.itsTheFirstTime()) {
           emit(ItsTheFirtsTime());
@@ -34,7 +32,15 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
           if(response.success){
             TokenDetiails tokenDetiails = response.data;
             configRepository.setToken(token: tokenDetiails.accessToken);
-            emit(IsAuthenticated());
+
+            if(config.slectedGroup == -1){
+
+              emit(UserWithoutGroup());
+
+            }else{
+              emit(IsAuthenticated());
+            }
+           
           }else{
             emit(IsNotAuthenticated());
           }

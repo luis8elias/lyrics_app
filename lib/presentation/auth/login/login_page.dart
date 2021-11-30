@@ -5,6 +5,7 @@ import 'package:lyrics_app/data/repositories/hive_config_repository.dart';
 import 'package:lyrics_app/presentation/auth/forgot_pass/forgot_pass_page.dart';
 import 'package:lyrics_app/presentation/auth/login/bloc/login_bloc.dart';
 import 'package:lyrics_app/presentation/auth/registration/registration_page.dart';
+import 'package:lyrics_app/presentation/group/create/create_group_page.dart';
 
 import 'package:lyrics_app/presentation/shared/custom_curves.dart';
 import 'package:lyrics_app/presentation/wrapper/wrapper_page.dart';
@@ -207,18 +208,19 @@ class _LoginPageUIState extends State<LoginPageUI> {
                     title: state.message
                   );
 
-                }else if(state is LoginSuccess){
+                }else if(state is UserWithoutGroup){
+                  navigateReplacement(context, CreateGroupPage());
+
+                } else if(state is LoginSuccess){
                   CustomAlert.showSuccesCustomText(
                     context: context,
                     desc: '',
                     title: state.data.message
                   );
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => WrapperPage(
-                      pageIndex: 0,
-                    )),
-                  );
+                  navigateReplacement(context, WrapperPage(
+                    pageIndex: 0,
+                  ));
+                 
                 }
               });
 

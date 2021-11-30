@@ -11,3 +11,5 @@ class ItsTheFirtsTime extends SplashState{}
 class IsAuthenticated extends SplashState{}
 
 class IsNotAuthenticated extends SplashState{}
+
+class UserWithoutGroup extends SplashState{}
