@@ -30,9 +30,11 @@ class ProfilePage extends StatelessWidget {
 
 class ProfilePageUI extends StatelessWidget {
   const ProfilePageUI({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<ProfileBloc>(context).add(LoadingProfile());
+    ProfileBloc _bloc = BlocProvider.of<ProfileBloc>(context);
+    _bloc.add(LoadingProfile());
 
     return BlocBuilder<ProfileBloc, ProfileState>(
       builder: (context, state) {
@@ -45,6 +47,14 @@ class ProfilePageUI extends StatelessWidget {
             CustomAlert.showErrorCustomText(
                 context: context,
                 desc: 'Inténtalo de nuevo',
+                title: state.message);
+          } else if (state is GroupDeleted) {
+            CustomAlert.showSuccesCustomText(
+                context: context, desc: '', title: state.message);
+          } else if (state is GroupNotDeleted) {
+            CustomAlert.showErrorCustomText(
+                context: context,
+                desc: 'Error al eliminar',
                 title: state.message);
           }
         });
@@ -221,7 +231,10 @@ class ProfilePageUI extends StatelessWidget {
                                     _buildIcon(
                                         color: Color(0xffFF4D4D),
                                         icon: SvgIcons.trash,
-                                        onPressed: () {}),
+                                        onPressed: () {
+                                          _bloc.add(DeleteGroup(
+                                              groupId: state.groups[index].id));
+                                        }),
                                     _buildIcon(
                                         color: Colors.orange.shade400,
                                         icon: SvgIcons.pencil,
@@ -236,7 +249,7 @@ class ProfilePageUI extends StatelessWidget {
                                         icon: SvgIcons.share,
                                         onPressed: () {
                                           Share.share(
-                                            'Asociate al grupo ${state.groups[index].name} : ${state.groups[index].code}');
+                                              'Asociate al grupo ${state.groups[index].name} : ${state.groups[index].code}');
                                         }),
                                   ],
                                 ),

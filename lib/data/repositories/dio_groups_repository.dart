@@ -48,8 +48,7 @@ class DioGroupsRepository extends AbstarctGroupsRepository {
 
   @override
   Future<GenericResponse> update(
-    {required String name, required int groupId}) async {
-        
+      {required String name, required int groupId}) async {
     final String url = '${Globals.baseUrl}/api/groups/update/$groupId';
     dio.options.headers["authorization"] = "bearer ${Globals.token}";
     var formData = FormData.fromMap({
@@ -63,13 +62,22 @@ class DioGroupsRepository extends AbstarctGroupsRepository {
   }
 
   @override
-  Future<GenericResponse> assignmentGroup({required String code}) async{
+  Future<GenericResponse> assignmentGroup({required String code}) async {
     final String url = '${Globals.baseUrl}/api/groups/assignment-by-code';
     dio.options.headers["authorization"] = "bearer ${Globals.token}";
     var formData = FormData.fromMap({
       'code': code,
     });
     Response response = await dio.post(url, data: formData);
+    GenericResponse genericResponse = GenericResponse.fromJson(response.data);
+    return genericResponse;
+  }
+
+  @override
+  Future<GenericResponse> delete({required int groupId}) async {
+    final String url = '${Globals.baseUrl}/api/groups/delete/$groupId';
+    dio.options.headers["authorization"] = "bearer ${Globals.token}";
+    Response response = await dio.delete(url);
     GenericResponse genericResponse = GenericResponse.fromJson(response.data);
     return genericResponse;
   }
