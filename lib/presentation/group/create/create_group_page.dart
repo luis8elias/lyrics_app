@@ -101,15 +101,13 @@ class _CreateGroupPageUIState extends State<CreateGroupPageUI> {
                     child: TextField(
                       enabled: nameEnabled,
                       controller: nameController,
-                      onChanged: (str){
+                      onChanged: (str) {
                         setState(() {
-
-                          if(str.isEmpty){
+                          if (str.isEmpty) {
                             codeEnabled = true;
-                          }else{
+                          } else {
                             codeEnabled = false;
                           }
-                          
                         });
                       },
                       cursorColor: Theme.of(context).primaryColor,
@@ -141,15 +139,24 @@ class _CreateGroupPageUIState extends State<CreateGroupPageUI> {
                     shadowColor: shadowColor,
                     borderRadius: BorderRadius.all(Radius.circular(15)),
                     child: TextField(
+                      onChanged: (str) {
+                        setState(() {
+                          if (str.isEmpty) {
+                            nameEnabled = true;
+                          } else {
+                            nameEnabled = false;
+                          }
+                        });
+                      },
                       enabled: codeEnabled,
                       controller: codeController,
                       cursorColor: Theme.of(context).primaryColor,
                       style: TextStyle(color: Colors.black, fontSize: 18),
                       decoration: InputDecoration(
-                        hintText: 'Escribe tu código de asosiación',
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.symmetric(
-                          horizontal: 25, vertical: 13)),
+                          hintText: 'Escribe tu código de asosiación',
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 25, vertical: 13)),
                     ),
                   ),
                   Padding(
@@ -165,8 +172,14 @@ class _CreateGroupPageUIState extends State<CreateGroupPageUI> {
                                   RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(18.0),
                                       side: BorderSide.none))),
-                          onPressed: () => _bloc
-                              .add(CreateGroup(name: nameController.text)),
+                          onPressed: () {
+                            if (nameController.text.isNotEmpty) {
+                              _bloc.add(CreateGroup(name: nameController.text));
+                            } else {
+                              _bloc.add(
+                                  AssignmentGroup(code: codeController.text));
+                            }
+                          },
                           icon: Padding(
                             padding: EdgeInsets.all(10),
                             child: Icon(
