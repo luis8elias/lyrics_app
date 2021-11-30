@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lyrics_app/presentation/auth/login_page.dart';
+import 'package:lyrics_app/data/repositories/dio_auth_repository.dart';
+import 'package:lyrics_app/data/repositories/hive_config_repository.dart';
+import 'package:lyrics_app/presentation/auth/login/login_page.dart';
 import 'package:lyrics_app/presentation/splash/bloc/splash_bloc.dart';
 import 'package:lyrics_app/presentation/shared/custom_curves.dart';
 import 'package:lyrics_app/presentation/welcome/welcome_page.dart';
+import 'package:lyrics_app/presentation/wrapper/wrapper_page.dart';
+import 'package:lyrics_app/utils/navigator.dart';
 
 
 import '../../styles.dart';
@@ -12,27 +16,42 @@ import '../../styles.dart';
 class SplashPage extends StatelessWidget {
   const SplashPage({ Key? key }) : super(key: key);
 
-  void _navigateOtherPage(context,page){
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (_) => page
-    ));
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => SplashBloc(
+        configRepository: HiveConfigRepository(),
+        authRepository: DioAuthRepository()
+      ),
+      child: const SplashPageUI(),
+    );
   }
+}
+
+
+class SplashPageUI extends StatelessWidget {
+  const SplashPageUI({ Key? key }) : super(key: key);
+
+  
 
    @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
     BlocProvider.of<SplashBloc>(context).add(
-          LoadedSplashEvent()
+      LoadedSplashEvent()
     );
     
     return BlocListener<SplashBloc,SplashState>(
       listener: (context ,state){
         if(state is ItsTheFirtsTime) {
-          _navigateOtherPage(context,const WelcomePage());
-        }else if(state is ItsNotTheFirtsTime){
-          _navigateOtherPage(context, LoginPage());
+          navigateReplacement(context,const WelcomePage());
+        }else if(state is IsAuthenticated){
+          navigateReplacement(context, WrapperPage(
+            pageIndex: 0,
+          ));
+        }else if(state is IsNotAuthenticated){
+          navigateReplacement(context, LoginPage());
         }
       },
       child: Scaffold(
@@ -52,16 +71,6 @@ class SplashPage extends StatelessWidget {
               alignment: Alignment(0, -15),
               child: ClipPath(
                 clipper: TopCurve(),
-                child: Container(
-                  height: size.height * 0.99,
-                  color: blueDark,
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment(0,160.4),
-              child: ClipPath(
-                clipper: BottomCurve(),
                 child: Container(
                   height: size.height * 0.99,
                   color: blueDark,

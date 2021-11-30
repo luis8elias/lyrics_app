@@ -5,10 +5,10 @@ part 'wrapper_event.dart';
 part 'wrapper_state.dart';
 
 class WrapperBloc extends Bloc<WrapperEvent, IndexChangedState> {
-  int index = 0;
+  int index;
 
-  WrapperBloc() : super(IndexChangedState(
-    currentIndex: 0
+  WrapperBloc({required this.index}) : super(IndexChangedState(
+    currentIndex: index
   )) {
     on<WrapperEvent>((event, emit) {
       if (event is IndexChangedEvent){

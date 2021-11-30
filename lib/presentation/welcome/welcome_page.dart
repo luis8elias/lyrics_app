@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyrics_app/data/repositories/hive_config_repository.dart';
-import 'package:lyrics_app/presentation/auth/login_page.dart';
+import 'package:lyrics_app/presentation/auth/login/login_page.dart';
 import 'package:lyrics_app/presentation/shared/custom_curves.dart';
 import 'package:lyrics_app/presentation/welcome/bloc/welcome_bloc.dart';
-import 'package:lyrics_app/presentation/wrapper/wrapper_page.dart';
 import 'package:lyrics_app/styles.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -61,16 +60,6 @@ class WelcomePageUI extends StatelessWidget {
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment(0, 160.4),
-              child: ClipPath(
-                clipper: BottomCurve(),
-                child: Container(
-                  height: size.height * 0.99,
-                  color: blueDark,
-                ),
-              ),
-            ),
             Padding(
               padding: EdgeInsets.only(
                   left: size.width / 9,
@@ -111,27 +100,23 @@ class WelcomePageUI extends StatelessWidget {
                 top: size.height - (btnHeigth + 25),
               ),
               child: Container(
+                decoration: BoxDecoration(
+                  color: blueDark,
+                  borderRadius: BorderRadius.circular(10)
+                ),
                 width: btnWidth,
                 height: btnHeigth,
-                child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    alignment: Alignment.center,
-                    shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadiusDirectional.all(Radius.circular(10.0))),
-                    side: BorderSide(width: 2, color: Colors.white),
-                  ),
-                  onPressed: () {
+                child: TextButton(
+                
+                  onPressed: (){
                     BlocProvider.of<WelcomeBloc>(context)
-                        .add(OnPressStartButton());
+                    .add(OnPressStartButton());
                   },
-                  child: Text(
-                    'Comenzar',
-                    style: TextStyle(color: Colors.white, fontSize: 15),
-                  ),
-                ),
+                  child: Text('Comenzar' ,style: TextStyle(color: Colors.white),),
+                )
               ),
             ),
+            
           ],
         )));
   }
