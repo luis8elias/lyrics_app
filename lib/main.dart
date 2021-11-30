@@ -18,7 +18,7 @@ void main() async {
   ]);
   await Hive.initFlutter();
   Hive.registerAdapter(ConfigAdapter());
-  runApp(MyApp());
+  runApp(MyApp());                                                          
 }
 
 class MyApp extends StatelessWidget {
