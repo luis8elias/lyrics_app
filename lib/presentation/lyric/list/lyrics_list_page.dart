@@ -237,7 +237,7 @@ class _LyricsListPageUIState extends State<LyricsListPageUI> {
                                             },
                                             child: SvgPicture.asset(
                                               SvgIcons.dots,
-                                              color: Color(0xffDBDCDF)
+                                              color: grey
                                             ),
                                           ),
                                         ),
