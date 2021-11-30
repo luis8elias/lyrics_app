@@ -63,7 +63,7 @@ class ProfilePageUI extends StatelessWidget {
               mini: true,
               foregroundColor: Colors.white,
               onPressed: () {
-                navigateTo(context, CreateGroupPageUI());
+                navigateTo(context, CreateGroupPage());
               },
               child: SvgPicture.asset(SvgIcons.add, color: Colors.white),
             ),
