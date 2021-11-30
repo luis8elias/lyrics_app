@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:lyrics_app/domain/models/api/generic_response.dart';
 import 'package:lyrics_app/domain/models/api/list_with_pagination.dart';
 import 'package:lyrics_app/domain/models/api/simple_list.dart';
 import 'package:lyrics_app/domain/models/lyric.dart';
