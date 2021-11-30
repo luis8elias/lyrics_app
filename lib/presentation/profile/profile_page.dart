@@ -66,12 +66,15 @@ class ProfilePageUI extends StatelessWidget {
             backgroundColor: Theme.of(context).backgroundColor,
             floatingActionButton: FloatingActionButton(
               backgroundColor: blueDark,
-              mini: true,
+              mini: false,
               foregroundColor: Colors.white,
               onPressed: () {
                 navigateTo(context, CreateGroupPage());
               },
-              child: SvgPicture.asset(SvgIcons.add, color: Colors.white),
+              child: SvgPicture.asset(
+                SvgIcons.add,
+                color: Colors.white,
+              ),
             ),
             appBar: AppBar(
               automaticallyImplyLeading: false,

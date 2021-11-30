@@ -66,7 +66,7 @@ class _LyricsListPageUIState extends State<LyricsListPageUI> {
     return Scaffold(
         floatingActionButton: FloatingActionButton(
           backgroundColor: blueDark,
-          mini: true,
+          mini: false,
           foregroundColor: Colors.white,
           onPressed: () {
             navigateTo(context, CreateLyricPage());
@@ -119,7 +119,8 @@ class _LyricsListPageUIState extends State<LyricsListPageUI> {
                           if (searchController.text.isEmpty) {
                             _bloc.add(LoadingLyrics(page: 1));
                           } else {
-                            _bloc.add(SearchLyric(lyric: searchController.text));
+                            _bloc
+                                .add(SearchLyric(lyric: searchController.text));
                           }
                         });
                       },
@@ -147,14 +148,12 @@ class _LyricsListPageUIState extends State<LyricsListPageUI> {
                   WidgetsBinding.instance?.addPostFrameCallback((_) {
                     if (state is LyricDeleted) {
                       CustomAlert.showSuccesCustomText(
-                        context: context, desc: '', title: state.message
-                      );
+                          context: context, desc: '', title: state.message);
                     } else if (state is LyricNotDeleted) {
                       CustomAlert.showErrorCustomText(
-                        context: context,
-                        desc: 'Inténtalo de nuevo',
-                        title: state.message
-                      );
+                          context: context,
+                          desc: 'Inténtalo de nuevo',
+                          title: state.message);
                     }
                   });
 
@@ -164,11 +163,10 @@ class _LyricsListPageUIState extends State<LyricsListPageUI> {
                       child: ListView.builder(
                         controller: scrollController,
                         padding: const EdgeInsets.only(
-                          left: 7,
-                          right: 7,
-                          top: 7,
-                          bottom: kBottomNavigationBarHeight * 5
-                        ),
+                            left: 7,
+                            right: 7,
+                            top: 7,
+                            bottom: kBottomNavigationBarHeight * 5),
                         itemCount: state.lyrics.length,
                         itemBuilder: (BuildContext context, int index) {
                           bool slidableOpened = false;
@@ -191,18 +189,16 @@ class _LyricsListPageUIState extends State<LyricsListPageUI> {
                                       return ListTile(
                                         onTap: () {
                                           navigateTo(
-                                            context,
-                                            SeeLyricPage(
-                                              lyric: state.lyrics[index]
-                                            )
-                                          );
+                                              context,
+                                              SeeLyricPage(
+                                                  lyric: state.lyrics[index]));
                                         },
                                         leading: Container(
                                             decoration: BoxDecoration(
                                               color: blueDark,
-                                              borderRadius: BorderRadiusDirectional.all(
-                                                Radius.circular(10.0)
-                                              ),
+                                              borderRadius:
+                                                  BorderRadiusDirectional.all(
+                                                      Radius.circular(10.0)),
                                             ),
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 15, horizontal: 15),
@@ -236,9 +232,8 @@ class _LyricsListPageUIState extends State<LyricsListPageUI> {
                                               }
                                             },
                                             child: SvgPicture.asset(
-                                              SvgIcons.dots,
-                                              color: grey
-                                            ),
+                                                SvgIcons.dots,
+                                                color: grey),
                                           ),
                                         ),
                                       );
@@ -259,11 +254,9 @@ class _LyricsListPageUIState extends State<LyricsListPageUI> {
                                     icon: SvgIcons.pencil,
                                     onPressed: () {
                                       navigateTo(
-                                        context,
-                                        EditLyricPage(
-                                          lyric: state.lyrics[index]
-                                        )
-                                      );
+                                          context,
+                                          EditLyricPage(
+                                              lyric: state.lyrics[index]));
                                     }),
                                 _buildIcon(
                                     color: green,
@@ -275,9 +268,8 @@ class _LyricsListPageUIState extends State<LyricsListPageUI> {
                         },
                       ),
                     );
-                  }else if(state is LyricsNotfound){
-
-                    return  Container(
+                  } else if (state is LyricsNotfound) {
+                    return Container(
                       height: size.height - (275 + kBottomNavigationBarHeight),
                       child: Center(
                         child: Column(
@@ -285,21 +277,20 @@ class _LyricsListPageUIState extends State<LyricsListPageUI> {
                           children: [
                             SvgPicture.asset(
                               SvgIcons.notResults,
-                               color: blueDark,
-                               height: 70,
+                              color: blueDark,
+                              height: 70,
                             ),
                             SizedBox(height: 20),
-                            Text(state.message, textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 18,
-                              )
-                            ) 
-                            
+                            Text(state.message,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ))
                           ],
                         ),
                       ),
                     );
-                  }else {
+                  } else {
                     return Container(
                       height: size.height,
                       child: Padding(
