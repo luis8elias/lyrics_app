@@ -12,3 +12,8 @@ class DeleteGroup extends ProfileEvent {
 
   DeleteGroup({required this.groupId});
 }
+
+class SelectGroup extends ProfileEvent{
+  final int groupId;
+  SelectGroup({required this.groupId});
+}

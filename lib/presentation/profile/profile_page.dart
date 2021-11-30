@@ -4,6 +4,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lyrics_app/data/repositories/dio_auth_repository.dart';
 import 'package:lyrics_app/data/repositories/dio_groups_repository.dart';
+import 'package:lyrics_app/data/repositories/hive_config_repository.dart';
 import 'package:lyrics_app/presentation/auth/login/login_page.dart';
 import 'package:lyrics_app/presentation/group/create/create_group_page.dart';
 import 'package:lyrics_app/presentation/group/edit/edit_group.dart';
@@ -14,6 +15,8 @@ import 'package:lyrics_app/utils/navigator.dart';
 import 'package:lyrics_app/utils/svg_icons.dart';
 import 'package:share/share.dart';
 
+import '../../globals.dart';
+
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
@@ -21,8 +24,10 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => ProfileBloc(
-          authRepository: DioAuthRepository(),
-          groupsRepository: DioGroupsRepository()),
+        authRepository: DioAuthRepository(),
+        groupsRepository: DioGroupsRepository(),
+        configRepository: HiveConfigRepository()
+      ),
       child: ProfilePageUI(),
     );
   }
@@ -53,9 +58,9 @@ class ProfilePageUI extends StatelessWidget {
                 context: context, desc: '', title: state.message);
           } else if (state is GroupNotDeleted) {
             CustomAlert.showErrorCustomText(
-                context: context,
-                desc: 'Error al eliminar',
-                title: state.message);
+              context: context,
+              desc: 'Error al eliminar',
+              title: state.message);
           }
         });
 
@@ -69,7 +74,9 @@ class ProfilePageUI extends StatelessWidget {
               mini: false,
               foregroundColor: Colors.white,
               onPressed: () {
-                navigateTo(context, CreateGroupPage());
+                navigateTo(context, CreateGroupPage(
+                  isFromGroupsList: true,
+                ));
               },
               child: SvgPicture.asset(
                 SvgIcons.add,
@@ -177,10 +184,16 @@ class ProfilePageUI extends StatelessWidget {
                                       child: Center(
                                         child: Builder(builder: (newContext) {
                                           return ListTile(
-                                            onTap: () {},
+                                            onTap: () {
+                                              _bloc.add(
+                                                SelectGroup(
+                                                  groupId: state.groups[index].id
+                                                )
+                                              );
+                                            },
                                             leading: Container(
                                                 decoration: BoxDecoration(
-                                                  color: blueDark,
+                                                  color: Globals.groupId  == state.groups[index].id ? green : blueDark,
                                                   borderRadius:
                                                       BorderRadiusDirectional
                                                           .all(Radius.circular(

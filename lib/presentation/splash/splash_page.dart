@@ -54,7 +54,9 @@ class SplashPageUI extends StatelessWidget {
         }else if(state is IsNotAuthenticated){
           navigateReplacement(context, LoginPage());
         }else if (state is UserWithoutGroup){
-          navigateReplacement(context, CreateGroupPage());
+          navigateReplacement(context, CreateGroupPage(
+            isFromGroupsList: false,
+          ));
         }
       },
       child: Scaffold(

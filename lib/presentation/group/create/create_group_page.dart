@@ -13,7 +13,9 @@ import 'package:lyrics_app/utils/svg_icons.dart';
 import 'bloc/create_group_bloc.dart';
 
 class CreateGroupPage extends StatelessWidget {
-  const CreateGroupPage({Key? key}) : super(key: key);
+  const CreateGroupPage({Key? key,required this.isFromGroupsList}) : super(key: key);
+
+  final bool isFromGroupsList;
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +23,18 @@ class CreateGroupPage extends StatelessWidget {
       create: (_) => CreateGroupBloc(
           groupsRepository: DioGroupsRepository(),
           configRepository: HiveConfigRepository()),
-      child: CreateGroupPageUI(),
+      child: CreateGroupPageUI(
+        isFromGroupsList: isFromGroupsList,
+      ),
     );
   }
 }
 
 class CreateGroupPageUI extends StatefulWidget {
-  CreateGroupPageUI({Key? key}) : super(key: key);
+  CreateGroupPageUI({Key? key, required this.isFromGroupsList}) : super(key: key);
+
+
+  final bool isFromGroupsList;
 
   @override
   _CreateGroupPageUIState createState() => _CreateGroupPageUIState();
@@ -71,7 +78,7 @@ class _CreateGroupPageUIState extends State<CreateGroupPageUI> {
             centerTitle: true,
             title: Text("Crear Grupo", style: titleStyle),
             leadingWidth: 50,
-            leading: Padding(
+            leading: widget.isFromGroupsList ? Padding(
               padding: const EdgeInsets.only(left: 15),
               child: IconButton(
                 splashRadius: 25,
@@ -82,7 +89,7 @@ class _CreateGroupPageUIState extends State<CreateGroupPageUI> {
                   child: SvgPicture.asset(SvgIcons.arrowLeft, color: blueDark),
                 ),
               ),
-            ),
+            ) : Container(),
             backgroundColor: Theme.of(context).backgroundColor,
             elevation: 0,
           ),

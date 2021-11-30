@@ -209,7 +209,9 @@ class _LoginPageUIState extends State<LoginPageUI> {
                   );
 
                 }else if(state is UserWithoutGroup){
-                  navigateReplacement(context, CreateGroupPage());
+                  navigateReplacement(context, CreateGroupPage(
+                    isFromGroupsList: false,
+                  ));
 
                 } else if(state is LoginSuccess){
                   CustomAlert.showSuccesCustomText(

@@ -119,12 +119,14 @@ class _EditGroupUIState extends State<EditGroupUI> {
                     child: Align(
                       alignment: Alignment.center,
                       child: ElevatedButton.icon(
-                          style: ButtonStyle(
-                              shape:
-                                  MaterialStateProperty.all<RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(18.0),
-                                          side: BorderSide(color: blueDark)))),
+                          style:  ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all<Color>(blueDark),
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18.0),
+                                      side: BorderSide.none))),
                           onPressed: () {
                             BlocProvider.of<GroupEditBloc>(context).add(
                               SaveGroup(

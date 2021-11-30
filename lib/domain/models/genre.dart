@@ -2,7 +2,7 @@ import 'dart:convert';
 
 Genre genreFromJson(String str) => Genre.fromJson(json.decode(str));
 
-String genreToJson(Genre data) => json.encode(data.toJson());
+
 
 class Genre {
     Genre({
