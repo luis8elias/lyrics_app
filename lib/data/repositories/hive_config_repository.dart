@@ -31,7 +31,7 @@ class HiveConfigRepository extends AbstarctConfigRepository{
   @override
   Future<void> setFirstTime() async {
     Box<Config> box = await Hive.openBox<Config>(boxName);
-    Config  config = new Config(itsTheFirtsTime: false,token: '');
+    Config  config = new Config(itsTheFirtsTime: false,token: '', slectedGroup: -1);
     box.add(config);
   }
 
@@ -41,7 +41,8 @@ class HiveConfigRepository extends AbstarctConfigRepository{
     Config? config = box.getAt(0);
     Config newConfig = Config(
       itsTheFirtsTime: config!.itsTheFirtsTime,
-      token: token
+      token: token,
+      slectedGroup: config.slectedGroup
     );
     box.putAt(0,newConfig);
     Globals.token = token;
@@ -52,6 +53,18 @@ class HiveConfigRepository extends AbstarctConfigRepository{
   Future<Config?> getConfig() async{
     Box<Config> box = await Hive.openBox<Config>(boxName);
     return box.getAt(0);
+  }
+
+  @override
+  Future<void> setSelctedGroup({required int groupId}) async{
+    Box<Config> box = await Hive.openBox<Config>(boxName);
+    Config? config = box.getAt(0);
+    Config newConfig = Config(
+      itsTheFirtsTime: config!.itsTheFirtsTime,
+      token: config.token,
+      slectedGroup: groupId
+    );
+    box.putAt(0,newConfig);
   }
      
 

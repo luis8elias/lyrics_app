@@ -12,5 +12,11 @@ class Config extends HiveObject{
   @HiveField(1)
   final String token;
 
-  Config({required this.itsTheFirtsTime,required this.token});
+  @HiveField(2)
+
+  final int slectedGroup;
+
+
+
+  Config({required this.itsTheFirtsTime,required this.token,required this.slectedGroup });
 }

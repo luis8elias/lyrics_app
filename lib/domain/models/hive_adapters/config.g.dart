@@ -19,17 +19,20 @@ class ConfigAdapter extends TypeAdapter<Config> {
     return Config(
       itsTheFirtsTime: fields[0] as bool,
       token: fields[1] as String,
+      slectedGroup: fields[2] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, Config obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.itsTheFirtsTime)
       ..writeByte(1)
-      ..write(obj.token);
+      ..write(obj.token)
+      ..writeByte(2)
+      ..write(obj.slectedGroup);
   }
 
   @override
