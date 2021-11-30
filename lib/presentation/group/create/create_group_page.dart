@@ -33,11 +33,15 @@ class CreateGroupPageUI extends StatefulWidget {
 }
 
 class _CreateGroupPageUIState extends State<CreateGroupPageUI> {
-  TextEditingController groupController = new TextEditingController();
+  TextEditingController nameController = new TextEditingController();
+  TextEditingController codeController = new TextEditingController();
+
+  bool codeEnabled = true;
+  bool nameEnabled = true;
 
   @override
   void dispose() {
-    groupController.dispose();
+    nameController.dispose();
     super.dispose();
   }
 
@@ -95,7 +99,19 @@ class _CreateGroupPageUIState extends State<CreateGroupPageUI> {
                     shadowColor: shadowColor,
                     borderRadius: BorderRadius.all(Radius.circular(15)),
                     child: TextField(
-                      // controller: groupController,
+                      enabled: nameEnabled,
+                      controller: nameController,
+                      onChanged: (str){
+                        setState(() {
+
+                          if(str.isEmpty){
+                            codeEnabled = true;
+                          }else{
+                            codeEnabled = false;
+                          }
+                          
+                        });
+                      },
                       cursorColor: Theme.of(context).primaryColor,
                       style: TextStyle(color: Colors.black, fontSize: 18),
                       decoration: InputDecoration(
@@ -125,14 +141,15 @@ class _CreateGroupPageUIState extends State<CreateGroupPageUI> {
                     shadowColor: shadowColor,
                     borderRadius: BorderRadius.all(Radius.circular(15)),
                     child: TextField(
-                      controller: groupController,
+                      enabled: codeEnabled,
+                      controller: codeController,
                       cursorColor: Theme.of(context).primaryColor,
                       style: TextStyle(color: Colors.black, fontSize: 18),
                       decoration: InputDecoration(
-                          hintText: '789yt65',
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: 25, vertical: 13)),
+                        hintText: 'Escribe tu código de asosiación',
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: 25, vertical: 13)),
                     ),
                   ),
                   Padding(
@@ -149,7 +166,7 @@ class _CreateGroupPageUIState extends State<CreateGroupPageUI> {
                                       borderRadius: BorderRadius.circular(18.0),
                                       side: BorderSide.none))),
                           onPressed: () => _bloc
-                              .add(CreateGroup(name: groupController.text)),
+                              .add(CreateGroup(name: nameController.text)),
                           icon: Padding(
                             padding: EdgeInsets.all(10),
                             child: Icon(

@@ -49,6 +49,7 @@ class DioGroupsRepository extends AbstarctGroupsRepository {
   @override
   Future<GenericResponse> update(
       {required String name, required int groupId}) async {
+        print(groupId);
     final String url = '${Globals.baseUrl}/api/groups/update/$groupId';
     dio.options.headers["authorization"] = "bearer ${Globals.token}";
     var formData = FormData.fromMap({
