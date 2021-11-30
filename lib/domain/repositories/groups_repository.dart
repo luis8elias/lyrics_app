@@ -9,4 +9,6 @@ abstract class AbstarctGroupsRepository {
   });
 
   Future<GenericResponse> update({required String name, required int groupId});
+
+  Future<GenericResponse> assignmentGroup({required String code});
 }

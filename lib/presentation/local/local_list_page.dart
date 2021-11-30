@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:lyrics_app/data/repositories/dio_lyrics_repository.dart';
-import 'package:lyrics_app/presentation/lyric/create/create_lyric_page.dart';
-import 'package:lyrics_app/presentation/lyric/edit/edit_lyric_page.dart';
+import 'package:lyrics_app/data/repositories/hive_lyrics_repository.dart';
 import 'package:lyrics_app/presentation/lyric/see/see_lyric_page.dart';
 import 'package:lyrics_app/styles.dart';
 import 'package:lyrics_app/utils/custom_alert.dart';
@@ -12,13 +10,15 @@ import 'package:lyrics_app/utils/debouncer.dart';
 import 'package:lyrics_app/utils/navigator.dart';
 import 'package:lyrics_app/utils/svg_icons.dart';
 
+import 'bloc/local_list_bloc.dart';
+
 class LyricsListPage extends StatelessWidget {
   const LyricsListPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => LyricsListBloc(lyricsRepository: DioLyricsRepository()),
+      create: (_) => LocalListBloc(lyricsRepository: HiveLyricsRepository()),
       child: LyricsListPageUI(),
     );
   }
@@ -38,16 +38,6 @@ class _LyricsListPageUIState extends State<LyricsListPageUI> {
   Debouncer debouncer = new Debouncer();
 
   @override
-  void initState() {
-    super.initState();
-
-    /*  scrollController.addListener(() {
-      if (scrollController.position.pixels >=
-          scrollController.position.maxScrollExtent - 300) {}
-    }); */
-  }
-
-  @override
   void dispose() {
     searchController.dispose();
     super.dispose();
@@ -57,26 +47,16 @@ class _LyricsListPageUIState extends State<LyricsListPageUI> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    LyricsListBloc _bloc = BlocProvider.of<LyricsListBloc>(context);
-
+    LocalListBloc _bloc = BlocProvider.of<LocalListBloc>(context);
     _bloc.add(LoadingLyrics(page: 1));
 
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: blueDark,
-          mini: true,
-          foregroundColor: Colors.white,
-          onPressed: () {
-            navigateTo(context, CreateLyricPage());
-          },
-          child: SvgPicture.asset(SvgIcons.add, color: Colors.white),
-        ),
         backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
           automaticallyImplyLeading: false,
           leadingWidth: 40,
           centerTitle: true,
-          title: Text("Letras", style: titleStyle),
+          title: Text("Letras Guardadas", style: titleStyle),
           backgroundColor: Theme.of(context).backgroundColor,
           elevation: 0,
           actions: [
@@ -141,8 +121,8 @@ class _LyricsListPageUIState extends State<LyricsListPageUI> {
                   ),
                 ),
                 SizedBox(height: 20),
-                BlocBuilder<LyricsListBloc, LyricsListState>(
-                    builder: (context, state) {
+                BlocBuilder<LocalListBloc, LocalListState>(
+                  builder: (context, state) {
                   WidgetsBinding.instance?.addPostFrameCallback((_) {
                     if (state is LyricDeleted) {
                       CustomAlert.showSuccesCustomText(
@@ -241,25 +221,13 @@ class _LyricsListPageUIState extends State<LyricsListPageUI> {
                               ),
                               secondaryActions: <Widget>[
                                 _buildIcon(
-                                    color: Color(0xffFF4D4D),
-                                    icon: SvgIcons.trash,
-                                    onPressed: () {
-                                      _bloc.add(DeleteLyric(
-                                          lyricId: state.lyrics[index].id));
-                                    }),
-                                _buildIcon(
-                                    color: Colors.orange.shade400,
-                                    icon: SvgIcons.pencil,
-                                    onPressed: () {
-                                      navigateTo(
-                                          context,
-                                          EditLyricPage(
-                                              lyric: state.lyrics[index]));
-                                    }),
-                                _buildIcon(
-                                    color: green,
-                                    icon: SvgIcons.save,
-                                    onPressed: () {}),
+                                  color: Color(0xffFF4D4D),
+                                  icon: SvgIcons.trash,
+                                  onPressed: () {
+                                    _bloc.add(DeleteLyric(
+                                        lyricId: state.lyrics[index].id));
+                                  }
+                                ),
                               ],
                             ),
                           );
