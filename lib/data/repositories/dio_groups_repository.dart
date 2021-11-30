@@ -43,7 +43,18 @@ class DioGroupsRepository extends AbstarctGroupsRepository {
   }
 
   @override
-  Future<GenericResponse> save({required String name}) {
-    throw UnimplementedError();
+  Future<GenericResponse> save({required String name}) async {
+    final String url = '${Globals.baseUrl}/api/groups/store';
+    dio.options.headers["authorization"] = "bearer ${Globals.token}";
+    var formData = FormData.fromMap({
+      'name': name
+    });
+
+    Response response = await dio.post(url, data: formData);
+    GenericResponse genericResponse = GenericResponse.fromJson(response.data);
+
+    return genericResponse;
+  
+
   }
 }

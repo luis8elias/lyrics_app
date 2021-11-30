@@ -1,96 +1,155 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:lyrics_app/data/repositories/dio_groups_repository.dart';
+import 'package:lyrics_app/presentation/wrapper/wrapper_page.dart';
 import 'package:lyrics_app/styles.dart';
+import 'package:lyrics_app/utils/custom_alert.dart';
+import 'package:lyrics_app/utils/navigator.dart';
 import 'package:lyrics_app/utils/svg_icons.dart';
 
-class CreateGroupPage extends StatefulWidget {
-  CreateGroupPage({Key? key}) : super(key: key);
+import 'bloc/create_group_bloc.dart';
 
-  @override
-  _CreateGroupPageState createState() => _CreateGroupPageState();
-}
+class CreateGroupPage extends StatelessWidget {
+  const CreateGroupPage({ Key? key }) : super(key: key);
 
-class _CreateGroupPageState extends State<CreateGroupPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("Crear Grupo", style: titleStyle),
-        leadingWidth: 50,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 15),
-          child: IconButton(
-            splashRadius: 25,
-            onPressed: () {},
-            icon: Container(
-              child: SvgPicture.asset(SvgIcons.arrowLeft, color: blueDark),
-            ),
-          ),
-        ),
-        backgroundColor: Theme.of(context).backgroundColor,
-        elevation: 0,
+    return BlocProvider(
+      create: (_) => CreateGroupBloc(
+        groupsRepository: DioGroupsRepository()
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.only(left: 14, right: 14, top: 40),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Align(
-                alignment: Alignment.topLeft,
-                child: Text('Nombre', style: titleStyle),
-              ),
-              SizedBox(height: 10),
-              Material(
-                elevation: 1,
-                shadowColor: shadowColor,
-                borderRadius: BorderRadius.all(Radius.circular(15)),
-                child: TextField(
-                  cursorColor: Theme.of(context).primaryColor,
-                  style: TextStyle(color: Colors.black, fontSize: 18),
-                  decoration: InputDecoration(
-                      hintText: 'La Fiera de Ojinaga',
-                      border: InputBorder.none,
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
+      child: CreateGroupPageUI(),
+    );
+  }
+}
+
+
+class CreateGroupPageUI extends StatefulWidget {
+  CreateGroupPageUI({Key? key}) : super(key: key);
+
+  @override
+  _CreateGroupPageUIState createState() => _CreateGroupPageUIState();
+}
+
+class _CreateGroupPageUIState extends State<CreateGroupPageUI> {
+
+  TextEditingController groupController = new TextEditingController();
+
+
+  @override
+  void dispose() {
+    groupController.dispose();
+    super.dispose();
+  }
+  @override
+  Widget build(BuildContext context) {
+
+    final _bloc = BlocProvider.of<CreateGroupBloc>(context);
+
+
+    return BlocBuilder<CreateGroupBloc, CreateGroupState>(
+      builder: (context, state) {
+
+       WidgetsBinding.instance?.addPostFrameCallback((_) {
+          if (state is GroupCreated) {
+            CustomAlert.showSuccesCustomText(
+                context: context, desc: '', title: state.message);
+              navigateReplacement(context, WrapperPage(pageIndex: 0));
+          } else if (state is GroupNotCreated) {
+            CustomAlert.showErrorCustomText(
+              context: context,
+              desc: 'Inténtalo de nuevo',
+              title: state.message
+            );
+          }
+        });
+
+
+        return Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
+          appBar: AppBar(
+            centerTitle: true,
+            title: Text("Crear Grupo", style: titleStyle),
+            leadingWidth: 50,
+            leading: Padding(
+              padding: const EdgeInsets.only(left: 15),
+              child: IconButton(
+                splashRadius: 25,
+                onPressed: () {},
+                icon: Container(
+                  child: SvgPicture.asset(SvgIcons.arrowLeft, color: blueDark),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(top: 30),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: ElevatedButton.icon(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                          blueDark
-                        ),
-                        shape:MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                            side: BorderSide.none
+            ),
+            backgroundColor: Theme.of(context).backgroundColor,
+            elevation: 0,
+          ),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.only(left: 14, right: 14, top: 40),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Text('Nombre', style: titleStyle),
+                  ),
+                  SizedBox(height: 10),
+                  Material(
+                    elevation: 1,
+                    shadowColor: shadowColor,
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    child: TextField(
+                      controller: groupController,
+                      cursorColor: Theme.of(context).primaryColor,
+                      style: TextStyle(color: Colors.black, fontSize: 18),
+                      decoration: InputDecoration(
+                        hintText: 'Las Fieras de Ojinaga',
+                        border: InputBorder.none,
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 25, vertical: 13
                           )
+                        ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 30),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: ElevatedButton.icon(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                            blueDark
+                          ),
+                          shape:MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                              side: BorderSide.none
+                            )
+                          )
+                        ),
+                        onPressed: () => _bloc.add(CreateGroup(name: groupController.text)),
+                        icon: Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Icon(
+                            Icons.save,
+                            size: 30,
+                          ),
+                        ),
+                        label: Text(
+                          'Guardar',
+                          style: TextStyle(fontSize: 18),
                         )
                       ),
-                      onPressed: () {},
-                      icon: Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Icon(
-                          Icons.save,
-                          size: 30,
-                        ),
-                      ),
-                      label: Text(
-                        'Guardar',
-                        style: TextStyle(fontSize: 18),
-                      )),
-                ),
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
